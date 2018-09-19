@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -38,6 +39,24 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+	
+	public function login(Request $request)
+	{
+		$this->validateLogin($request);
+		
+		// calls to the laravel default function to login
+		//It ll create a new api_token for each call to login
+		if ($this->attemptLogin($request)) {
+			$user = $this->guard()->user();
+			$user->generateToken();
+
+			return response()->json([
+				'data' => $user->toArray(),
+			]);
+		}
+
+		return $this->sendFailedLoginResponse($request);
+	}
 	
 	public function logout(Request $request)
 	{

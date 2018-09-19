@@ -25,7 +25,7 @@ Groups all the message under the version of the api (v1)
 
 Route::group(['prefix'=>'/v1'], function(){
 	Route::post('/register', 'Auth\RegisterController@register');	
-	Route::post('/login', 'Auth\RegisterController@login');	
+	Route::post('/login', 'Auth\LoginController@login');	
 	
 	//Groups all message that need an logged user ( with a valid api_token) to work
 	Route::group(['middleware' => 'auth:api'], function(){		
