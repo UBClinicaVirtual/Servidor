@@ -48,8 +48,10 @@ class LoginController extends Controller
 	
 	public function login(Request $request)
 	{
-		$this->validateLogin($request);
+		// TODO: we need to override the validateLogin method to check if it has an access_token field [2018/09/20 wduartes]
+//		$this->validateLogin($request);
 		
+		//Get de gmail info to do the login
 		$client = new Google_Client();
 		$client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
 		$client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);		
@@ -64,9 +66,14 @@ class LoginController extends Controller
 		$user = 'me';
 		$results = $service->users_labels->listUsersLabels($user);
 			
+//		$request->merge(['email' => $userInfo->email]);
+			
 		// calls to the laravel default function to login
-		//It ll create a new api_token for each call to login
-		if ($this->attemptLogin($request)) {
+		// It ll create a new api_token for each call to login
+		// ill send the gmail mail only to the laravel login function
+//		if ($this->attemptLogin($request)) {
+//		if ($this->attemptLogin( $request->only('email') ) ) {
+		if ($this->guard()->attempt( ['email' => $userInfo->email] ) ) {
 		
 			$user = $this->guard()->user();
 			$user->generateToken();

@@ -137,9 +137,12 @@ class EloquentUserProvider implements UserProvider
      */
     public function validateCredentials(UserContract $user, array $credentials)
     {
-        $plain = $credentials['password'];
+		// There is not password field in the user table [2018/09/20 wduartes]
+		// TODO: maybe we should dont even call this method by calling guard()->login in LoginController.php
+		return true;
+//        $plain = $credentials['password'];
 
-        return $this->hasher->check($plain, $user->getAuthPassword());
+//        return $this->hasher->check($plain, $user->getAuthPassword());
     }
 
     /**
