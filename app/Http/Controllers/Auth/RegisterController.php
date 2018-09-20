@@ -10,6 +10,11 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 
+//Google includes
+use Google_Client; 
+use Google_Service_Gmail;
+use Google_Service_Oauth2;
+
 class RegisterController extends Controller
 {
     /*
@@ -50,10 +55,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+		//To register only the access token is needed
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'access_token' => 'required|string|max:255',
+//            'email' => 'required|string|email|max:255|unique:users',
+//            'password' => 'required|string|min:6|confirmed',
         ]);
     }
 
@@ -65,10 +71,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+		//Get from google the profile info to register
+		$client = new Google_Client();
+		$client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
+		$client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);		
+		$client->setAccessToken( $data['access_token'] );
+
+		$oauth2 = new Google_Service_Oauth2($client);	
+		$userInfo = $oauth2->userinfo_v2_me->get();						
+		
+		//The password is the hashed email until a futher change on dbo
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name' => $userInfo->name,
+            'email' => $userInfo->email,
+            'password' => Hash::make($userInfo->email),
         ]);
     }
 	
