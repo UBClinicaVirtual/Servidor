@@ -32,7 +32,7 @@ class GmailController{
 		$client = new Google_Client();
 		$client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
 		$client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);		
-		$client->setAccessToken( $_access_token );
+		$client->setAccessToken( $this->_access_token );
 
 		$oauth2 = new Google_Service_Oauth2($client);	
         $userInfo = $oauth2->userinfo_v2_me->get();	
