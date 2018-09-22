@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 
 //Includes the gmail controller to validate the access_token
-use GmailController;
+use App\Http\Controllers\Auth\GmailController;
 
 class RegisterController extends Controller
 {
