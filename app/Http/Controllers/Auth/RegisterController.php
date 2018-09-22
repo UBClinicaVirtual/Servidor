@@ -10,10 +10,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 
-//Google includes
-use Google_Client; 
-use Google_Service_Gmail;
-use Google_Service_Oauth2;
+//Includes the gmail controller to validate the access_token
+use GmailController;
 
 class RegisterController extends Controller
 {
@@ -71,14 +69,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-		//Get from google the profile info to register
-		$client = new Google_Client();
-		$client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
-		$client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);		
-		$client->setAccessToken( $data['access_token'] );
-
-		$oauth2 = new Google_Service_Oauth2($client);	
-		$userInfo = $oauth2->userinfo_v2_me->get();						
+        $gc = new GmailController( $data['access_token'] );
+		$userInfo = $gc->get_user_info();
 		
 		//The password is the hashed email until a futher change on dbo
         return User::create([
