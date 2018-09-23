@@ -49,7 +49,7 @@ class LoginController extends Controller
 //		$this->validateLogin($request);
 		
 		//Get de gmail info to do the login
-		$gc = new GmailController( $request['access_token'] );
+        $gc = new GmailController( $request['access_token'] );
 		$userInfo = $gc->get_user_info();
 			
 //		$request->merge(['email' => $userInfo->email]);
