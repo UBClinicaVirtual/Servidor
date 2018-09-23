@@ -8,11 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
-//require __DIR__ . '/../../../../vendor/autoload.php';
-
-use Google_Client; 
-use Google_Service_Gmail;
-use Google_Service_Oauth2;
+//Includes the gmail controller to validate the access_token
+use App\Http\Controllers\Auth\GmailController;
 
 class LoginController extends Controller
 {
@@ -52,19 +49,8 @@ class LoginController extends Controller
 //		$this->validateLogin($request);
 		
 		//Get de gmail info to do the login
-		$client = new Google_Client();
-		$client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
-		$client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);		
-		$client->setAccessToken( $request['access_token'] );
-
-		$oauth2 = new Google_Service_Oauth2($client);	
-		$userInfo = $oauth2->userinfo_v2_me->get();
-		
-		$service = new Google_Service_Gmail($client);
-
-		// Print the labels in the user's account.
-		$user = 'me';
-		$results = $service->users_labels->listUsersLabels($user);
+		$gc = new GmailController( $request['access_token'] );
+		$userInfo = $gc->get_user_info();
 			
 //		$request->merge(['email' => $userInfo->email]);
 			
