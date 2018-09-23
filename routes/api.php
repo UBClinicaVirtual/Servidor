@@ -30,6 +30,8 @@ Route::group(['prefix'=>'/v1'], function(){
 	//Groups all message that need an logged user ( with a valid api_token) to work
 	Route::group(['middleware' => 'auth:api'], function(){		
 		Route::post('/logout', 'Auth\LoginController@logout');
+		
+		Route::post('/deactivate', 'Auth\LoginController@deactivate');
 	
 		Route::get('/user', function(Request $request){
 			return response()->json( Auth::guard('api')->user(), 201);

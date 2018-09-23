@@ -84,4 +84,9 @@ class LoginController extends Controller
 
 		return response()->json(['data' => 'User logged out.'], 200);
 	}	
+	
+	public function deactivate(Request $request )
+	{
+		return response()->json(['data' => 'Function not implemented yet.'], 500);
+	}
 }
