@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
-require __DIR__ . '/../../../../vendor/autoload.php';
+//require __DIR__ . '/../../../../vendor/autoload.php';
 
 use Google_Client; 
 use Google_Service_Gmail;

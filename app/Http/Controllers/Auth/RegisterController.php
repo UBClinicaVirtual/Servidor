@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 
+//Includes the gmail controller to validate the access_token
+use App\Http\Controllers\Auth\GmailController;
+
 class RegisterController extends Controller
 {
     /*
@@ -50,10 +53,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+		//To register only the access token is needed
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'access_token' => 'required|string|max:255',
+//            'email' => 'required|string|email|max:255|unique:users',
+//            'password' => 'required|string|min:6|confirmed',
         ]);
     }
 
@@ -65,10 +69,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $gc = new GmailController( $data['access_token'] );
+		$userInfo = $gc->get_user_info();
+		
+		//The password is the hashed email until a futher change on dbo
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name' => $userInfo->name,
+            'email' => $userInfo->email,
+            'password' => Hash::make($userInfo->email),
         ]);
     }
 	
