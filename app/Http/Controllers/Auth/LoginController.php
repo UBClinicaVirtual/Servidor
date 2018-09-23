@@ -88,6 +88,12 @@ class LoginController extends Controller
 	
 	public function deactivate(Request $request )
 	{
-		return response()->json(['data' => 'Function not implemented yet.'], 500);
+		$user = Auth::guard('api')->user();
+
+		if ($user) {
+			$user->deactivate();
+		}
+		
+		return response()->json(['data' => 'User deactivated.'], 200);
 	}
 }
