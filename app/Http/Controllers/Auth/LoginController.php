@@ -50,7 +50,7 @@ class LoginController extends Controller
 		
 		//Get de gmail info to do the login
         $gc = new GmailController( $request['access_token'] );
-		$userInfo = $gc->get_user_info();
+		$userInfo = $gc->get_user_info( $request['access_token'] );
 			
 //		$request->merge(['email' => $userInfo->email]);
 			
@@ -59,7 +59,7 @@ class LoginController extends Controller
 		// ill send the gmail mail only to the laravel login function
 //		if ($this->attemptLogin($request)) {
 //		if ($this->attemptLogin( $request->only('email') ) ) {
-		if ($this->guard()->attempt( ['email' => $userInfo->email] ) ) {
+		if ($this->guard()->attempt( ['email' => $userInfo['email'] ] ) ) {
 		
 			$user = $this->guard()->user();
 			$user->generateToken();

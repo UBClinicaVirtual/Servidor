@@ -70,13 +70,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $gc = new GmailController( $data['access_token'] );
-		$userInfo = $gc->get_user_info();
+		$userInfo = $gc->get_user_info( $data['access_token'] );
 		
 		//The password is the hashed email until a futher change on dbo
         return User::create([
-            'name' => $userInfo->name,
-            'email' => $userInfo->email,
-            'password' => Hash::make($userInfo->email),
+            'name' => $userInfo['name'],
+            'email' => $userInfo['email'],
+            'password' => Hash::make($userInfo['email']),
         ]);
     }
 	
