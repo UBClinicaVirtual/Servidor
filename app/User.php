@@ -35,4 +35,10 @@ class User extends Authenticatable
 
         return $this->api_token;
     }	
+	
+	public function deactivateUser()
+	{
+        $this->active = 0;
+        $this->save();
+	}
 }
