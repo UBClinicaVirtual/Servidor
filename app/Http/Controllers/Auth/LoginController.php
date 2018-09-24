@@ -79,8 +79,7 @@ class LoginController extends Controller
 		$user = Auth::guard('api')->user();
 
 		if ($user) {
-			$user->api_token = null;
-			$user->save();
+			$user->revokeToken();
 		}
 
 		return response()->json(['data' => 'User logged out.'], 200);
@@ -90,7 +89,7 @@ class LoginController extends Controller
 	{
 		$user = Auth::guard('api')->user();
 
-		if ($user) {
+		if ($user) {			
 			$user->deactivate();
 		}
 		

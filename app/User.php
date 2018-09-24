@@ -38,7 +38,15 @@ class User extends Authenticatable
 	
 	public function deactivate()
 	{
+        //I revoke the api_token to the deactivated user
+        $this->api_token = null;
         $this->active = 0;
         $this->save();
-	}
+    }
+
+	public function revokeToken()
+	{
+        $this->api_token = null;
+        $this->save();
+	}    
 }
