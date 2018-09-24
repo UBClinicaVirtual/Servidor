@@ -44,7 +44,8 @@ Route::group(['prefix'=>'/v1'], function(){
 			//http://laravel.win/api/v1/clinic
 
 			Route::post('/search', function(Request $request){
-				return response()->json( ["id" => 9999, "name" => "test clinic"], 200);
+				return response()->json( [ "clinics" => [ 	["id" => 9998, "name" => "test clinic"],
+															["id" => 9999, "name" => "another test clinic"],  ] ], 200);
 			});			
 		});
 	});	
