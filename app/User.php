@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'active', 
     ];
 
     /**
@@ -35,4 +35,10 @@ class User extends Authenticatable
 
         return $this->api_token;
     }	
+	
+	public function deactivate()
+	{
+        $this->active = 0;
+        $this->save();
+	}
 }

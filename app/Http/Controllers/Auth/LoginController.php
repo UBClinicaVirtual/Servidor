@@ -40,7 +40,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        //$this->middleware('guest')->except('logout');
+        $this->middleware('guest', ['except' => ['logout','deactivate']]);
     }
 	
 	public function login(Request $request)
@@ -84,4 +85,15 @@ class LoginController extends Controller
 
 		return response()->json(['data' => 'User logged out.'], 200);
 	}	
+	
+	public function deactivate(Request $request )
+	{
+		$user = Auth::guard('api')->user();
+
+		if ($user) {
+			$user->deactivate();
+		}
+		
+		return response()->json(['data' => 'User deactivated.'], 200);
+	}
 }
