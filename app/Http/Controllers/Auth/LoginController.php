@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
+//Includes the gmail controller to validate the access_token
+use App\Http\Controllers\Auth\GmailController;
+
 class LoginController extends Controller
 {
     /*
@@ -42,19 +45,31 @@ class LoginController extends Controller
 	
 	public function login(Request $request)
 	{
-		$this->validateLogin($request);
+		// TODO: we need to override the validateLogin method to check if it has an access_token field [2018/09/20 wduartes]
+//		$this->validateLogin($request);
 		
+		//Get de gmail info to do the login
+        $gc = new GmailController( $request['access_token'] );
+		$userInfo = $gc->get_user_info( $request['access_token'] );
+			
+//		$request->merge(['email' => $userInfo->email]);
+			
 		// calls to the laravel default function to login
-		//It ll create a new api_token for each call to login
-		if ($this->attemptLogin($request)) {
+		// It ll create a new api_token for each call to login
+		// ill send the gmail mail only to the laravel login function
+//		if ($this->attemptLogin($request)) {
+//		if ($this->attemptLogin( $request->only('email') ) ) {
+		if ($this->guard()->attempt( ['email' => $userInfo['email'] ] ) ) {
+		
 			$user = $this->guard()->user();
 			$user->generateToken();
 
 			return response()->json([
 				'data' => $user->toArray(),
+				'gmail' => $userInfo,
 			]);
 		}
-
+	
 		return $this->sendFailedLoginResponse($request);
 	}
 	
