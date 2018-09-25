@@ -38,9 +38,13 @@ class ClinicController extends Controller
 		if( $clinic )
 		{
 			//i update the fields for the existing clinic
+			$clinic->business_name = $request['business_name'];
+			
+			$clinic->save();
 		}
 		else
 		{
+			//create a new clinic based on the user id and the user data from the request
 			$clinic = \App\Clinic::create([
 											'id' => $user->id,
 											'business_name' => $request['business_name'],
