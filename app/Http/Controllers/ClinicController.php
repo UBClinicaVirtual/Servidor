@@ -31,10 +31,22 @@ class ClinicController extends Controller
 	public function update_profile(Request $request )
 	{
 		$user = Auth::guard('api')->user();
-
-		if ($user) {			
-		}
 		
-		return response()->json(['clinic' => $user ], 201);
+		//TODO: remove global classnames
+		$clinic = \App\Clinic::where( 'id', $user->id )->first();
+			
+		if( $clinic )
+		{
+			//i update the fields for the existing clinic
+		}
+		else
+		{
+			$clinic = \App\Clinic::create([
+											'id' => $user->id,
+											'business_name' => $request['business_name'],
+										]);
+		}				
+		
+		return response()->json(['clinic' => $clinic ], 201);
 	}
 }
