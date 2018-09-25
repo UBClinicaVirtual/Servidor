@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use Auth;
-use App\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ClinicController extends Controller
@@ -35,6 +35,6 @@ class ClinicController extends Controller
 		if ($user) {			
 		}
 		
-		return response()->json(['clinic' => $user ], 200);
+		return response()->json(['clinic' => $user ], 201);
 	}
 }
