@@ -40,7 +40,7 @@ Route::group(['prefix'=>'/v1'], function(){
 		});
 		
 		Route::group(['prefix'=>'/user'], function(){
-			Route::put('/clinic', 'ClinicController@update_profile');
+			Route::post('/clinic', 'ClinicController@update_profile');
 		});
 		
 		//Group for all the clinic related messages		
