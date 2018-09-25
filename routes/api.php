@@ -36,5 +36,9 @@ Route::group(['prefix'=>'/v1'], function(){
 		Route::get('/user', function(Request $request){
 			return response()->json( Auth::guard('api')->user(), 201);
 		});
+		
+		Route::group(['prefix'=>'/user'], function(){
+			Route::put('/clinic', 'ClinicController@update_profile');
+		});
 	});	
 });
