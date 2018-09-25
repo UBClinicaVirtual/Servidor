@@ -40,5 +40,15 @@ Route::group(['prefix'=>'/v1'], function(){
 		Route::group(['prefix'=>'/user'], function(){
 			Route::put('/clinic', 'ClinicController@update_profile');
 		});
+		
+		//Group for all the clinic related messages		
+		Route::group(['prefix'=>'/clinic'], function(){
+			//http://laravel.win/api/v1/clinic
+
+			Route::post('/search', function(Request $request){
+				return response()->json( [ "clinics" => [ 	["id" => 9998, "name" => "test clinic"],
+															["id" => 9999, "name" => "another test clinic"],  ] ], 200);
+			});			
+		});
 	});	
 });
