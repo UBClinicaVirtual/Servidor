@@ -22,4 +22,15 @@ class Clinic extends Model
      */
     protected $hidden = [
     ];
+	
+	/**
+     * Searchs clinics with a likely business_name
+     *
+     * @var array
+     */
+	 
+	public function scopeBusiness_name( $query, $business_name )
+	{
+		return $query->where( 'business_name', 'like', '%' . $business_name . '%' );
+	}
 }
