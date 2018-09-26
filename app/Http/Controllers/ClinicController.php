@@ -25,14 +25,19 @@ class ClinicController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['update_profile']]);
+        $this->middleware('guest', ['except' => ['update_profile', 'search']]);
     }
 	
 	public function search(Request $request )
 	{
-		return response()->json( [ "clinics" => [ 	["id" => 9998, "name" => "test clinic"],
-													["id" => 9999, "name" => "another test clinic"],  ] ], 200);
-			
+		//TODO refactor to have a validateSearchRequest function
+		if( 3 > strlen( $request['business_name'] ) ) 
+			return response()->json( [ "msg" => "business_name is not present or has less than 3 characters" ], 403);
+		
+		// get the records with a name like the sent
+		$clinics = \App\Clinic::where( 'business_name', 'like', '%' . $request['business_name'] . '%' )->get();
+		
+		return response()->json( [ "clinics" => $clinics ], 200);
 	}
 	
 	public function update_profile(Request $request )
