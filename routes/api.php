@@ -46,8 +46,7 @@ Route::group(['prefix'=>'/v1'], function(){
 		//Group for all the clinic related messages		
 		Route::group(['prefix'=>'/clinic'], function(){
 			//http://laravel.win/api/v1/clinic
-
-			Route::post('/search', 'ClinicController@search');			
+			Route::post('/search', 'ClinicController@search');
 		});
 	});	
 });
