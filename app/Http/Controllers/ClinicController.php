@@ -35,7 +35,7 @@ class ClinicController extends Controller
 			return response()->json( [ "msg" => "business_name is not present or has less than 3 characters" ], 403);
 		
 		// get the records with a name like the sent
-		$clinics = \App\Clinic::where( 'business_name', 'like', '%' . $request['business_name'] . '%' )->get();
+		$clinics = \App\Clinic::business_name( $request['business_name'] )->get();
 		
 		return response()->json( [ "clinics" => $clinics ], 200);
 	}
