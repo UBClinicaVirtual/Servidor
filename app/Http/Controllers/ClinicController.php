@@ -28,6 +28,13 @@ class ClinicController extends Controller
         $this->middleware('guest', ['except' => ['update_profile']]);
     }
 	
+	public function search(Request $request )
+	{
+		return response()->json( [ "clinics" => [ 	["id" => 9998, "name" => "test clinic"],
+													["id" => 9999, "name" => "another test clinic"],  ] ], 200);
+			
+	}
+	
 	public function update_profile(Request $request )
 	{
 		$user = Auth::guard('api')->user();
