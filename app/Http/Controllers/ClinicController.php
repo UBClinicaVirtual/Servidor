@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,11 +29,27 @@ class ClinicController extends Controller
         $this->middleware('guest', ['except' => ['update_profile', 'search']]);
     }
 	
-	public function search(Request $request )
+	protected function validateRequestClinicSearch(Request $request)
 	{
-		//TODO refactor to have a validateSearchRequest function
-		if( 3 > strlen( $request['business_name'] ) ) 
-			return response()->json( [ "msg" => "business_name is not present or has less than 3 characters" ], 403);
+		/*
+			TODO: this should have in consideration searching by many another fields
+			like HCP Speciality, appointment disponibility, etc.
+		*/
+		
+		return Validator::make(	$request->all(), 
+								[
+									"business_name" => "required|string|min:3"
+								]		
+								);
+	}
+	
+	public function search(Request $request )
+	{		
+		//get the validator for the search
+		$validator = $this->validateRequestClinicSearch( $request );
+		
+		if( $validator->fails() ) 
+			return response()->json( [ "msg" => $validator->errors() ], 403);
 		
 		// get the records with a name like the sent
 		$clinics = \App\Clinic::business_name( $request['business_name'] )->get();
