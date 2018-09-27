@@ -7,6 +7,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ClinicSearch\ClinicSearch as ClinicSearch;
+use App\Clinic as Clinic;
 
 class ClinicController extends Controller
 {
@@ -63,7 +64,7 @@ class ClinicController extends Controller
 		$user = Auth::guard('api')->user();
 		
 		//TODO: remove global classnames
-		$clinic = \App\Clinic::where( 'id', $user->id )->first();
+		$clinic = Clinic::where( 'id', $user->id )->first();
 			
 		if( $clinic )
 		{
@@ -75,7 +76,7 @@ class ClinicController extends Controller
 		else
 		{
 			//create a new clinic based on the user id and the user data from the request
-			$clinic = \App\Clinic::create([
+			$clinic = Clinic::create([
 											'id' => $user->id,
 											'business_name' => $request['business_name'],
 										]);
