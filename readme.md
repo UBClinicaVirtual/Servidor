@@ -37,6 +37,12 @@
 
 ## Methods
 
+### URL Base for all methods:
+	- local: http://laravel.win/api/v1
+	- http: http://www.ubclinicavirtual.tk/api/v1
+	- https: https://ubclinicavirtual.000webhostapp.com/api/v1
+	
+
 ### Register with gmail
 
 - uri: /register
@@ -212,6 +218,60 @@
 ```json
 {
 	"business_name": "martin"
+}
+```
+
+- response:
+```json
+{
+    "clinics": [
+        {
+            "id": 6,
+            "business_name": "clinica san martin",
+            "created_at": "2018-09-26 13:04:57",
+            "updated_at": "2018-09-26 13:04:57"
+        }
+    ]
+}
+```
+
+### Add the patient profile to the user's account with an api_token
+
+- uri: /user/patient
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "clinic": {
+        "id": 6,
+        "created_at": "2018-09-26 13:04:57",
+        "updated_at": "2018-09-27 15:11:09"
+    }
+}
+```
+
+### Search a patient
+
+- uri: /patient/search
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+    "msg": "unimplemented method"
 }
 ```
 
