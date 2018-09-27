@@ -47,15 +47,27 @@
 - body:
 ```json
 {
-"access_token":"VALID_GMAIL_ACCESS_TOKEN"
+	"access_token":"VALID_GMAIL_ACCESS_TOKEN"
 }
 ```
 
 - response:
 ```json
 {
-"id": 536,
-"name": "A name"
+    "data": {
+        "id": 6,
+        "name": "walter ub",
+        "email": "ubelarga@gmail.com",
+        "email_verified_at": null,
+        "created_at": "2018-09-20 17:30:52",
+        "updated_at": "2018-09-27 15:06:20",
+        "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
+        "active": 1
+    },
+    "gmail": {
+        "name": "walter ub",
+        "email": "ubelarga@gmail.com"
+    }
 }
 ```
   
@@ -69,16 +81,27 @@
 - body:
 ```json
 {
-"access_token":"VALID_GMAIL_ACCESS_TOKEN"
+	"access_token":"VALID_GMAIL_ACCESS_TOKEN"
 }
 ```
 
 - response:
 ```json
 {
-"id": 536,
-"name": "A name",
-"api_token": "AN_API_TOKEN"
+    "data": {
+        "id": 6,
+        "name": "walter ub",
+        "email": "ubelarga@gmail.com",
+        "email_verified_at": null,
+        "created_at": "2018-09-20 17:30:52",
+        "updated_at": "2018-09-27 15:06:20",
+        "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
+        "active": 1
+    },
+    "gmail": {
+        "name": "walter ub",
+        "email": "ubelarga@gmail.com"
+    }
 }
 ```  
 
@@ -98,16 +121,21 @@
 - response:
 ```json
 {
-"id": 536,
-"name": "A name",
-"api_token": "AN_API_TOKEN"
+    "id": 6,
+    "name": "walter ub",
+    "email": "ubelarga@gmail.com",
+    "email_verified_at": null,
+    "created_at": "2018-09-20 17:30:52",
+    "updated_at": "2018-09-27 15:06:20",
+    "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
+    "active": 1
 }
 ```
 
 ### Logout with an api_token
 
 - uri: /logout
-- method: `'GET'`
+- method: `'POST'`
 - headers:
   - `Accept`: `application/json`
   - `Content-Type`: `application/json`
@@ -120,10 +148,12 @@
 - response:
 ```json
 {
+    "data": "User logged out."
 }
 ```
 
 ### Deactivate a user's account with an api_token
+> This method deactivates the full user's account, so you cant operate as patient, hpc or clinic anymore.
 
 - uri: /deactivate
 - method: `'POST'`
@@ -139,6 +169,7 @@
 - response:
 ```json
 {
+    "data": "User deactivated."
 }
 ```
 
@@ -153,15 +184,19 @@
 - body:
 ```json
 {
-"business_name": "Clinica san martin"
+	"business_name": "clinica san martin"
 }
 ```
 
 - response:
 ```json
 {
-"id": 6,
-"business_name": "Clinica san martin",
+    "clinic": {
+        "id": 6,
+        "business_name": "clinica san martin",
+        "created_at": "2018-09-26 13:04:57",
+        "updated_at": "2018-09-27 15:11:09"
+    }
 }
 ```
 
@@ -176,7 +211,7 @@
 - body:
 ```json
 {
-"business_name": "martin"
+	"business_name": "martin"
 }
 ```
 
@@ -186,7 +221,7 @@
     "clinics": [
         {
             "id": 6,
-            "business_name": "Clinica san martin",
+            "business_name": "clinica san martin",
             "created_at": "2018-09-26 13:04:57",
             "updated_at": "2018-09-26 13:04:57"
         }
