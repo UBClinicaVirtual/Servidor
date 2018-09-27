@@ -41,6 +41,7 @@ Route::group(['prefix'=>'/v1'], function(){
 		
 		Route::group(['prefix'=>'/user'], function(){
 			Route::post('/clinic', 'ClinicController@update_profile');
+			Route::post('/patient', 'PatientController@update_profile');
 		});
 		
 		//Group for all the clinic related messages		
