@@ -6,6 +6,7 @@ use Auth;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\ClinicSearch\ClinicSearch as ClinicSearch;
 
 class ClinicController extends Controller
 {
@@ -38,7 +39,7 @@ class ClinicController extends Controller
 		
 		return Validator::make(	$request->all(), 
 								[
-									"business_name" => "required|string|min:3"
+									"business_name" => "string|min:3"
 								]		
 								);
 	}
@@ -50,9 +51,9 @@ class ClinicController extends Controller
 		
 		if( $validator->fails() ) 
 			return response()->json( [ "msg" => $validator->errors() ], 403);
-		
-		// get the records with a name like the sent
-		$clinics = \App\Clinic::business_name( $request['business_name'] )->get();
+
+		//Get all the records that match the filter sent
+		$clinics = ClinicSearch::apply( $request );
 		
 		return response()->json( [ "clinics" => $clinics ], 200);
 	}
