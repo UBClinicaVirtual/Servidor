@@ -37,10 +37,10 @@
 
 ## Methods
 
-- URL Base:
-	-local: http://laravel.win/api/v1
-	-http: http://www.ubclinicavirtual.tk/api/v1
-	-https: http://ubclinicavirtual.000webhostapp.com/api/v1
+### URL Base for all methods:
+	- local: http://laravel.win/api/v1
+	- http: http://www.ubclinicavirtual.tk/api/v1
+	- https: http://ubclinicavirtual.000webhostapp.com/api/v1
 	
 
 ### Register with gmail
