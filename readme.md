@@ -1,65 +1,211 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# UB Clinica Virtual
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
+> Description of the project in one line
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+- [API Live DEMO](https://www.ubclinicavirtual.tk/api/v1) - An operating DEMO of the api
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Table of contents
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+- [Features](#features)
+- [Getting started](#getting-started)
+- [Methods](#methods)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
+- [License](#license)
 
-## Learning Laravel
+## Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+- Register through gmail api
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+## Getting started
 
-## Laravel Sponsors
+### Installation
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+#### Installation on windows ( mysql + php + IIS)
+- Get IIS
+- Get PHP 7
+- Get MySQL
+- Get Composer
+- Configure IIS
+- Download from github
+- Configure .env file
+- Install google api via Composer(to rework)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
+
+### Usage
+
+## Methods
+
+### Register with gmail
+
+- uri: /register
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+- body:
+```json
+{
+"access_token":"VALID_GMAIL_ACCESS_TOKEN"
+}
+```
+
+- response:
+```json
+{
+"id": 536,
+"name": "A name"
+}
+```
+  
+### Login with gmail
+
+- uri: /login
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+- body:
+```json
+{
+"access_token":"VALID_GMAIL_ACCESS_TOKEN"
+}
+```
+
+- response:
+```json
+{
+"id": 536,
+"name": "A name",
+"api_token": "AN_API_TOKEN"
+}
+```  
+
+### Get the general user information based in the api_token
+
+- uri: /user
+- method: `'GET'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{}
+```
+
+- response:
+```json
+{
+"id": 536,
+"name": "A name",
+"api_token": "AN_API_TOKEN"
+}
+```
+
+### Logout with an api_token
+
+- uri: /logout
+- method: `'GET'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{}
+```
+
+- response:
+```json
+{
+}
+```
+
+### Deactivate a user's account with an api_token
+
+- uri: /deactivate
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{}
+```
+
+- response:
+```json
+{
+}
+```
+
+### Add the clinic profile to the user's account with an api_token
+
+- uri: /user/clinic
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+"business_name": "Clinica san martin"
+}
+```
+
+- response:
+```json
+{
+"id": 6,
+"business_name": "Clinica san martin",
+}
+```
+
+### Search a clinic by likely business_name
+
+- uri: /clinic/search
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+"business_name": "martin"
+}
+```
+
+- response:
+```json
+{
+    "clinics": [
+        {
+            "id": 6,
+            "business_name": "Clinica san martin",
+            "created_at": "2018-09-26 13:04:57",
+            "updated_at": "2018-09-26 13:04:57"
+        }
+    ]
+}
+```
+
+[? back to top](#table-of-contents)
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Please read through our [contributing guidelines](.github/CONTRIBUTING.md).
 
-## Security Vulnerabilities
+## Versioning
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Maintained under the [Semantic Versioning guidelines](https://semver.org/).
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[MIT](https://opensource.org/licenses/MIT) © ???
+
+[? back to top](#table-of-contents)
