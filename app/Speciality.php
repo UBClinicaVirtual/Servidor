@@ -22,4 +22,15 @@ class Speciality extends Model
      */
     protected $hidden = [
     ];
+	
+	/**
+     * Searchs active Specialities
+     *
+     * @var array
+    */
+	 
+	public function scopeActive( $query )
+	{
+		return $query->where( 'active', 1);
+	}	
 }
