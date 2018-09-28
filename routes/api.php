@@ -64,7 +64,7 @@ Route::group(['prefix'=>'/v1'], function(){
 			
 			Route::post('', 'SpecialityController@create');					
 			Route::get('/{speciality}', 'SpecialityController@speciality');
-			Route::post('/{speciality}', 'SpecialityController@update');
+			Route::post('/{speciality}', 'SpecialityController@update')->where('speciality', '[0-9]+');
 			
 		});
 	});	
