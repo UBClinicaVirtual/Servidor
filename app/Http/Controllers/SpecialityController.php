@@ -32,17 +32,20 @@ class SpecialityController extends Controller
 	
 	public function create(Request $request)
 	{
-		$speciality = Speciality::create(["name" => $request["name"]]);		
+		$speciality = Speciality::create(["name" => $request["name"]]);	
 		return response()->json( $speciality, 201);
 	}	
 	
-	public function speciality(Request $request)
+	public function speciality(Request $request, Speciality $speciality)
 	{
-		return response()->json( Auth::guard('api')->user(), 201);
+		return response()->json( $speciality, 201);
 	}
 	
 	public function update(Request $request, Speciality $speciality)
 	{
+		$speciality->name = $request["name"];
+		$speciality->save();
+		
 		return response()->json( $speciality, 201);
 	}
 }
