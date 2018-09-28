@@ -48,4 +48,9 @@ class SpecialityController extends Controller
 		
 		return response()->json( $speciality, 201);
 	}
+	
+	public function search(Request $request)
+	{
+		return response()->json( ["specialities" => Speciality::all() ], 201);
+	}	
 }

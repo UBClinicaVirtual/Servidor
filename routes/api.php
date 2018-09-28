@@ -63,8 +63,10 @@ Route::group(['prefix'=>'/v1'], function(){
 			//http://laravel.win/api/v1/speciality
 			
 			Route::post('', 'SpecialityController@create');			
-			Route::get('/{speciality}', 'SpecialityController@speciality');				
+			Route::post('/search', 'SpecialityController@search');
+			Route::get('/{speciality}', 'SpecialityController@speciality');
 			Route::post('/{speciality}', 'SpecialityController@update');
+			
 		});
 	});	
 });
