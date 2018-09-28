@@ -56,7 +56,7 @@ class SpecialityController extends Controller
 									"name" => "string|min:3",
 									"active" => "integer",
 								]		
-								);		
+								);
 	}
 	
 	public function create(Request $request)
