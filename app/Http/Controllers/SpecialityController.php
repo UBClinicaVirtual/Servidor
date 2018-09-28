@@ -7,7 +7,6 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Searchers\SpecialitySearch\SpecialitySearch as SpecialitySearch;
-use App\Searchers\ClinicSearch\ClinicSearch as ClinicSearch;
 use App\Speciality as Speciality;
 
 class SpecialityController extends Controller
