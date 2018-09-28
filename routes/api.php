@@ -55,5 +55,16 @@ Route::group(['prefix'=>'/v1'], function(){
 			//http://laravel.win/api/v1/patient
 			Route::post('/search', 'PatientController@search');
 		});
+		
+		
+		
+		//Group for all the speciality related messages		
+		Route::group(['prefix'=>'/speciality'], function(){	
+			//http://laravel.win/api/v1/speciality
+			
+			Route::post('', 'SpecialityController@create');			
+			Route::get('', 'SpecialityController@speciality');				
+			Route::post('/{speciality}', 'SpecialityController@update');
+		});
 	});	
 });
