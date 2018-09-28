@@ -6,7 +6,7 @@ use Auth;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\ClinicSearch\ClinicSearch as ClinicSearch;
+use App\Searchers\ClinicSearch\ClinicSearch as ClinicSearch;
 use App\Clinic as Clinic;
 
 class ClinicController extends Controller

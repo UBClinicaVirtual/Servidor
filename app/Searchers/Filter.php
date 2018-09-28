@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ClinicSearch\Filters;
+namespace App\Searchers;
 
 use Illuminate\Database\Eloquent\Builder;
 
