@@ -6,7 +6,8 @@ use Auth;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\ClinicSearch\ClinicSearch as ClinicSearch;
+use App\Searchers\SpecialitySearch\SpecialitySearch as SpecialitySearch;
+use App\Searchers\ClinicSearch\ClinicSearch as ClinicSearch;
 use App\Speciality as Speciality;
 
 class SpecialityController extends Controller
@@ -100,6 +101,7 @@ class SpecialityController extends Controller
 		if( $validator->fails() ) 
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 			
-		return response()->json( ["specialities" => Speciality::active()->get() ], 201);
+		//Get all the records that match the filter sent	
+		return response()->json( [ "specialities" => SpecialitySearch::apply( $request ) ], 200);
 	}	
 }
