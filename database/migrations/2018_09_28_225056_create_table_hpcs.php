@@ -14,7 +14,7 @@ class CreateTableHpcs extends Migration
     public function up()
     {
         Schema::create('HPCs', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('id')->primary();
             $table->timestamps();
         });
     }
