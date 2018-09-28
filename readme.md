@@ -353,7 +353,8 @@
 - body:
 ```json
 {
-	"name": "Guardia 2"
+	"name": "Guardia 2",
+	"active": 1
 }
 ```
 
