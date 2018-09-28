@@ -54,6 +54,6 @@ class HCPController extends Controller
 								]);
 		}				
 		
-		return response()->json(['HCP' => $HCP ], 201);
+		return response()->json(['hcp' => $HCP ], 201);
 	}
 }
