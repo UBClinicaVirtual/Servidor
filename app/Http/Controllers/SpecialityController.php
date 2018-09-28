@@ -51,6 +51,6 @@ class SpecialityController extends Controller
 	
 	public function search(Request $request)
 	{
-		return response()->json( ["specialities" => Speciality::all() ], 201);
+		return response()->json( ["specialities" => Speciality::active()->get() ], 201);
 	}	
 }
