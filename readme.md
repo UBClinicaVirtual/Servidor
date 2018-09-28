@@ -289,6 +289,115 @@
 }
 ```
 
+### Create a new Speciality
+
+- uri: /speciality
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"name": "Guardia"
+}
+```
+
+- response:
+```json
+{
+    "id": 1,
+    "name": "Guardia",
+    "active": 1,
+    "created_at": "2018-09-28 13:17:08",
+    "updated_at": "2018-09-28 13:17:08"
+}
+```
+
+### Get a Speciality by id
+
+- uri: /speciality/{id_speciality}
+- uri example: /speciality/1
+- method: `'GET'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "id": 1,
+    "name": "Guardia",
+    "active": 1,
+    "created_at": "2018-09-28 13:17:08",
+    "updated_at": "2018-09-28 13:17:08"
+}
+```
+
+### Update a Speciality by id
+
+- uri: /speciality/{id_speciality}
+- uri example: /speciality/1
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"name": "Guardia 2"
+}
+```
+
+- response:
+```json
+{
+    "id": 1,
+    "name": "Guardia 2",
+    "active": 1,
+    "created_at": "2018-09-28 13:17:08",
+    "updated_at": "2018-09-28 13:17:08"
+}
+```
+
+### Search Specialities
+
+- uri: /specialities
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"name": "Guardia 2"
+}
+```
+
+- response:
+```json
+{
+    "specialities": [
+        {
+            "id": 1,
+            "name": "Guardia 2",
+            "active": 1,
+            "created_at": "2018-09-28 13:17:08",
+            "updated_at": "2018-09-28 13:17:08"
+        }
+    ]
+}
+```
+
 [? back to top](#table-of-contents)
 
 ## Contributing
