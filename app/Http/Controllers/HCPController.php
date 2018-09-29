@@ -7,6 +7,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\HCP as HCP;
+use App\Speciality as Speciality;
 
 class HCPController extends Controller
 {
@@ -49,11 +50,18 @@ class HCPController extends Controller
 		else
 		{
 			//create a new HCP based on the user id and the user data from the request
-			$HCP = HCP::create([
+			$hcp = HCP::create([
 									'id' => $user->id,
+									'name' => $user->name,
+									'registration_number' => 'rn',
+									'identification_number' => 'in',
 								]);
+								
+			$hcp->id = $user->id;
+			$hcp->specialities()->save( new Speciality( [ "name" => "Prueba", "active" => 1 ] ) );
+			$hcp->specialities()->save( new Speciality( [ "name" => "Prueba2", "active" => 1 ] ) );
 		}				
 		
-		return response()->json(['hcp' => $HCP ], 201);
+		return response()->json(['hcp' => $hcp, 'specialities' => $hcp->specialities() ], 201);
 	}
 }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
  
 class HCP extends Model
 {
+	protected $table = 'HCPs';
+	
     /**
      * The attributes that are mass assignable.
      *
@@ -22,4 +24,13 @@ class HCP extends Model
      */
     protected $hidden = [
     ];
+	
+	/*
+	* The specialities that belong to the HCP
+	*/
+	
+	public function specialities()
+	{
+		return $this->belongsToMany('App\Speciality', 'HCPSpecialities', 'id_hcp', 'id_speciality' );
+	}
 }
