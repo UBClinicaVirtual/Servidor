@@ -42,6 +42,7 @@ Route::group(['prefix'=>'/v1'], function(){
 		Route::group(['prefix'=>'/user'], function(){
 			Route::post('/clinic', 'ClinicController@update_profile');
 			Route::post('/patient', 'PatientController@update_profile');
+			Route::post('/hcp', 'HCPController@update_profile');
 		});
 		
 		//Group for all the clinic related messages		
@@ -51,6 +52,12 @@ Route::group(['prefix'=>'/v1'], function(){
 		});
 		
 		//Group for all the clinic related messages		
+		Route::group(['prefix'=>'/hcp'], function(){
+			//http://laravel.win/api/v1/clinic
+			Route::post('/search', 'HCPController@search');
+		});
+		
+		//Group for all the patient related messages		
 		Route::group(['prefix'=>'/patient'], function(){
 			//http://laravel.win/api/v1/patient
 			Route::post('/search', 'PatientController@search');

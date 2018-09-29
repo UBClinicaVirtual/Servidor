@@ -235,6 +235,52 @@
 }
 ```
 
+### Add the HCP profile to the user's account with an api_token
+
+- uri: /user/hcp
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "hcp": {
+        "id": 6,
+        "created_at": "2018-09-26 13:04:57",
+        "updated_at": "2018-09-27 15:11:09"
+    }
+}
+```
+
+### Search a HCP
+
+- uri: /hcp/search
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "msg": "unimplemented method"
+}
+```
+
 ### Add the patient profile to the user's account with an api_token
 
 - uri: /user/patient
@@ -271,21 +317,13 @@
 - body:
 ```json
 {
-    "msg": "unimplemented method"
 }
 ```
 
 - response:
 ```json
 {
-    "clinics": [
-        {
-            "id": 6,
-            "business_name": "clinica san martin",
-            "created_at": "2018-09-26 13:04:57",
-            "updated_at": "2018-09-26 13:04:57"
-        }
-    ]
+    "msg": "unimplemented method"
 }
 ```
 
