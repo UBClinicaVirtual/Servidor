@@ -35,31 +35,45 @@ class HCPController extends Controller
 	{			
 		return response()->json( [ "msg" => "unimplemented method" ], 403);
 	}			
+
+	protected function validateProfileRequest( Request $request )
+	{
+		return Validator::make(	$request->all(), 
+								[
+									"name" => "required|string|min:3",
+									"registration_number" => "required|string|min:3",
+									"identification_number" => "required|string|min:3",
+								]		
+								);		
+	}
 	
 	public function update_profile(Request $request )
 	{
+
+		//get the validator for the creation
+		$validator = $this->validateProfileRequest( $request );
+		
+		if( $validator->fails() ) 
+			return response()->json( [ "msg" => $validator->errors() ], 403);
+		
 		$user = Auth::guard('api')->user();
 		
 		$hcp = HCP::where( 'id', $user->id )->first();
 			
-		if( $hcp )
-		{
-			//TODO update the fields for the HCP
-			$hcp->save();
-		}
-		else
+		if( !$hcp )
 		{
 			//create a new HCP based on the user id and the user data from the request
-			$hcp = HCP::create([
-									'id' => $user->id,
-									'name' => $user->name,
-									'registration_number' => 'rn',
-									'identification_number' => 'in',
-								]);
+			$hcp = new HCP();
 								
 			//Forces the id of the HCP
 			$hcp->id = $user->id;
 		}
+		
+		//Updates the fields
+		$hcp->name = $request["name"];
+		$hcp->registration_number = $request["registration_number"];
+		$hcp->identification_number = $request["identification_number"];
+		$hcp->save();
 		
 		// Adds all the specialities sent
 		if( $request->has('specialities') )
@@ -68,8 +82,12 @@ class HCPController extends Controller
 			
 			foreach( $specialities as $speciality_id )
 			{
-				$speciality = Speciality::where('id', $speciality_id )->first();			
-				$hcp->specialities()->save( $speciality );
+				//Only adds the non existant specialities
+				if( !$hcp->specialities()->where('id_speciality', $speciality_id )->exists() )
+				{
+					$speciality = Speciality::where('id', $speciality_id )->first();			
+					$hcp->specialities()->save( $speciality );
+				}
 			}
 		}		
 		
