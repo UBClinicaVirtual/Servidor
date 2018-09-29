@@ -1,21 +1,26 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicTest()
+
+    public function testBasicRoute()
     {
         $response = $this->get('/');
 
         $response->assertStatus(200);
     }
+
+    public function testNonExistantRoute()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+
+
 }
