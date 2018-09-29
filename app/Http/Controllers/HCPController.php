@@ -40,12 +40,12 @@ class HCPController extends Controller
 	{
 		$user = Auth::guard('api')->user();
 		
-		$HCP = HCP::where( 'id', $user->id )->first();
+		$hcp = HCP::where( 'id', $user->id )->first();
 			
-		if( $HCP )
+		if( $hcp )
 		{
 			//TODO update the fields for the HCP
-			$HCP->save();
+			$hcp->save();
 		}
 		else
 		{
@@ -57,11 +57,22 @@ class HCPController extends Controller
 									'identification_number' => 'in',
 								]);
 								
+			//Forces the id of the HCP
 			$hcp->id = $user->id;
-			$hcp->specialities()->save( new Speciality( [ "name" => "Prueba", "active" => 1 ] ) );
-			$hcp->specialities()->save( new Speciality( [ "name" => "Prueba2", "active" => 1 ] ) );
-		}				
+		}
 		
-		return response()->json(['hcp' => $hcp, 'specialities' => $hcp->specialities() ], 201);
+		// Adds all the specialities sent
+		if( $request->has('specialities') )
+		{	
+			$specialities = $request['specialities'];
+			
+			foreach( $specialities as $speciality_id )
+			{
+				$speciality = Speciality::where('id', $speciality_id )->first();			
+				$hcp->specialities()->save( $speciality );
+			}
+		}		
+		
+		return response()->json([ 'hcp' => ['hcp' => $hcp, 'specialities' => $hcp->specialities()->get() ] ], 201);
 	}
 }
