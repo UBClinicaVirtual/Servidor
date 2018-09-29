@@ -32,7 +32,7 @@ class UserTest extends TestCase {
     {
         $obj= new \App\User;
         $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));  
-        $obj=null;
+        $obj->generateToken();
         $dummyToken = $obj->api_token;
         $this->assertEquals($obj->api_token,$dummyToken); 
     }
