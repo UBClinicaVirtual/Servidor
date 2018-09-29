@@ -5,31 +5,56 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use servidor\app\User;
+use Illuminate\Support\Facades\Artisan;
 
 
-class UserTest extends TestCase{
 
-    public function testUserDeactivated()
+class UserTest extends TestCase {
+
+    public function setUp()
     {
-    	$user = new \App\User;
-    	/*$user->api_token = null;
-    	$user->active = 0;*/
-        $user->deactivate();
-    	$this->assertNull($user->api_token);
-    	$this->assertEquals($user->active,0);
+        parent::setUp();
+        Artisan::call('migrate:refresh');
     }
 
-    public function testUserTokenRevoked()
+    public function testUserDeactivate()
+
     {
-    	$user = new \App\User;
-    	$user->api_token = null;
-    	$this->assertNull($user->api_token);
+    	$obj = new \App\User;
+        $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));
+        $obj->deactivate();
+    	$this->assertNull($obj->api_token);
+    	$this->assertEquals($obj->active,0);
     }
 
     public function testUserGenerateToken()
+
     {
-    	$user= new \App\User;
-    	$user->api_token = str_random(60);
-    	$this->assertNotNull($user->api_token); 
+        $obj= new \App\User;
+        $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));  
+        $obj->generateToken();
+        $dummyToken = $obj->api_token;
+        $this->assertEquals($obj->api_token,$dummyToken); 
+    }
+    /**
+    *@depends this::testUserGenerateToken
+    */
+
+    public function testUserRevokeToken()
+
+    {
+    	$obj = new \App\User;
+        $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));  
+        $obj->generateToken();
+        $obj->revokeToken();
+    	$this->assertNull($obj->api_token);
+    }
+
+    public function testUserActive()
+
+    {
+        $obj= new \App\User;
+        $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));
+        $this->assertEquals($obj->active, 0);
     }
 }
