@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+ 
 class HCP extends Model
 {
     /**
@@ -12,7 +12,7 @@ class HCP extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 
+        'id', 'name', 'registration_number', 'identification_number', 
 	];
 
     /**
