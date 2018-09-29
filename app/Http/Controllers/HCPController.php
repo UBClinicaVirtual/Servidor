@@ -56,6 +56,7 @@ class HCPController extends Controller
 		if( $validator->fails() ) 
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 		
+		//Searchs for the HCP of the logged user
 		$user = Auth::guard('api')->user();
 		
 		$hcp = HCP::where( 'id', $user->id )->first();
