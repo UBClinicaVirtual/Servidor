@@ -22,11 +22,19 @@ class UserTest extends TestCase {
     {
     	$obj = new \App\User;
         $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));
-    	/*$user->api_token = null;
-    	$user->active = 0;*/
         $obj->deactivate();
     	$this->assertNull($obj->api_token);
     	$this->assertEquals($obj->active,0);
+    }
+
+    public function testUserGenerateToken()
+
+    {
+        $obj= new \App\User;
+        $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));  
+        $obj->generateToken();
+        $dummyToken = $obj->api_token;
+        $this->assertEquals($obj->api_token,$dummyToken); 
     }
 
     public function testUserRevokeToken()
@@ -34,44 +42,9 @@ class UserTest extends TestCase {
     {
     	$obj = new \App\User;
         $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));  
-    	//$user->api_token = null;
+        $obj->generateToken();
         $obj->revokeToken();
     	$this->assertNull($obj->api_token);
-    }
-
-    public function testUserGenerateToken()
-
-    {
-    	$obj= new \App\User;
-        $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));  
-    	//$user->api_token = str_random(60);
-        $obj->generateToken();
-        $dummyToken = $obj->api_token;
-    	$this->assertEquals($obj->api_token,$dummyToken); 
-    }
-
-    public function testUserGetName()
-
-    {
-        $obj= new \App\User;
-        $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));
-        $this->assertEquals($obj->name,"test");
-    }
-
-    public function testUserGetEmail()
-
-    {
-        $obj= new \App\User;
-        $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));
-        $this->assertEquals($obj->email,"test@testing.com");
-    }
-
-    public function testUserGetPassword()
-
-    {
-        $obj= new \App\User;
-        $obj->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '0'));
-        $this->assertEquals($obj->password,"pass123");
     }
 
     public function testUserActive()
