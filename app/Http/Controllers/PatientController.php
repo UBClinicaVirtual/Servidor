@@ -70,7 +70,7 @@ class PatientController extends Controller
 	
 	public function get_profile(Request $request )
 	{
-		return Auth::guard('api')->user();
+		return Auth::guard('api')->user()->patient()->first();
 	}
 	
 	public function update_profile(Request $request )
