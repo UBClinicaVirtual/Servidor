@@ -54,7 +54,7 @@ class PatientController extends Controller
 	*/
 	public function _get_patient_from_user( $user )
 	{
-		$patient = Patient::where( 'id', $user->id )->first();
+		$patient = $user->patient()->first();
 			
 		if( !$patient )
 		{
