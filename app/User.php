@@ -53,5 +53,15 @@ class User extends Authenticatable
 	public function clinic()
 	{
 		return $this->hasOne('App\Clinic', 'id', 'id' );
+  }
+  
+	public function hcp()
+	{
+		return $this->hasOne('App\HCP', 'id', 'id');
+	}    
+	
+	public function patient()
+	{
+		return $this->hasOne('App\Patient', 'id', 'id' );
 	}
 }
