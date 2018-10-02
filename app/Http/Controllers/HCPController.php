@@ -47,6 +47,19 @@ class HCPController extends Controller
 								);		
 	}
 	
+	public function add_specialities( HCP $hcp, array $specialities )
+	{
+		foreach( $specialities as $speciality_id )
+		{
+			//Only adds the non existant specialities
+			if( !$hcp->specialities()->where('id_speciality', $speciality_id )->exists() )
+			{
+				$speciality = Speciality::where('id', $speciality_id )->first();			
+				$hcp->specialities()->save( $speciality );
+			}
+		}	
+	}
+	
 	public function update_profile(Request $request )
 	{
 
@@ -77,21 +90,9 @@ class HCPController extends Controller
 		$hcp->save();
 		
 		// Adds all the specialities sent
-		if( $request->has('specialities') )
-		{	
-			$specialities = $request['specialities'];
+		if( $request->has('specialities') )		
+			this->add_specialities( $hcp, $request['specialities'] );
 			
-			foreach( $specialities as $speciality_id )
-			{
-				//Only adds the non existant specialities
-				if( !$hcp->specialities()->where('id_speciality', $speciality_id )->exists() )
-				{
-					$speciality = Speciality::where('id', $speciality_id )->first();			
-					$hcp->specialities()->save( $speciality );
-				}
-			}
-		}		
-		
 		return response()->json([ 'hcp' => ['hcp' => $hcp, 'specialities' => $hcp->specialities()->get() ] ], 201);
 	}
 }
