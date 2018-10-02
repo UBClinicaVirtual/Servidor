@@ -367,6 +367,33 @@
 }
 ```
 
+### Get the patient profile information of the user's account with an api_token
+
+- uri: /user/patient
+- method: `'GET'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "patient": {
+        "id": 6,
+        "created_at": "2018-09-27 17:44:38",
+        "updated_at": "2018-09-27 17:44:38",
+        "name": "Walter",
+        "identification_number": "33000123"
+    }
+}
+```
+
 ### Search a patient
 
 - uri: /patient/search
