@@ -206,6 +206,33 @@
 }
 ```
 
+
+### Get the clinic profile user information based in the api_token
+
+- uri: /user/clinic
+- method: `'GET'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{}
+```
+
+- response:
+```json
+{
+    "clinic": {
+        "id": 6,
+        "business_name": "Clinica de trinidad",
+        "created_at": "2018-09-26 13:04:57",
+        "updated_at": "2018-09-27 17:26:58",
+        "business_number": "20123456789"
+    }
+}
+```
+
 ### Search a clinic by likely business_name
 
 - uri: /clinic/search
