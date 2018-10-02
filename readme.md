@@ -310,16 +310,20 @@
 - body:
 ```json
 {
+	"name": "Walter",
+	"identification_number": "33000123"
 }
 ```
 
 - response:
 ```json
 {
-    "clinic": {
+    "patient": {
         "id": 6,
-        "created_at": "2018-09-26 13:04:57",
-        "updated_at": "2018-09-27 15:11:09"
+        "created_at": "2018-09-27 17:44:38",
+        "updated_at": "2018-09-27 17:44:38",
+        "name": "Walter",
+        "identification_number": "33000123"
     }
 }
 ```
