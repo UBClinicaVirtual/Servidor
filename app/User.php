@@ -49,4 +49,9 @@ class User extends Authenticatable
         $this->api_token = null;
         $this->save();
 	}    
+	
+	public function patient()
+	{
+		return $this->hasOne('App\Patient', 'id', 'id' );
+	}
 }
