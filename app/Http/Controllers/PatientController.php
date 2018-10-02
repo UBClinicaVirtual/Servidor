@@ -48,6 +48,26 @@ class PatientController extends Controller
 								);		
 	}
 	
+	/*
+	| gets the patient from the user profile
+	| TODO: change to use the eloquent relationship
+	*/
+	public function _get_patient_from_user( $user )
+	{
+		$patient = Patient::where( 'id', $user->id )->first();
+			
+		if( !$patient )
+		{
+			//create a new Patient based on the user id and the user data from the request
+			$patient = new Patient();
+								
+			//Forces the id of the Patient
+			$patient->id = $user->id;
+		}	
+		
+		return $patient;
+	}
+	
 	public function update_profile(Request $request )
 	{
 		//get the validator for the creation
@@ -55,24 +75,16 @@ class PatientController extends Controller
 		
 		if( $validator->fails() ) 
 			return response()->json( [ "msg" => $validator->errors() ], 403);
-			
-		$user = Auth::guard('api')->user();
 		
-		$patient = Patient::where( 'id', $user->id )->first();
-			
-		if( $patient )
-		{
-			//TODO update the fields for the patient
-			$patient->save();
-		}
-		else
-		{
-			//create a new patient based on the user id and the user data from the request
-			$patient = Patient::create([
-											'id' => $user->id,
-										]);
-		}				
+		//Get the patient profile from the user
+		$patient = $this->_get_patient_from_user( Auth::guard('api')->user() );				
 		
+		//update the fields for the patient
+		$patient->name = $request["name"];
+		$patient->identification_number = $request["identification_number"];
+		$patient->save();
+		
+		//Returns the updated profile
 		return response()->json(['patient' => $patient ], 201);
 	}	
 }
