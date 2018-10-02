@@ -62,7 +62,7 @@ class HCPController extends Controller
 	
 	public function _get_hcp_from_user( $user )
 	{
-		$hcp = HCP::where( 'id', $user->id )->first();
+		$hcp = $user->hcp()->first();
 			
 		if( !$hcp )
 		{
@@ -74,6 +74,12 @@ class HCPController extends Controller
 		}	
 		
 		return $hcp;
+	}
+	
+	public function get_profile(Request $request )
+	{
+		$hcp = Auth::guard('api')->user()->hcp()->first();
+		return response()->json([ 'hcp' => ['hcp' => $hcp, 'specialities' => $hcp->specialities()->get() ] ], 200);
 	}
 	
 	public function update_profile(Request $request )
