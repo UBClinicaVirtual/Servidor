@@ -59,6 +59,11 @@ class ClinicController extends Controller
 		return response()->json( [ "clinics" => $clinics ], 200);
 	}
 	
+	public function get_profile(Request $request )
+	{
+		return response()->json(['clinic' => Auth::guard('api')->user()->clinic()->first() ], 200);
+	}
+	
 	public function update_profile(Request $request )
 	{
 		$user = Auth::guard('api')->user();
