@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+ 
 class Patient extends Model
 {
     /**
@@ -12,7 +12,7 @@ class Patient extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 
+        'id', 'name', 'identification_number', 
 	];
 
     /**

@@ -246,6 +246,10 @@
 - body:
 ```json
 {
+  "name": "Un medico clinico",
+  "registration_number": "123456",
+  "identification_number": "321456",
+  "specialities": [ 1 ]
 }
 ```
 
@@ -253,9 +257,23 @@
 ```json
 {
     "hcp": {
-        "id": 6,
-        "created_at": "2018-09-26 13:04:57",
-        "updated_at": "2018-09-27 15:11:09"
+        "hcp": {
+            "id": 6,
+            "created_at": "2018-10-02 12:46:23",
+            "updated_at": "2018-10-02 12:46:23",
+            "name": "Un medico clinico",
+            "registration_number": "123456",
+            "identification_number": "321456"
+        },
+        "specialities": [
+            {
+                "id": 1,
+                "name": "Guardia 2",
+                "active": 1,
+                "created_at": "2018-09-28 13:10:01",
+                "updated_at": "2018-09-28 13:12:45"
+            }
+        ]
     }
 }
 ```
@@ -292,16 +310,20 @@
 - body:
 ```json
 {
+	"name": "Walter",
+	"identification_number": "33000123"
 }
 ```
 
 - response:
 ```json
 {
-    "clinic": {
+    "patient": {
         "id": 6,
-        "created_at": "2018-09-26 13:04:57",
-        "updated_at": "2018-09-27 15:11:09"
+        "created_at": "2018-09-27 17:44:38",
+        "updated_at": "2018-09-27 17:44:38",
+        "name": "Walter",
+        "identification_number": "33000123"
     }
 }
 ```

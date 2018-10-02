@@ -21,6 +21,7 @@ class Speciality extends Model
      * @var array
      */
     protected $hidden = [
+		'pivot', 
     ];
 	
 	/**

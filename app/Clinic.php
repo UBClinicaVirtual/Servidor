@@ -12,7 +12,7 @@ class Clinic extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'business_name', 
+        'id', 'business_name', 'business_number', 
 	];
 
     /**
@@ -33,4 +33,4 @@ class Clinic extends Model
 	{
 		return $query->where( 'business_name', 'like', '%' . $business_name . '%' );
 	}
-}
+} 
