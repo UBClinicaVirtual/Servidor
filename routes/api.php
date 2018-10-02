@@ -40,6 +40,7 @@ Route::group(['prefix'=>'/v1'], function(){
 		});
 		
 		Route::group(['prefix'=>'/user'], function(){
+			Route::get('/clinic', 'ClinicController@get_profile');
 			Route::post('/clinic', 'ClinicController@update_profile');
 			Route::get('/patient', 'PatientController@get_profile');
 			Route::post('/patient', 'PatientController@update_profile');

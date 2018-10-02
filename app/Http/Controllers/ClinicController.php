@@ -28,7 +28,7 @@ class ClinicController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['update_profile', 'search']]);
+        $this->middleware('guest', ['except' => [ 'get_profile', 'update_profile', 'search']]);
     }
 	
 	protected function validateRequestClinicSearch(Request $request)
@@ -59,29 +59,37 @@ class ClinicController extends Controller
 		return response()->json( [ "clinics" => $clinics ], 200);
 	}
 	
+	public function get_profile(Request $request )
+	{
+		return response()->json(['clinic' => Auth::guard('api')->user()->clinic()->first() ], 200);
+	}
+
+	public function _get_clinic_profile( $user )
+	{
+		$clinic = $user->clinic()->first();
+			
+		if( !$clinic )
+		{
+			//create a new Clinic based on the user id and the user data from the request
+			$clinic = new Clinic();
+								
+			//Forces the id of the Clinic
+			$clinic->id = $user->id;
+		}	
+		
+		return $clinic;	
+	}
+	
 	public function update_profile(Request $request )
 	{
-		$user = Auth::guard('api')->user();
+		//Gets the clinic for the user profile
+		$clinic = $this->_get_clinic_profile( Auth::guard('api')->user() );
+				
+		//Updates the fields of the clinic
+		$clinic->business_name = $request['business_name'];		
+		$clinic->save();		
 		
-		//TODO: remove global classnames
-		$clinic = Clinic::where( 'id', $user->id )->first();
-			
-		if( $clinic )
-		{
-			//i update the fields for the existing clinic
-			$clinic->business_name = $request['business_name'];
-			
-			$clinic->save();
-		}
-		else
-		{
-			//create a new clinic based on the user id and the user data from the request
-			$clinic = Clinic::create([
-											'id' => $user->id,
-											'business_name' => $request['business_name'],
-										]);
-		}				
-		
+		//return the updated clinic
 		return response()->json(['clinic' => $clinic ], 201);
 	}
 }
