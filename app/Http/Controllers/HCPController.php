@@ -60,7 +60,7 @@ class HCPController extends Controller
 		}	
 	}
 	
-	protected function get_hcp_from_user( $user )
+	public function _get_hcp_from_user( $user )
 	{
 		$hcp = HCP::where( 'id', $user->id )->first();
 			
@@ -86,7 +86,7 @@ class HCPController extends Controller
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 		
 		//Searchs for the HCP of the logged user		
-		$hcp = this->get_hcp_from_user( Auth::guard('api')->user() );
+		$hcp = $this->_get_hcp_from_user( Auth::guard('api')->user() );
 		
 		//Updates the fields
 		$hcp->name = $request["name"];
@@ -96,7 +96,7 @@ class HCPController extends Controller
 		
 		// Adds all the specialities sent
 		if( $request->has('specialities') )		
-			this->add_specialities( $hcp, $request['specialities'] );
+			$this->add_specialities( $hcp, $request['specialities'] );
 			
 		return response()->json([ 'hcp' => ['hcp' => $hcp, 'specialities' => $hcp->specialities()->get() ] ], 201);
 	}
