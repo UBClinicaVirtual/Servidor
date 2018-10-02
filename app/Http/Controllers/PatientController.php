@@ -27,7 +27,7 @@ class PatientController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['update_profile', 'search']]);
+        $this->middleware('guest', ['except' => [ 'get_profile','update_profile', 'search']]);
     }
 	
 	public function search(Request $request )
@@ -68,6 +68,11 @@ class PatientController extends Controller
 		return $patient;
 	}
 	
+	public function get_profile(Request $request )
+	{
+		return Auth::guard('api')->user();
+	}
+	
 	public function update_profile(Request $request )
 	{
 		//get the validator for the creation
@@ -77,7 +82,7 @@ class PatientController extends Controller
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 		
 		//Get the patient profile from the user
-		$patient = $this->_get_patient_from_user( Auth::guard('api')->user() );				
+		$patient = $this->_get_patient_from_user( Auth::guard('api')->user() );
 		
 		//update the fields for the patient
 		$patient->name = $request["name"];
