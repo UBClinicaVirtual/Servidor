@@ -278,6 +278,45 @@
 }
 ```
 
+### Get the HCP profile information of the user's account with an api_token
+
+- uri: /user/hcp
+- method: `'GET'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "hcp": {
+        "hcp": {
+            "id": 6,
+            "created_at": "2018-10-02 12:46:23",
+            "updated_at": "2018-10-02 12:46:23",
+            "name": "Un medico clinico",
+            "registration_number": "123456",
+            "identification_number": "321456"
+        },
+        "specialities": [
+            {
+                "id": 1,
+                "name": "Guardia 2",
+                "active": 1,
+                "created_at": "2018-09-28 13:10:01",
+                "updated_at": "2018-09-28 13:12:45"
+            }
+        ]
+    }
+}
+```
+
 ### Search a HCP
 
 - uri: /hcp/search
