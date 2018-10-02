@@ -60,18 +60,8 @@ class HCPController extends Controller
 		}	
 	}
 	
-	public function update_profile(Request $request )
+	protected function get_hcp_from_user( $user )
 	{
-
-		//get the validator for the creation
-		$validator = $this->validateProfileRequest( $request );
-		
-		if( $validator->fails() ) 
-			return response()->json( [ "msg" => $validator->errors() ], 403);
-		
-		//Searchs for the HCP of the logged user
-		$user = Auth::guard('api')->user();
-		
 		$hcp = HCP::where( 'id', $user->id )->first();
 			
 		if( !$hcp )
@@ -81,7 +71,22 @@ class HCPController extends Controller
 								
 			//Forces the id of the HCP
 			$hcp->id = $user->id;
-		}
+		}	
+		
+		return $hcp;
+	}
+	
+	public function update_profile(Request $request )
+	{
+
+		//get the validator for the creation
+		$validator = $this->validateProfileRequest( $request );
+		
+		if( $validator->fails() ) 
+			return response()->json( [ "msg" => $validator->errors() ], 403);
+		
+		//Searchs for the HCP of the logged user		
+		$hcp = this->get_hcp_from_user( Auth::guard('api')->user() );
 		
 		//Updates the fields
 		$hcp->name = $request["name"];
