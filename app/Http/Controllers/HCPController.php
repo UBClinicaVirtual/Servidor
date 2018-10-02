@@ -79,7 +79,7 @@ class HCPController extends Controller
 	public function get_profile(Request $request )
 	{
 		$hcp = Auth::guard('api')->user()->hcp()->first();
-		return response()->json([ 'hcp' => ['hcp' => $hcp, 'specialities' => $hcp->specialities()->get() ] ], 200);
+		return response()->json([ 'hcp' => ['hcp' => $hcp, 'specialities' => $hcp == null ? [] : $hcp->specialities()->get() ] ], 200);
 	}
 	
 	public function update_profile(Request $request )
