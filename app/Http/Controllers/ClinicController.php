@@ -92,4 +92,13 @@ class ClinicController extends Controller
 		//return the updated clinic
 		return response()->json(['clinic' => $clinic ], 201);
 	}
+	
+	/*
+	* Adds to the current clinic the list of hcp and specialities
+	*/
+	public function add_hcpspecialities( Request $request)
+	{
+	
+		return response()->json(['clinic' =>  Auth::guard('api')->user()->clinic() ], 403);
+	}
 }

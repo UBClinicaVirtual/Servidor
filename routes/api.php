@@ -46,12 +46,14 @@ Route::group(['prefix'=>'/v1'], function(){
 			Route::post('/patient', 'PatientController@update_profile');
 			Route::get('/hcp', 'HCPController@get_profile');
 			Route::post('/hcp', 'HCPController@update_profile');
+			
+			Route::post('/hcpspecialities', 'ClinicController@add_hcpspecialities');
 		});
 		
 		//Group for all the clinic related messages		
 		Route::group(['prefix'=>'/clinic'], function(){
 			//http://laravel.win/api/v1/clinic
-			Route::post('/search', 'ClinicController@search');
+			Route::post('/search', 'ClinicController@search');			
 		});
 		
 		//Group for all the clinic related messages		
