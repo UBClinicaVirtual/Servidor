@@ -41,6 +41,6 @@ class HCP extends Model
 	
 	public function clinics()
 	{
-		return $this->belongsToMany('App\Clinic', 'ClinicHCPSpecialities', 'id_hcp', 'id_hcp' );
+		return $this->belongsToMany('App\Clinic', 'ClinicHCPSpecialities', 'id_hcp', 'id_clinic' );
 	}
 }

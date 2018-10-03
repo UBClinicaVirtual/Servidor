@@ -33,4 +33,13 @@ class Clinic extends Model
 	{
 		return $query->where( 'business_name', 'like', '%' . $business_name . '%' );
 	}
+	
+	/*
+	* The hcps that belong to the Clinic
+	*/
+	
+	public function hcps()
+	{
+		return $this->belongsToMany('App\HCP', 'ClinicHCPSpecialities', 'id_clinic', 'id_hcp' );
+	}	
 } 
