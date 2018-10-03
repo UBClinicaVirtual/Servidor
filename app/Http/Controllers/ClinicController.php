@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Searchers\ClinicSearch\ClinicSearch as ClinicSearch;
 use App\Clinic as Clinic;
 
+use App\HCP as HCP;
+use App\Speciality as Speciality;
+
 class ClinicController extends Controller
 {
     /*
@@ -28,7 +31,7 @@ class ClinicController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => [ 'get_profile', 'update_profile', 'search']]);
+        $this->middleware('guest', ['except' => [ 'add_hcpspecialities', 'get_profile', 'update_profile', 'search']]);
     }
 	
 	protected function validateRequestClinicSearch(Request $request)
@@ -98,7 +101,13 @@ class ClinicController extends Controller
 	*/
 	public function add_hcpspecialities( Request $request)
 	{
-	
-		return response()->json(['clinic' =>  Auth::guard('api')->user()->clinic() ], 403);
+		$clinic = Auth::guard('api')->user()->clinic()->first();
+		
+		$hcp = HCP::where('id', 6)->first();
+		$speciality = Speciality::where('id', 1)->first();
+		
+		$clinic->hcps()->attach( $hcp, [ 'id_speciality' => 1 ]);
+		
+		return response()->json(['clinic' => $clinic ], 200);
 	}
 }
