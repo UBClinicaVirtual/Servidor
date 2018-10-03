@@ -552,6 +552,40 @@
 }
 ```
 
+### Get the appointments for the patient profile of the current user
+
+- uri: /user/patient/appointments
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "appointments": [
+        {
+            "id_appointment": 753,
+            "id_clinic": 123,
+            "clinic_name": "Clinica de la trinidad",
+            "id_speciality": 789,
+            "speciality_name": "Guardia de ginecologia",
+            "id_hcp": 8560,
+            "hcp_name": "Juan Jose Ingenieros",
+            "appointment_date": "2018/01/02 12:57",
+            "appointment_state": 1,
+            "appointment_state_label": "Pending"
+        }
+    ]
+}
+```
+
 [? back to top](#table-of-contents)
 
 ## Contributing
