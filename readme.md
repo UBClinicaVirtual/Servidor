@@ -42,6 +42,8 @@
 	- http: http://www.ubclinicavirtual.tk/api/v1
 	- https: https://ubclinicavirtual.000webhostapp.com/api/v1
 	
+### List of current methods
+- [Register with gmail](#register-with-gmail)
 
 ### Register with gmail
 
