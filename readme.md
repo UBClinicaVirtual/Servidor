@@ -46,6 +46,7 @@
 - User
 	- [Register with gmail](#register-with-gmail)
 - Appointments
+	- [Get the appointments for the HCP profile of the current user](#get-the-appointments-for-the-hcp-profile-of-the-current-user)
 	- [Get the appointments for the patient profile of the current user](#get-the-appointments-for-the-patient-profile-of-the-current-user)
 
 ### Register with gmail
@@ -595,6 +596,51 @@
             "speciality_name": "Traumatologo",
             "id_hcp": 9988,
             "hcp_name": "Bernabe Marquez",
+            "appointment_date": "2018/04/01 16:90",
+            "appointment_state": 1,
+            "appointment_state_label": "Pending"
+        }
+    ]
+}
+```
+
+### Get the appointments for the hcp profile of the current user
+
+- uri: /user/hcp/appointments
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "appointments": [
+        {
+            "id_appointment": 753,
+            "id_clinic": 123,
+            "clinic_name": "Clinica de la trinidad",
+            "id_speciality": 789,
+            "speciality_name": "Guardia de ginecologia",
+            "id_patient": 1425,
+            "patient_name": "Jesus de Nazaret",
+            "appointment_date": "2018/01/02 12:57",
+            "appointment_state": 1,
+            "appointment_state_label": "Pending"
+        },
+        {
+            "id_appointment": 8820,
+            "id_clinic": 123,
+            "clinic_name": "Clinica de la trinidad",
+            "id_speciality": 124,
+            "speciality_name": "Traumatologo",
+            "id_patient": "Garcia Marquez",
             "appointment_date": "2018/04/01 16:90",
             "appointment_state": 1,
             "appointment_state_label": "Pending"
