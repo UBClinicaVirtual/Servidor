@@ -43,7 +43,10 @@
 	- https: https://ubclinicavirtual.000webhostapp.com/api/v1
 	
 ### List of current methods
-- [Register with gmail](#register-with-gmail)
+- User
+	- [Register with gmail](#register-with-gmail)
+- Appointments
+	- [Get the appointments for the patient profile of the current user](#get-the-appointments-for-the-patient-profile-of-the-current-user)
 
 ### Register with gmail
 
@@ -581,6 +584,18 @@
             "id_hcp": 8560,
             "hcp_name": "Juan Jose Ingenieros",
             "appointment_date": "2018/01/02 12:57",
+            "appointment_state": 1,
+            "appointment_state_label": "Pending"
+        },
+        {
+            "id_appointment": 8820,
+            "id_clinic": 123,
+            "clinic_name": "Clinica de la trinidad",
+            "id_speciality": 124,
+            "speciality_name": "Traumatologo",
+            "id_hcp": 9988,
+            "hcp_name": "Bernabe Marquez",
+            "appointment_date": "2018/04/01 16:90",
             "appointment_state": 1,
             "appointment_state_label": "Pending"
         }
