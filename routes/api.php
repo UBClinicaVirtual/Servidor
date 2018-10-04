@@ -39,9 +39,13 @@ Route::group(['prefix'=>'/v1'], function(){
 			return response()->json( Auth::guard('api')->user(), 201);
 		});
 		
-		Route::group(['prefix'=>'/user'], function(){
-			Route::get('/clinic', 'ClinicController@get_profile');
-			Route::post('/clinic', 'ClinicController@update_profile');
+		Route::group(['prefix'=>'/user'], function(){		
+			Route::group(['prefix'=>'/clinic'], function(){
+				Route::get('', 'ClinicController@get_profile');
+				Route::post('', 'ClinicController@update_profile');
+				
+				Route::post('/appointments', 'ClinicController@search_appointments');
+			});
 			
 			Route::group(['prefix'=>'/patient'], function(){
 				Route::get('', 'PatientController@get_profile');
@@ -51,8 +55,8 @@ Route::group(['prefix'=>'/v1'], function(){
 			});
 			
 			Route::group(['prefix'=>'/hcp'], function(){
-				Route::get('/', 'HCPController@get_profile');
-				Route::post('/', 'HCPController@update_profile');
+				Route::get('', 'HCPController@get_profile');
+				Route::post('', 'HCPController@update_profile');
 				
 				Route::post('/appointments', 'HCPController@search_appointments');
 			});
