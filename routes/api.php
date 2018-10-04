@@ -50,8 +50,12 @@ Route::group(['prefix'=>'/v1'], function(){
 				Route::post('/appointments', 'PatientController@search_appointments');
 			});
 			
-			Route::get('/hcp', 'HCPController@get_profile');
-			Route::post('/hcp', 'HCPController@update_profile');
+			Route::group(['prefix'=>'/hcp'], function(){
+				Route::get('/', 'HCPController@get_profile');
+				Route::post('/', 'HCPController@update_profile');
+				
+				Route::post('/appointments', 'HCPController@search_appointments');
+			});
 		});
 		
 		//Group for all the clinic related messages		
