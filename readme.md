@@ -42,6 +42,11 @@
 	- http: http://www.ubclinicavirtual.tk/api/v1
 	- https: https://ubclinicavirtual.000webhostapp.com/api/v1
 	
+### List of current methods
+- User
+	- [Register with gmail](#register-with-gmail)
+- Appointments
+	- [Get the appointments for the patient profile of the current user](#get-the-appointments-for-the-patient-profile-of-the-current-user)
 
 ### Register with gmail
 
@@ -547,6 +552,52 @@
             "active": 1,
             "created_at": "2018-09-28 13:17:08",
             "updated_at": "2018-09-28 13:17:08"
+        }
+    ]
+}
+```
+
+### Get the appointments for the patient profile of the current user
+
+- uri: /user/patient/appointments
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "appointments": [
+        {
+            "id_appointment": 753,
+            "id_clinic": 123,
+            "clinic_name": "Clinica de la trinidad",
+            "id_speciality": 789,
+            "speciality_name": "Guardia de ginecologia",
+            "id_hcp": 8560,
+            "hcp_name": "Juan Jose Ingenieros",
+            "appointment_date": "2018/01/02 12:57",
+            "appointment_state": 1,
+            "appointment_state_label": "Pending"
+        },
+        {
+            "id_appointment": 8820,
+            "id_clinic": 123,
+            "clinic_name": "Clinica de la trinidad",
+            "id_speciality": 124,
+            "speciality_name": "Traumatologo",
+            "id_hcp": 9988,
+            "hcp_name": "Bernabe Marquez",
+            "appointment_date": "2018/04/01 16:90",
+            "appointment_state": 1,
+            "appointment_state_label": "Pending"
         }
     ]
 }
