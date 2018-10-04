@@ -28,7 +28,7 @@ class HCPController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => [ 'get_profile', 'update_profile', 'search']]);
+        $this->middleware('auth:api');
     }
 	
 	public function search(Request $request )
