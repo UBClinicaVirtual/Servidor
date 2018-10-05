@@ -11,6 +11,9 @@ use App\Clinic as Clinic;
 
 use App\Http\Controllers\AppointmentController as AppointmentController;
 
+use App\HCP as HCP;
+use App\Speciality as Speciality;
+
 class ClinicController extends Controller
 {
     /*
@@ -95,7 +98,23 @@ class ClinicController extends Controller
 		return response()->json(['clinic' => $clinic ], 201);
 	}
 	
+	/*
+	* Adds to the current clinic the list of hcp and specialities
+	*/
+	public function add_hcpspecialities( Request $request)
+	{
+		$clinic = Auth::guard('api')->user()->clinic()->first();
+		
+		$hcp = HCP::where('id', 6)->first();
+		$speciality = Speciality::where('id', 1)->first();
+		
+		$clinic->hcps()->attach( $hcp, [ 'id_speciality' => 1 ]);
+		
+		return response()->json(['clinic' => $clinic ], 200);
+	}
+
 	public function search_appointments( Request $request){
 		return response()->json(['appointments' => AppointmentController::search( $request ) ], 200);
 	}	
+
 }
