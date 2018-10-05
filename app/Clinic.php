@@ -39,8 +39,19 @@ class Clinic extends Model
 	*/
 	
 	public function hcps()
-	{
-		return $this->belongsToMany('App\HCP', 'ClinicHCPSpecialities', 'id_clinic', 'id_hcp' );
+	{		
+		return $this->belongsToMany('App\HCPSpeciality', 'ClinicHCPSpecialities', 'id_clinic', 'id_hcp_speciality' )
+					->withPivot('id_hcp_speciality')
+					->join('HCPs', 'HCPs.id', '=', 'HCPSpecialities.id_hcp')
+					->select('HCPs.*');		
+/*
+		return $this->hasManyThrough('App\HCPSpeciality', 
+									'App\ClinicHCPSpeciality', 
+									'id_clinic', 
+									'id', 
+									'id', 
+									'id_hcp_speciality')->belongsToMany('App\HCP', 'HCPSpecialities', 'id', 'id_hcp' );
+*/									
 	}		
 	
 	/*
@@ -49,6 +60,9 @@ class Clinic extends Model
 	
 	public function specialities()
 	{
-		return $this->belongsToMany('App\Speciality', 'ClinicHCPSpecialities', 'id_clinic', 'id_speciality' );
+		return $this->belongsToMany('App\HCPSpeciality', 'ClinicHCPSpecialities', 'id_clinic', 'id_hcp_speciality' )
+					->withPivot('id_hcp_speciality')
+					->join('Specialities', 'Specialities.id', '=', 'HCPSpecialities.id_speciality')
+					->select('Specialities.*');		
 	}	
 } 
