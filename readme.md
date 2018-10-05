@@ -48,6 +48,7 @@
 - Clinic administration
 	- [Adds a HCPs with theirs specialities to the clinic profile](#adds-a-hcps-with-theirs-specialities-to-the-clinic-profile)
 	- [Searchs the HCPs with theirs specialities to the clinic profile with a criteria](#searchs-the-hcps-with-theirs-specialities-to-the-clinic-profile-with-a-criteria)
+	- [Adds a HCP and Speciality to the clinic schedule](#Adds-a-HCP-and-Speciality-to-the-clinic-schedule)
 - Appointments
 	- [Get the appointments for the Clinic profile of the current user](#get-the-appointments-for-the-clinic-profile-of-the-current-user)
 	- [Get the appointments for the HCP profile of the current user](#get-the-appointments-for-the-hcp-profile-of-the-current-user)
@@ -698,7 +699,7 @@
 }
 ```
 
-Adds a HCPs with theirs specialities to the clinic profile
+### Adds a HCPs with theirs specialities to the clinic profile
 - uri: /user/clinic/hcpspecialities
 - method: `'POST'`
 - headers:
@@ -718,7 +719,7 @@ Adds a HCPs with theirs specialities to the clinic profile
 }
 ```
 
-Searchs the HCPs with theirs specialities to the clinic profile with a criteria
+### Searchs the HCPs with theirs specialities to the clinic profile with a criteria
 - uri: /user/clinic/hcpspecialities/search
 - method: `'POST'`
 - headers:
@@ -735,6 +736,57 @@ Searchs the HCPs with theirs specialities to the clinic profile with a criteria
 ```json
 {
 
+}
+```
+
+### Adds a HCP and Speciality to the clinic schedule
+- uri: /user/clinic/schedule
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"hcps":[
+			{
+				"id_hcp": 124,
+				"schedule": [ {
+								"id_speciality": 477,
+								"day_of_the_week": "Monday"
+							},{
+								"id_speciality": 749,
+								"day_of_the_week": "Wednesday"
+							}
+							]
+			}
+			]
+}
+```
+
+- response:
+```json
+{
+}
+```
+
+### Gets the HCP and Speciality to the clinic schedule
+- uri: /user/clinic/schedule/search
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
 }
 ```
 
