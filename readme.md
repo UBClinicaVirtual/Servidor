@@ -45,6 +45,9 @@
 ### List of current methods
 - User
 	- [Register with gmail](#register-with-gmail)
+- Clinic administration
+	- [Adds a HCPs with theirs specialities to the clinic profile](#adds-a-hcps-with-theirs-specialities-to-the-clinic-profile)
+	- [Searchs the HCPs with theirs specialities to the clinic profile with a criteria](#searchs-the-hcps-with-theirs-specialities-to-the-clinic-profile-with-a-criteria)
 - Appointments
 	- [Get the appointments for the Clinic profile of the current user](#get-the-appointments-for-the-clinic-profile-of-the-current-user)
 	- [Get the appointments for the HCP profile of the current user](#get-the-appointments-for-the-hcp-profile-of-the-current-user)
@@ -692,6 +695,46 @@
             "appointment_state_label": "Pending"
         }
     ]
+}
+```
+
+Adds a HCPs with theirs specialities to the clinic profile
+- uri: /user/clinic/hcpspecialities
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+
+}
+```
+
+Searchs the HCPs with theirs specialities to the clinic profile with a criteria
+- uri: /user/clinic/hcpspecialities/search
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+
 }
 ```
 
