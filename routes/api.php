@@ -39,15 +39,28 @@ Route::group(['prefix'=>'/v1'], function(){
 			return response()->json( Auth::guard('api')->user(), 201);
 		});
 		
-		Route::group(['prefix'=>'/user'], function(){
-			Route::get('/clinic', 'ClinicController@get_profile');
-			Route::post('/clinic', 'ClinicController@update_profile');
-			Route::get('/patient', 'PatientController@get_profile');
-			Route::post('/patient', 'PatientController@update_profile');
-			Route::get('/hcp', 'HCPController@get_profile');
-			Route::post('/hcp', 'HCPController@update_profile');
+		Route::group(['prefix'=>'/user'], function(){		
+			Route::group(['prefix'=>'/clinic'], function(){
+				Route::get('', 'ClinicController@get_profile');
+				Route::post('', 'ClinicController@update_profile');
+				
+				Route::post('/appointments', 'ClinicController@search_appointments');
+        Route::post('/hcpspecialities', 'ClinicController@add_hcpspecialities');
+			});
 			
-			Route::post('/hcpspecialities', 'ClinicController@add_hcpspecialities');
+			Route::group(['prefix'=>'/patient'], function(){
+				Route::get('', 'PatientController@get_profile');
+				Route::post('', 'PatientController@update_profile');
+				
+				Route::post('/appointments', 'PatientController@search_appointments');
+			});
+			
+			Route::group(['prefix'=>'/hcp'], function(){
+				Route::get('', 'HCPController@get_profile');
+				Route::post('', 'HCPController@update_profile');
+				
+				Route::post('/appointments', 'HCPController@search_appointments');
+			});
 		});
 		
 		//Group for all the clinic related messages		
