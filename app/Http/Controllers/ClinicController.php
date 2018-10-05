@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Searchers\ClinicSearch\ClinicSearch as ClinicSearch;
 use App\Clinic as Clinic;
 
+use App\Http\Controllers\AppointmentController as AppointmentController;
+
 use App\HCP as HCP;
 use App\Speciality as Speciality;
 
@@ -112,31 +114,7 @@ class ClinicController extends Controller
 	}
 
 	public function search_appointments( Request $request){
-		return response()->json(['appointments' => [ [ 	
-														"id_appointment" => 753, 
-														"id_speciality" => 789, 
-														"speciality_name" => "Guardia de ginecologia",
-														"id_hcp" => 963, 
-														"hcp_name" => "Medico de guardia",														
-														"id_patient" => 1425, 
-														"patient_name" => "Jesus de Nazaret",
-														"appointment_date" => "2018/01/02 12:57",
-														"appointment_state" => 1,
-														"appointment_state_label" => "Pending",
-														],
-														[ 	
-														"id_appointment" => 8820, 
-														"id_speciality" => 124, 
-														"speciality_name" => "Traumatologo",
-														"id_hcp" => 2458, 
-														"hcp_name" => "Otro Medico de otra especialidad",														
-														"id_patient" => 1024, 
-														"id_patient" => "Garcia Marquez",
-														"appointment_date" => "2018/04/01 16:90",
-														"appointment_state" => 1,
-														"appointment_state_label" => "Pending",
-														],														
-													] ], 200);
+		return response()->json(['appointments' => AppointmentController::search( $request ) ], 200);
 	}	
 
 }
