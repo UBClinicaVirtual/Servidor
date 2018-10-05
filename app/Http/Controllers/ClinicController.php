@@ -125,6 +125,22 @@ class ClinicController extends Controller
 	public function add_schedule( Request $request)
 	{
 		$clinic = Auth::guard('api')->user()->clinic()->firstOrFail();
+
+		$hcps = $request['hcps'];
+
+		foreach( $hcps as $hcp )
+		{
+			$specialities = $hcp['specialities'];
+
+			$hcp = HCP::findOrFail( $hcp['id_hcp'] );
+
+			foreach( $scpecialities as $speciality )
+			{
+				$day_of_the_week = $speciality['day_of_the_week'];
+				$speciality = Speciality::findOrFail( $speciality['id_speciality'] );				
+			}
+
+		}
 /*		
 		$hcp = HCP::findOrFail(4);
 		$speciality = Speciality::findOrFail(1);
