@@ -33,17 +33,15 @@ class Clinic extends Model
 	{
 		return $query->where( 'business_name', 'like', '%' . $business_name . '%' );
 	}
-	
+		
 	/*
 	* The hcps that belong to the Clinic
 	*/
 	
 	public function hcps()
 	{		
-		return $this->belongsToMany('App\HCPSpeciality', 'ClinicHCPSpecialities', 'id_clinic', 'id_hcp_speciality' )
-					->withPivot('id_hcp_speciality')
-					->join('HCPs', 'HCPs.id', '=', 'HCPSpecialities.id_hcp')
-					->select('HCPs.*');		
+		return $this->joins_specialities( $this->joins_hcps( $this->hcpspecialities() ) )
+					->select('HCPs.*' );
 /*
 		return $this->hasManyThrough('App\HCPSpeciality', 
 									'App\ClinicHCPSpeciality', 
@@ -60,9 +58,22 @@ class Clinic extends Model
 	
 	public function specialities()
 	{
-		return $this->belongsToMany('App\HCPSpeciality', 'ClinicHCPSpecialities', 'id_clinic', 'id_hcp_speciality' )
-					->withPivot('id_hcp_speciality')
-					->join('Specialities', 'Specialities.id', '=', 'HCPSpecialities.id_speciality')
+		return $this->joins_specialities( $this->hcpspecialities() )					
 					->select('Specialities.*');		
+	}	
+
+	protected function hcpspecialities()
+	{
+		return $this->belongsToMany('App\HCPSpeciality', 'ClinicHCPSpecialities', 'id_clinic', 'id_hcp_speciality' );
+	}
+
+	protected function joins_hcps( $query )
+	{
+		return $query->join('HCPs', 'HCPs.id', '=', 'HCPSpecialities.id_hcp');
+	}
+
+	protected function joins_specialities( $query )
+	{
+		return $query->join('Specialities', 'Specialities.id', '=', 'HCPSpecialities.id_speciality');
 	}	
 } 
