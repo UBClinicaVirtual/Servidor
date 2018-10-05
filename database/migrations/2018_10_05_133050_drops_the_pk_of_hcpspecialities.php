@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableClinicHcpSpecialities extends Migration
+class DropsThePkOfHcpspecialities extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateTableClinicHcpSpecialities extends Migration
      */
     public function up()
     {
-        Schema::create('ClinicHCPSpecialities', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_clinic');
-            $table->integer('id_hcp_speciality');
-            $table->timestamps();
+        Schema::table('HCPSpecialities', function (Blueprint $table) {
+            $table->dropPrimary(['id_hcp', 'id_speciality']);
         });
     }
 
@@ -28,6 +25,8 @@ class CreateTableClinicHcpSpecialities extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ClinicHCPSpecialities');
+        Schema::table('HCPSpecialities', function (Blueprint $table) {
+            $table->primary(['id_hcp', 'id_speciality']);
+        });
     }
 }
