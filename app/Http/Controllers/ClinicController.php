@@ -110,4 +110,12 @@ class ClinicController extends Controller
 */		
 		return response()->json(['clinic' => $clinic->hcps()->get() ], 200);
 	}
+	
+	/*
+	* Gets all the hcps and their specialities that meet the filter
+	*/
+	public function search_hcpspecialities(Request $request)
+	{
+		return response()->json(['hcps' => [] ], 200);
+	}
 }

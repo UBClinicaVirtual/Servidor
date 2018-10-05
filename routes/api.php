@@ -45,7 +45,10 @@ Route::group(['prefix'=>'/v1'], function(){
 				Route::post('', 'ClinicController@update_profile');
 				
 				Route::post('/appointments', 'ClinicController@search_appointments');
-        Route::post('/hcpspecialities', 'ClinicController@add_hcpspecialities');
+				Route::group(['prefix'=>'/hcpspecialities'], function(){
+					Route::post('', 'ClinicController@add_hcpspecialities');
+					Route::post('/search', 'ClinicController@search_hcpspecialities');
+				});
 			});
 			
 			Route::group(['prefix'=>'/patient'], function(){
