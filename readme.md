@@ -771,7 +771,7 @@
 }
 ```
 
-### Gets the HCP and Speciality to the clinic schedule
+### Gets the HCP and Speciality of the clinic schedule
 - uri: /user/clinic/schedule/search
 - method: `'POST'`
 - headers:
