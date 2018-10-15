@@ -117,5 +117,44 @@ class ClinicController extends Controller
 	public function search_hcpspecialities(Request $request)
 	{
 		return response()->json(['hcps' => [] ], 200);
+	}	
+	
+	/*
+	* Adds to the current clinic schedule a hcp and speciality
+	*/
+	public function add_schedule( Request $request)
+	{
+		$clinic = Auth::guard('api')->user()->clinic()->firstOrFail();
+
+		$hcps = $request['hcps'];
+
+		foreach( $hcps as $hcp )
+		{
+			$specialities = $hcp['specialities'];
+
+			$hcp = HCP::findOrFail( $hcp['id_hcp'] );
+
+			foreach( $scpecialities as $speciality )
+			{
+				$day_of_the_week = $speciality['day_of_the_week'];
+				$speciality = Speciality::findOrFail( $speciality['id_speciality'] );				
+			}
+
+		}
+/*		
+		$hcp = HCP::findOrFail(4);
+		$speciality = Speciality::findOrFail(1);
+		
+		$clinic->hcps()->attach( $hcp, [ 'id_speciality' => 1 ]);
+*/
+		return response()->json(['schedule' => $clinic->hcps()->get() ], 200);
+	}
+	
+	/*
+	* Gets all the hcps and their specialities that meet the filter in the schedule
+	*/
+	public function search_schedule(Request $request)
+	{
+		return response()->json(['schedule' => [] ], 200);
 	}
 }

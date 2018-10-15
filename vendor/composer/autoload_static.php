@@ -435,6 +435,8 @@ class ComposerStaticInitfdaefcc3fe1f5d67d8427e41b04e6f33
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\HCP' => __DIR__ . '/../..' . '/app/HCP.php',
+        'App\\HCPSpeciality' => __DIR__ . '/../..' . '/app/HCPSpeciality.php',
+        'App\\Http\\Controllers\\AppointmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/AppointmentController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\GmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/GmailController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
