@@ -54,7 +54,7 @@ class PatientController extends Controller
 	| gets the patient from the user profile
 	| TODO: change to use the eloquent relationship
 	*/
-	public function _get_patient_from_user( $user )
+	protected function get_patient_from_user( $user )
 	{
 		$patient = $user->patient()->first();
 			
@@ -84,7 +84,7 @@ class PatientController extends Controller
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 		
 		//Get the patient profile from the user
-		$patient = $this->_get_patient_from_user( Auth::guard('api')->user() );
+		$patient = $this->get_patient_from_user( Auth::guard('api')->user() );
 		
 		//update the fields for the patient
 		$patient->name = $request["name"];

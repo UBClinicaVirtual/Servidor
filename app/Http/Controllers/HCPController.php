@@ -62,7 +62,7 @@ class HCPController extends Controller
 		}	
 	}
 	
-	public function _get_hcp_from_user( $user )
+	protected function get_hcp_from_user( $user )
 	{
 		$hcp = $user->hcp()->first();
 			
@@ -94,7 +94,7 @@ class HCPController extends Controller
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 		
 		//Searchs for the HCP of the logged user		
-		$hcp = $this->_get_hcp_from_user( Auth::guard('api')->user() );
+		$hcp = $this->get_hcp_from_user( Auth::guard('api')->user() );
 		
 		//Updates the fields
 		$hcp->name = $request["name"];
