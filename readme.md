@@ -71,19 +71,18 @@
 - response:
 ```json
 {
-    "data": {
+    "user": {
         "id": 6,
-        "name": "walter ub",
+        "first_name": "walter",
+        "last_name": "ub",
         "email": "ubelarga@gmail.com",
-        "email_verified_at": null,
         "created_at": "2018-09-20 17:30:52",
         "updated_at": "2018-09-27 15:06:20",
         "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
-        "active": 1
-    },
-    "gmail": {
-        "name": "walter ub",
-        "email": "ubelarga@gmail.com"
+        "active": 1,
+		"is_patient": false,
+		"is_hcp": false,
+		"is_clinic": false
     }
 }
 ```
@@ -105,19 +104,18 @@
 - response:
 ```json
 {
-    "data": {
+    "user": {
         "id": 6,
-        "name": "walter ub",
+        "first_name": "walter",
+        "last_name": "ub",
         "email": "ubelarga@gmail.com",
-        "email_verified_at": null,
         "created_at": "2018-09-20 17:30:52",
         "updated_at": "2018-09-27 15:06:20",
         "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
-        "active": 1
-    },
-    "gmail": {
-        "name": "walter ub",
-        "email": "ubelarga@gmail.com"
+        "active": 1,
+		"is_patient": false,
+		"is_hcp": false,
+		"is_clinic": false
     }
 }
 ```  
