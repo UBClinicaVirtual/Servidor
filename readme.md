@@ -45,6 +45,9 @@
 ### List of current methods
 - User
 	- [Register with gmail](#register-with-gmail)
+	- [Login with gmail](#login-with-gmail)
+	- [Get the general user information based in the api_token](#get-the-general-user-information-based-in-the-api_token)
+	- [Logout](#logout-with-an-api_token)
 - Clinic administration
 	- [Adds a HCPs with theirs specialities to the clinic profile](#adds-a-hcps-with-theirs-specialities-to-the-clinic-profile)
 	- [Searchs the HCPs with theirs specialities to the clinic profile with a criteria](#searchs-the-hcps-with-theirs-specialities-to-the-clinic-profile-with-a-criteria)
@@ -136,14 +139,19 @@
 - response:
 ```json
 {
-    "id": 6,
-    "name": "walter ub",
-    "email": "ubelarga@gmail.com",
-    "email_verified_at": null,
-    "created_at": "2018-09-20 17:30:52",
-    "updated_at": "2018-09-27 15:06:20",
-    "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
-    "active": 1
+    "user": {
+        "id": 6,
+        "first_name": "walter",
+        "last_name": "ub",
+        "email": "ubelarga@gmail.com",
+        "created_at": "2018-09-20 17:30:52",
+        "updated_at": "2018-09-27 15:06:20",
+        "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
+        "active": 1,
+		"is_patient": false,
+		"is_hcp": false,
+		"is_clinic": false
+    }
 }
 ```
 
