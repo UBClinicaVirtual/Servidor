@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropsThePkOfHcpspecialities extends Migration
+class CreateGenderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class DropsThePkOfHcpspecialities extends Migration
      */
     public function up()
     {
-        Schema::table('HCPSpecialities', function (Blueprint $table) {
-            $table->dropPrimary(['id_hcp', 'id_speciality']);
+        Schema::create('gender', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +26,6 @@ class DropsThePkOfHcpspecialities extends Migration
      */
     public function down()
     {
-        Schema::table('HCPSpecialities', function (Blueprint $table) {
-            $table->primary(['id_hcp', 'id_speciality']);
-        });
+        Schema::dropIfExists('gender');
     }
 }

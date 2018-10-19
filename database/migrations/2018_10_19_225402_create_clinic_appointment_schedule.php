@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableHpcs extends Migration
+class CreateClinicAppointmentSchedule extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,7 @@ class CreateTableHpcs extends Migration
      */
     public function up()
     {
-        Schema::create('HPCs', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->timestamps();
-        });
+        //
     }
 
     /**
@@ -26,6 +23,6 @@ class CreateTableHpcs extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('HPCs');
+        //
     }
 }
