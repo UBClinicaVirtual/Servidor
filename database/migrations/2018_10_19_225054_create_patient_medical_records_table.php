@@ -16,6 +16,10 @@ class CreatePatientMedicalRecordsTable extends Migration
         Schema::create('patient_medical_records', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('description',2048);
+            $table->integer('appointment_id');
+            
+
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClinicHcpSpecialitiesTable extends Migration
+class CreateClinicHcpSpecialties extends Migration
 {
     /**
      * Run the migrations.
@@ -16,6 +16,8 @@ class CreateClinicHcpSpecialitiesTable extends Migration
         Schema::create('clinic_hcp_specialities', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->integer('clinic_id');
+            $table->integer('hcp_specialty_id');
         });
     }
 

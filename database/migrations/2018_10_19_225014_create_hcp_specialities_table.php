@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClinicHcpSpecialities extends Migration
+class CreateHcpSpecialitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,12 @@ class CreateClinicHcpSpecialities extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('hcp_specialities', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->integer('hcp_id');
+            $table->integer('speciality_id');
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class CreateClinicHcpSpecialities extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('hcp_specialities');
     }
 }
