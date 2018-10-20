@@ -929,12 +929,12 @@
 		{
 			"hcp_speciality_id": 44,
 			"day_of_the_week": 0,
-			"appointment_hour": '18:00'
+			"appointment_hour": "18:00"
 		},
 		{
 			"hcp_speciality_id": 44,
 			"day_of_the_week": 0,
-			"appointment_hour": '19:00'
+			"appointment_hour": "19:00"
 		}
 	]
 }
@@ -975,7 +975,7 @@
 			"speciality_id": 13,
 			"speciality_name": "Guardia",
 			"day_of_the_week": 0,
-			"appointment_hour": '18:00'
+			"appointment_hour": "18:00"
 		},
 		{
 			"id": 157,
@@ -986,7 +986,7 @@
 			"speciality_id": 13,
 			"speciality_name": "Guardia",
 			"day_of_the_week": 0,
-			"appointment_hour": '19:00'
+			"appointment_hour": "19:00"
 		}
 	]
 }
@@ -1020,7 +1020,7 @@
             "hcp_id": 8560,
             "hcp_first_name": "Juan Jose",
             "hcp_last_name": "Ingenieros",
-            "appointment_date": "2018/01/02 12:57",
+            "appointment_date": "2018/01/02 18:00",
             "appointment_status_id": 1,
             "appointment_status_label": "Pending"
     }    
