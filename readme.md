@@ -54,11 +54,11 @@
 	
 	- [Add the HCP profile to the user account with an api_token](#add-the-hcp-profile-to-the-user-account-with-an-api_token)
 	- [Get the HCP profile information of the user account with an api_token](#get-the-hcp-profile-information-of-the-user-account-with-an-api_token)
-	- [Search a HCP](#search a hcp)
+	- [Search a HCP](#search-a-hcp)
 	  
-	- [Add the patient profile to the user account with an api_token(#add-the-patient-profile-to-the-user-account-with-an-api_token)
-	- [Get the patient profile information of the user account with an api_token(#get-the-patient-profile-information-of-the-user-account-with-an-api_token)
-	- [Search a patient(#search-a-patient)
+	- [Add the patient profile to the user account with an api_token](#add-the-patient-profile-to-the-user-account-with-an-api_token)
+	- [Get the patient profile information of the user account with an api_token](#get-the-patient-profile-information-of-the-user-account-with-an-api_token)
+	- [Search a patient](#search-a-patient)
 	
 - Specialities
 	- [Create a new Speciality](#create-a-new-speciality)
