@@ -47,15 +47,17 @@
 	- [Logout](#logout-with-an-api_token)
 	- [Deactivate a user account with an api_token](#deactivate-a-user-account-with-an-api_token)
 	
-- Profiles
+- Clinic Profile
 	- [Add the clinic profile to the user account with an api_token](#add-the-clinic-profile-to-the-user-account-with-an-api_token)
 	- [Get the clinic profile user information based in the api_token](#get-the-clinic-profile-user-information-based-in-the-api_token)
 	- [Search a clinic](#search-a-clinic)
 	
+- HCP Profile	
 	- [Add the HCP profile to the user account with an api_token](#add-the-hcp-profile-to-the-user-account-with-an-api_token)
 	- [Get the HCP profile information of the user account with an api_token](#get-the-hcp-profile-information-of-the-user-account-with-an-api_token)
 	- [Search a HCP](#search-a-hcp)
-	  
+	
+- Patient Profile	  
 	- [Add the patient profile to the user account with an api_token](#add-the-patient-profile-to-the-user-account-with-an-api_token)
 	- [Get the patient profile information of the user account with an api_token](#get-the-patient-profile-information-of-the-user-account-with-an-api_token)
 	- [Search a patient](#search-a-patient)
