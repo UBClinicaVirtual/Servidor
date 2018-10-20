@@ -136,10 +136,10 @@
     },
 	"patient":{
 		"id": 6,
-        "first_name": "walter",
-        "last_name": "ub",        
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",
+		"first_name": "walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
 		"identification_number": "0303456",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
@@ -149,10 +149,10 @@
 	},
 	"hcp":{
 		"id": 6,
-        "first_name": "MD. walter",
-        "last_name": "ub",        
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",
+		"first_name": "MD. walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
 		"identification_number": "0303456",
 		"register_number": "RG3685",
 		"birth_date": "1987-01-01",
@@ -164,9 +164,9 @@
 	},
 	"clinic":{
 		"id": 6,
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",		
-        "business_name": "Clinica San Martin",
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",		
+		"business_name": "Clinica San Martin",
 		"business_number": "2003034567",		
 		"address": "Street 1234",
 		"phone": "1234-4758",
@@ -204,10 +204,10 @@
     },
 	"patient":{
 		"id": 6,
-        "first_name": "walter",
-        "last_name": "ub",        
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",
+		"first_name": "walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
 		"identification_number": "0303456",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
@@ -217,10 +217,10 @@
 	},
 	"hcp":{
 		"id": 6,
-        "first_name": "MD. walter",
-        "last_name": "ub",        
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",
+		"first_name": "MD. walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
 		"identification_number": "0303456",
 		"register_number": "RG3685",
 		"birth_date": "1987-01-01",
@@ -232,9 +232,9 @@
 	},
 	"clinic":{
 		"id": 6,
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",		
-        "business_name": "Clinica San Martin",
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",		
+		"business_name": "Clinica San Martin",
 		"business_number": "2003034567",		
 		"address": "Street 1234",
 		"phone": "1234-4758",
@@ -298,7 +298,7 @@
 ```json
 {
 	"clinic":{
-        "business_name": "Clinica San Martin",
+		"business_name": "Clinica San Martin",
 		"business_number": "2003034567",		
 		"address": "Street 1234",
 		"phone": "1234-4758",
@@ -312,9 +312,9 @@
 {
 	"clinic":{
 		"id": 6,
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",		
-        "business_name": "Clinica San Martin",
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",		
+		"business_name": "Clinica San Martin",
 		"business_number": "2003034567",		
 		"address": "Street 1234",
 		"phone": "1234-4758",
@@ -344,9 +344,9 @@
 {
 	"clinic":{
 		"id": 6,
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",		
-        "business_name": "Clinica San Martin",
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",		
+		"business_name": "Clinica San Martin",
 		"business_number": "2003034567",		
 		"address": "Street 1234",
 		"phone": "1234-4758",
@@ -401,8 +401,8 @@
 ```json
 {
 	"hcp":{
-        "first_name": "MD. walter",
-        "last_name": "ub",        
+		"first_name": "MD. walter",
+		"last_name": "ub",        
 		"identification_number": "0303456",
 		"register_number": "RG3685",
 		"birth_date": "1987-01-01",
@@ -419,10 +419,10 @@
 {
 	"hcp":{
 		"id": 6,
-        "first_name": "MD. walter",
-        "last_name": "ub",        
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",
+		"first_name": "MD. walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
 		"identification_number": "0303456",
 		"register_number": "RG3685",
 		"birth_date": "1987-01-01",
@@ -454,10 +454,10 @@
 {
 	"hcp":{
 		"id": 6,
-        "first_name": "MD. walter",
-        "last_name": "ub",        
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",
+		"first_name": "MD. walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
 		"identification_number": "0303456",
 		"register_number": "RG3685",
 		"birth_date": "1987-01-01",
@@ -519,8 +519,8 @@
 ```json
 {
 	"patient":{
-        "first_name": "walter",
-        "last_name": "ub",        
+		"first_name": "walter",
+		"last_name": "ub",        
 		"identification_number": "0303456",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
@@ -535,10 +535,10 @@
 {
 	"patient":{
 		"id": 6,
-        "first_name": "walter",
-        "last_name": "ub",        
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",
+		"first_name": "walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
 		"identification_number": "0303456",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
@@ -568,10 +568,10 @@
 {
 	"patient":{
 		"id": 6,
-        "first_name": "walter",
-        "last_name": "ub",        
-        "created_at": "2018-09-20 17:30:52",
-        "updated_at": "2018-09-27 15:06:20",
+		"first_name": "walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
 		"identification_number": "0303456",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
@@ -637,10 +637,10 @@
 - response:
 ```json
 {
-    "id": 1,
-    "name": "Guardia",
-    "created_at": "2018-09-28 13:17:08",
-    "updated_at": "2018-09-28 13:17:08"
+	"id": 1,
+	"name": "Guardia",
+	"created_at": "2018-09-28 13:17:08",
+	"updated_at": "2018-09-28 13:17:08"
 }
 ```
 
