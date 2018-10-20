@@ -168,8 +168,8 @@
 		"business_number": "2003034567",		
 		"address": "Street 1234",
 		"phone": "1234-4758",
-		"hcp_specialities": [ {"id": 44, "hcp_id": 33, "speciality_id": 12}]
-		"hcps": [ {"id": 33, "first_name": "Dr. Juan", "last_name": "Perez"} ]
+		"hcp_specialities": [ {"id": 44, "hcp_id": 33, "speciality_id": 12}],
+		"hcps": [ {"id": 33, "first_name": "Dr. Juan", "last_name": "Perez"} ],
 		"specialities": [ {"id": 12, "name": "Guardia"} ]
 	}
 	
