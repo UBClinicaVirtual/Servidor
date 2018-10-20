@@ -80,6 +80,10 @@
 	- [Get the appointments for the HCP profile of the current user](#get-the-appointments-for-the-hcp-profile-of-the-current-user)
 	- [Get the appointments for the patient profile of the current user](#get-the-appointments-for-the-patient-profile-of-the-current-user)
 
+- Patient
+	- [Get the medical records of the current user](#get-the-medical-records-of-the-current-user)
+	- [Get the medical records of a patient](#get-the-medical-records-of-a-patient)
+	
 ### Register with gmail
 
 - uri: /register
@@ -1026,6 +1030,81 @@
             "appointment_status_id": 1,
             "appointment_status_label": "Pending"
     }    
+}
+```
+
+### Get the medical records of the current user
+
+- uri: /user/patient/mrecords
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "medical_records": 
+	[
+		{
+			"id": 999,
+			"description": "Presenta cuadro febril. Se receta ibuprofeno",
+			"clinic_id": 2
+			"clinic_name": "Clinica de la trinidad",
+			"speciality_id": 789,
+			"speciality_name": "Guardia de ginecologia",
+			"hcp_id": 8560,
+			"hcp_first_name": "Juan Jose",
+			"hcp_last_name": "Ingenieros",
+			"appointment_id": 1475,
+			"appointment_date": "2018/01/02 18:00"
+			"record_date": "2018/01/02 18:14"
+		}   
+	]
+}
+```
+
+### Get the medical records of a patient
+
+- uri: /user/patient/mrecords
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"patient_id": 142
+}
+```
+
+- response:
+```json
+{
+    "medical_records": 
+	[
+		{
+			"id": 999,
+			"description": "Presenta cuadro febril. Se receta ibuprofeno",
+			"clinic_id": 2
+			"clinic_name": "Clinica de la trinidad",
+			"speciality_id": 789,
+			"speciality_name": "Guardia de ginecologia",
+			"hcp_id": 8560,
+			"hcp_first_name": "Juan Jose",
+			"hcp_last_name": "Ingenieros",
+			"appointment_id": 1475,
+			"appointment_date": "2018/01/02 18:00"
+			"record_date": "2018/01/02 18:14"
+		}   
+	]
 }
 ```
 
