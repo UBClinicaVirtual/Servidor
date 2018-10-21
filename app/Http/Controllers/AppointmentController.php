@@ -4,11 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
     static public function search(Request $request)
 	{
+		$appointments = DB::table('appointments')
+						->select(
+						'appointments.id',
+						'hcps.id as hcp_id', 'hcps.first_name as hcp_first_name', 'hcps.last_name as hcp_last_name', 
+						'clinics.id as clinic_id', 'clinics.business_name as clinic_business_name', 
+						'specialities.id as speciality_id', 'specialities.name as speciality_name', 
+						'patients.id as patient_id', 'patients.first_name as patient_first_name', 'patients.last_name as patient_last_name', 
+						'appointment_date',
+						'appointment_status_id',
+						'appointment_status.name as appointment_status_name'
+						)						
+						->join('clinic_appointment_schedule', 'clinic_appointment_schedule.id', '=', 'appointments.clinic_appointment_schedule_id')
+						->join('clinic_hcp_specialities', 'clinic_hcp_specialities.id', '=', 'clinic_appointment_schedule.clinic_hcp_speciality_id' )
+						->join('clinics', 'clinics.id', '=', 'clinic_hcp_specialities.clinic_id')
+						->join('hcp_specialities', 'hcp_specialities.id', '=',  'clinic_hcp_specialities.hcp_speciality_id')
+						->join('hcps', 'hcps.id', '=', 'hcp_specialities.hcp_id')
+						->join('specialities', 'specialities.id','=','hcp_specialities.speciality_id')
+						->join('patients', 'patients.id','=','appointments.patient_id')
+						->join('appointment_status', 'appointment_status.id','=','appointments.appointment_status_id')
+						->get();
+		
+		return $appointments;
+/*		
 		return [ [ 	
 					"id_appointment" => 753, 
 					"id_clinic" => 123, 
@@ -37,5 +61,6 @@ class AppointmentController extends Controller
 					"appointment_state_label" => "Pending",
 					],
 				];
+*/				
 	}
 }

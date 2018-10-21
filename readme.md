@@ -757,7 +757,7 @@
             "hcp_last_name": "Ingenieros",
             "appointment_date": "2018/01/02 12:57",
             "appointment_status_id": 1,
-            "appointment_status_label": "Pending"
+            "appointment_status_name": "Pending"
         },
         {
             "id": 8820,
@@ -770,7 +770,7 @@
             "hcp_last_name": "Marquez",
             "appointment_date": "2018/04/01 16:90",
             "appointment_status_id": 1,
-            "appointment_status_label": "Pending"
+            "appointment_status_name": "Pending"
         }
     ]
 }
@@ -805,7 +805,7 @@
             "patient_last_name": "de Nazaret",
             "appointment_date": "2018/01/02 12:57",
             "appointment_status_id": 1,
-            "appointment_status_label": "Pending"
+            "appointment_status_name": "Pending"
         },
         {
             "id": 8820,
@@ -818,7 +818,7 @@
             "patient_last_name": "de Nazaret",
             "appointment_date": "2018/04/01 16:90",
             "appointment_status_id": 1,
-            "appointment_status_label": "Pending"
+            "appointment_status_name": "Pending"
         }
     ]
 }
@@ -854,7 +854,7 @@
             "patient_last_name": "de Nazaret",
             "appointment_date": "2018/01/02 12:57",
             "appointment_status_id": 1,
-            "appointment_status_label": "Pending"
+            "appointment_status_name": "Pending"
         },
         {
             "id": 8820,
@@ -868,7 +868,7 @@
             "patient_last_name": "de Nazaret",
             "appointment_date": "2018/04/01 16:90",
             "appointment_status_id": 1,
-            "appointment_status_label": "Pending"
+            "appointment_status_name": "Pending"
         }
     ]
 }
@@ -1028,7 +1028,7 @@
             "hcp_last_name": "Ingenieros",
             "appointment_date": "2018/01/02 18:00",
             "appointment_status_id": 1,
-            "appointment_status_label": "Pending"
+            "appointment_status_name": "Pending"
     }    
 }
 ```
