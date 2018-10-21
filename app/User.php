@@ -67,19 +67,19 @@ class User extends Authenticatable
 	
 	public function get_profile()
 	{
-		$profile = new array();
+		$profile = array();
 		
-		$profile = array_merge($profile, [ "user" => this ] );
+		$profile = array_merge($profile, [ "user" => $this ] );
 		
-		if( this->patient()->exists() )
-			$profile = array_merge( $profile, [ "patient" => this->patient()->first() ] );
+		if( $this->patient()->exists() )
+			$profile = array_merge( $profile, [ "patient" => $this->patient()->first() ] );
 
-		if( this->hcp()->exists() )
-			$profile = array_merge( $profile, [ "hcp" => this->hcp()->first() ] );
+		if( $this->hcp()->exists() )
+			$profile = array_merge( $profile, [ "hcp" => $this->hcp()->first() ] );
 		
-		if( this->clinic()->exists() )
-			$profile = array_merge( $profile, [ "clinic" => this->clinic()->first() ] );
+		if( $this->clinic()->exists() )
+			$profile = array_merge( $profile, [ "clinic" => $this->clinic()->first() ] );
 		
-		return profile;
+		return $profile;
 	}
 }
