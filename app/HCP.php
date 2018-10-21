@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
  
 class HCP extends Model
 {
-	protected $table = 'HCPs';
+	protected $table = 'hcps';
 	
     /**
      * The attributes that are mass assignable.
