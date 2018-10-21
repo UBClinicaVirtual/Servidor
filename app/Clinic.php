@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Clinic extends Model
 {
@@ -40,8 +41,12 @@ class Clinic extends Model
 	
 	public function hcps()
 	{		
-		return $this->joins_specialities( $this->joins_hcps( $this->hcp_specialities() ) )
-					->select('hcps.*' );									
+		return DB::table('hcps')
+				->select('hcps.*')
+				->join('hcp_specialities','hcps.id', '=', 'hcp_specialities.hcp_id')
+				->join('clinic_hcp_specialities','clinic_hcp_specialities.hcp_speciality_id', '=', 'hcp_specialities.id' )
+				->where('clinic_hcp_specialities.clinic_id',$this->id)
+				->distinct();
 	}		
 	
 	/*
@@ -50,22 +55,21 @@ class Clinic extends Model
 	
 	public function specialities()
 	{
-		return $this->joins_specialities( $this->hcp_specialities() )					
-					->select('specialities.*');		
+		return DB::table('specialities')
+				->select('specialities.*')
+				->join('hcp_specialities','speciality.id', '=', 'hcp_specialities.speciality_id')
+				->join('clinic_hcp_specialities','clinic_hcp_specialities.hcp_speciality_id', '=', 'hcp_specialities.id' )
+				->where('clinic_hcp_specialities.clinic_id',$this->id)
+				->distinct();
 	}	
 
 	public function hcp_specialities()
 	{		
 		return $this->belongsToMany('App\HCPSpeciality', 'clinic_hcp_specialities', 'clinic_id', 'hcp_speciality_id' );
 	}
-
-	protected function joins_hcps( $query )
+	
+	public function clinic_hcp_specialities( )
 	{
-		return $query->join('hcps', 'hcps.id', '=', 'hcp_specialities.hcp_id');
-	}
-
-	protected function joins_specialities( $query )
-	{
-		return $query->join('specialities', 'specialities.id', '=', 'hcp_specialities.speciality_id');
+		return $this->hasMany('App\ClinicHCPSpeciality');
 	}	
 } 

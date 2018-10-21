@@ -76,7 +76,7 @@ class ClinicController extends Controller
 	
 	public function get_profile(Request $request )
 	{
-		$clinic = Auth::guard('api')->user()->clinic()->first();
+		$clinic = Auth::guard('api')->user()->clinic()->firstOrFail();
 		
 		return response()->json(['clinic' => array_merge( 
 															$clinic->toArray(), 
@@ -131,8 +131,13 @@ class ClinicController extends Controller
 	public function add_hcp_specialities( Request $request)
 	{
 		$clinic = Auth::guard('api')->user()->clinic()->firstOrFail();
+				
+		foreach( $request['hcp_specialities_id'] as $hcp_speciality_id )
+			$clinic->clinic_hcp_specialities()->create( [ "hcp_speciality_id" => $hcp_speciality_id ] );
 		
-		return response()->json(['clinic' => $clinic->hcps()->get() ], 200);
+		$clinic->save();
+		
+		return $this->get_profile( $request );
 	}
 	
 	/*
