@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Auth;
 use Google_Client; 
 use Google_Service_Gmail;
 use Google_Service_Oauth2;
+use Illuminate\Http\Request;
 
 class GmailController{
 
@@ -19,31 +20,24 @@ class GmailController{
     |
     */    
 
-    protected $_access_token = '';
-    protected $CLIENT_ID = '352875416725-571uhtd63dolhb296dicgt4uvpd66v5u.apps.googleusercontent.com';
+    protected $CLIENT_ID = '434044579908-ehq17fbr1utt08noe8u4kb2f66isdf4e.apps.googleusercontent.com';
     
-    function __construct( $access_token )
+    function __construct( )
     {
-        $_access_token = $access_token;
+        
     }
 
-    public function get_user_info( $access_token2 )
+    public function get_user_info( $access_token )
     {
-		//Get from google the profile info to register
-        //$client = new Google_Client(['client_id' => $this->CLIENT_ID]);
-        $client = new Google_Client();
+        $client = new Google_Client(['client_id' => $this->CLIENT_ID]);  // Specify the CLIENT_ID of the app that accesses the backend
+        $payload = $client->verifyIdToken($access_token);
         
-        $client->setScopes(Google_Service_Gmail::GMAIL_READONLY);
-	    $client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
-	    $client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);		
-        
-		//$client->setAccessToken( $this->_access_token );
-		$client->setAccessToken( $access_token2 );
-				
-		$oauth2 = new Google_Service_Oauth2($client);	
-        $userInfo = $oauth2->userinfo_v2_me->get();	
-        
-        return [ "name" => $userInfo->name, 'email' => $userInfo->email ];
+        if ($payload)         
+            return [ "first_name" => $payload['given_name'], 
+					"last_name" => $payload['family_name'], 
+					"email" => $payload['email'] ];
+            
+        return null;
     }
 }
 
