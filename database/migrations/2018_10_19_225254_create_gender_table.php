@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeHpcNameToHcp extends Migration
+class CreateGenderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,12 @@ class ChangeHpcNameToHcp extends Migration
      */
     public function up()
     {
-        Schema::rename("hpcs", "hcps");
+        Schema::create('gender', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->string('name',50);
+            
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class ChangeHpcNameToHcp extends Migration
      */
     public function down()
     {
-        Schema::rename("hcps", "hpcs");
+        Schema::dropIfExists('gender');
     }
 }

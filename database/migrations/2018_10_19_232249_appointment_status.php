@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableHpcs extends Migration
+class AppointmentStatus extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateTableHpcs extends Migration
      */
     public function up()
     {
-        Schema::create('HPCs', function (Blueprint $table) {
-            $table->integer('id')->primary();
+        Schema::create('appointment_status', function (Blueprint $table) {
+            $table->increments('id');
             $table->timestamps();
+            $table->string('name',50);
         });
     }
 
@@ -26,6 +27,6 @@ class CreateTableHpcs extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('HPCs');
+        Schema::dropIfExists('appointment_status');
     }
 }

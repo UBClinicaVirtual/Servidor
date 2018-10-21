@@ -10,9 +10,6 @@
 - [Features](#features)
 - [Getting started](#getting-started)
 - [Methods](#methods)
-- [Contributing](#contributing)
-- [Versioning](#versioning)
-- [License](#license)
 
 ## Features
 
@@ -48,21 +45,45 @@
 	- [Login with gmail](#login-with-gmail)
 	- [Get the general user information based in the api_token](#get-the-general-user-information-based-in-the-api_token)
 	- [Logout](#logout-with-an-api_token)
-- Profiles
-	- [Add the Clinic profile to the user's account with an api_token](#Add-the-clinic-profile-to-the-users-account-with-an-api_token)
-	- [Add the HCP profile to the user's account with an api_token](#Add-the-hcp-profile-to-the-users-account-with-an-api_token)			
-	- [Add the patient profile to the user's account with an api_token](#Add-the-patient-profile-to-the-users-account-with-an-api_token)	
+	- [Deactivate a user account with an api_token](#deactivate-a-user-account-with-an-api_token)
 	
+- Clinic Profile
+	- [Add the clinic profile to the user account with an api_token](#add-the-clinic-profile-to-the-user-account-with-an-api_token)
+	- [Get the clinic profile user information based in the api_token](#get-the-clinic-profile-user-information-based-in-the-api_token)
+	- [Search a clinic](#search-a-clinic)
+	
+- HCP Profile	
+	- [Add the HCP profile to the user account with an api_token](#add-the-hcp-profile-to-the-user-account-with-an-api_token)
+	- [Get the HCP profile information of the user account with an api_token](#get-the-hcp-profile-information-of-the-user-account-with-an-api_token)
+	- [Search a HCP](#search-a-hcp)
+	
+- Patient Profile	  
+	- [Add the patient profile to the user account with an api_token](#add-the-patient-profile-to-the-user-account-with-an-api_token)
+	- [Get the patient profile information of the user account with an api_token](#get-the-patient-profile-information-of-the-user-account-with-an-api_token)
+	- [Search a patient](#search-a-patient)
+	
+- Specialities
+	- [Create a new Speciality](#create-a-new-speciality)
+	- [Get a Speciality by id](#get-a-speciality-by-id)
+	- [Update a Speciality by id](#update-a-speciality-by-id)
+	- [Search Specialities](#search-specialities)
 	
 - Clinic administration
 	- [Adds a HCPs with theirs specialities to the clinic profile](#adds-a-hcps-with-theirs-specialities-to-the-clinic-profile)
 	- [Searchs the HCPs with theirs specialities to the clinic profile with a criteria](#searchs-the-hcps-with-theirs-specialities-to-the-clinic-profile-with-a-criteria)
-	- [Adds a HCP and Speciality to the clinic schedule](#Adds-a-HCP-and-Speciality-to-the-clinic-schedule)
+	- [Adds a HCP and Speciality to the clinic schedule](#adds-a-hcp-and-speciality-to-the-clinic-schedule)
+	- [Gets the HCP and Speciality of the clinic schedule](#gets-the-hcp-and-speciality-of-the-clinic-schedule)
+	
 - Appointments
+	- [Schedule an appointment with the current user as patient](#schedule-an-appointment-with-the-current-user-as-patient)
 	- [Get the appointments for the Clinic profile of the current user](#get-the-appointments-for-the-clinic-profile-of-the-current-user)
 	- [Get the appointments for the HCP profile of the current user](#get-the-appointments-for-the-hcp-profile-of-the-current-user)
 	- [Get the appointments for the patient profile of the current user](#get-the-appointments-for-the-patient-profile-of-the-current-user)
 
+- Patient
+	- [Get the medical records of the current user](#get-the-medical-records-of-the-current-user)
+	- [Get the medical records of a patient](#get-the-medical-records-of-a-patient)
+	
 ### Register with gmail
 
 - uri: /register
@@ -88,10 +109,6 @@
         "created_at": "2018-09-20 17:30:52",
         "updated_at": "2018-09-27 15:06:20",
         "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
-        "active": 1,
-		"is_patient": false,
-		"is_hcp": false,
-		"is_clinic": false
     }
 }
 ```
@@ -115,17 +132,53 @@
 {
     "user": {
         "id": 6,
-        "first_name": "walter",
-        "last_name": "ub",
         "email": "ubelarga@gmail.com",
         "created_at": "2018-09-20 17:30:52",
         "updated_at": "2018-09-27 15:06:20",
         "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
         "active": 1,
-		"is_patient": false,
-		"is_hcp": false,
-		"is_clinic": false
-    }
+    },
+	"patient":{
+		"id": 6,
+		"first_name": "walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
+		"identification_number": "0303456",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"gender_name": "Male",
+		"address": "Street 1234",
+		"phone": "1234-4758"
+	},
+	"hcp":{
+		"id": 6,
+		"first_name": "MD. walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
+		"identification_number": "0303456",
+		"register_number": "RG3685",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"gender_name": "Male",
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"specialities": [ {"id": 1, "name": "Guardia"} ]
+	},
+	"clinic":{
+		"id": 6,
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",		
+		"business_name": "Clinica San Martin",
+		"business_number": "2003034567",		
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"hcp_specialities": [ {"id": 44, "hcp_id": 33, "speciality_id": 12}],
+		"hcps": [ {"id": 33, "first_name": "Dr. Juan", "last_name": "Perez"} ],
+		"specialities": [ {"id": 12, "name": "Guardia"} ]
+	}
+	
 }
 ```  
 
@@ -147,17 +200,52 @@
 {
     "user": {
         "id": 6,
-        "first_name": "walter",
-        "last_name": "ub",
         "email": "ubelarga@gmail.com",
         "created_at": "2018-09-20 17:30:52",
         "updated_at": "2018-09-27 15:06:20",
         "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
         "active": 1,
-		"is_patient": false,
-		"is_hcp": false,
-		"is_clinic": false
-    }
+    },
+	"patient":{
+		"id": 6,
+		"first_name": "walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
+		"identification_number": "0303456",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"gender_name": "Male",
+		"address": "Street 1234",
+		"phone": "1234-4758"
+	},
+	"hcp":{
+		"id": 6,
+		"first_name": "MD. walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
+		"identification_number": "0303456",
+		"register_number": "RG3685",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"gender_name": "Male",
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"specialities": [ {"id": 1, "name": "Guardia"} ]
+	},
+	"clinic":{
+		"id": 6,
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",		
+		"business_name": "Clinica San Martin",
+		"business_number": "2003034567",		
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"hcp_specialities": [ {"id": 44, "hcp_id": 33, "speciality_id": 12}],
+		"hcps": [ {"id": 33, "first_name": "Dr. Juan", "last_name": "Perez"} ],
+		"specialities": [ {"id": 12, "name": "Guardia"} ]
+	}
 }
 ```
 
@@ -177,12 +265,12 @@
 - response:
 ```json
 {
-    "data": "User logged out."
+    "message": "User logged out."
 }
 ```
 
-### Deactivate a user's account with an api_token
-> This method deactivates the full user's account, so you cant operate as patient, hpc or clinic anymore.
+### Deactivate a user account with an api_token
+> This method deactivates the full user account, so you cant operate as patient, hpc or clinic anymore.
 
 - uri: /deactivate
 - method: `'POST'`
@@ -198,11 +286,11 @@
 - response:
 ```json
 {
-    "data": "User deactivated."
+    "message": "User deactivated."
 }
 ```
 
-### Add the clinic profile to the user's account with an api_token
+### Add the clinic profile to the user account with an api_token
 
 - uri: /user/clinic
 - method: `'POST'`
@@ -213,19 +301,31 @@
 - body:
 ```json
 {
-	"business_name": "clinica san martin"
+	"clinic":{
+		"business_name": "Clinica San Martin",
+		"business_number": "2003034567",		
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"hcp_specialities": [ 44 ]
+	}
 }
 ```
 
 - response:
 ```json
 {
-    "clinic": {
-        "id": 6,
-        "business_name": "clinica san martin",
-        "created_at": "2018-09-26 13:04:57",
-        "updated_at": "2018-09-27 15:11:09"
-    }
+	"clinic":{
+		"id": 6,
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",		
+		"business_name": "Clinica San Martin",
+		"business_number": "2003034567",		
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"hcp_specialities": [ {"id": 44, "hcp_id": 33, "speciality_id": 12}],
+		"hcps": [ {"id": 33, "first_name": "Dr. Juan", "last_name": "Perez"} ],
+		"specialities": [ {"id": 12, "name": "Guardia"} ]
+	}
 }
 ```
 
@@ -246,17 +346,22 @@
 - response:
 ```json
 {
-    "clinic": {
-        "id": 6,
-        "business_name": "Clinica de trinidad",
-        "created_at": "2018-09-26 13:04:57",
-        "updated_at": "2018-09-27 17:26:58",
-        "business_number": "20123456789"
-    }
+	"clinic":{
+		"id": 6,
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",		
+		"business_name": "Clinica San Martin",
+		"business_number": "2003034567",		
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"hcp_specialities": [ {"id": 44, "hcp_id": 33, "speciality_id": 12}],
+		"hcps": [ {"id": 33, "first_name": "Dr. Juan", "last_name": "Perez"} ],
+		"specialities": [ {"id": 12, "name": "Guardia"} ]
+	}
 }
 ```
 
-### Search a clinic by likely business_name
+### Search a clinic
 
 - uri: /clinic/search
 - method: `'POST'`
@@ -267,7 +372,7 @@
 - body:
 ```json
 {
-	"business_name": "martin"
+	"business_name": "Martin"
 }
 ```
 
@@ -275,17 +380,20 @@
 ```json
 {
     "clinics": [
-        {
-            "id": 6,
-            "business_name": "clinica san martin",
-            "created_at": "2018-09-26 13:04:57",
-            "updated_at": "2018-09-26 13:04:57"
-        }
+		{
+			"id": 6,
+			"created_at": "2018-09-20 17:30:52",
+			"updated_at": "2018-09-27 15:06:20",		
+			"business_name": "Clinica San Martin",
+			"business_number": "2003034567",		
+			"address": "Street 1234",
+			"phone": "1234-4758"
+		}
     ]
 }
 ```
 
-### Add the HCP profile to the user's account with an api_token
+### Add the HCP profile to the user account with an api_token
 
 - uri: /user/hcp
 - method: `'POST'`
@@ -296,39 +404,42 @@
 - body:
 ```json
 {
-  "name": "Un medico clinico",
-  "registration_number": "123456",
-  "identification_number": "321456",
-  "specialities": [ 1 ]
+	"hcp":{
+		"first_name": "MD. walter",
+		"last_name": "ub",        
+		"identification_number": "0303456",
+		"register_number": "RG3685",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"specialities": [ 1 ]
+	}  
 }
 ```
 
 - response:
 ```json
 {
-    "hcp": {
-        "hcp": {
-            "id": 6,
-            "created_at": "2018-10-02 12:46:23",
-            "updated_at": "2018-10-02 12:46:23",
-            "name": "Un medico clinico",
-            "registration_number": "123456",
-            "identification_number": "321456"
-        },
-        "specialities": [
-            {
-                "id": 1,
-                "name": "Guardia 2",
-                "active": 1,
-                "created_at": "2018-09-28 13:10:01",
-                "updated_at": "2018-09-28 13:12:45"
-            }
-        ]
-    }
+	"hcp":{
+		"id": 6,
+		"first_name": "MD. walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
+		"identification_number": "0303456",
+		"register_number": "RG3685",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"gender_name": "Male",
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"specialities": [ {"id": 1, "name": "Guardia"} ]
+	}
 }
 ```
 
-### Get the HCP profile information of the user's account with an api_token
+### Get the HCP profile information of the user account with an api_token
 
 - uri: /user/hcp
 - method: `'GET'`
@@ -345,25 +456,21 @@
 - response:
 ```json
 {
-    "hcp": {
-        "hcp": {
-            "id": 6,
-            "created_at": "2018-10-02 12:46:23",
-            "updated_at": "2018-10-02 12:46:23",
-            "name": "Un medico clinico",
-            "registration_number": "123456",
-            "identification_number": "321456"
-        },
-        "specialities": [
-            {
-                "id": 1,
-                "name": "Guardia 2",
-                "active": 1,
-                "created_at": "2018-09-28 13:10:01",
-                "updated_at": "2018-09-28 13:12:45"
-            }
-        ]
-    }
+	"hcp":{
+		"id": 6,
+		"first_name": "MD. walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
+		"identification_number": "0303456",
+		"register_number": "RG3685",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"gender_name": "Male",
+		"address": "Street 1234",
+		"phone": "1234-4758",
+		"specialities": [ {"id": 1, "name": "Guardia"} ]
+	}
 }
 ```
 
@@ -378,17 +485,33 @@
 - body:
 ```json
 {
+	"last_name": "ub"
 }
 ```
 
 - response:
 ```json
 {
-    "msg": "unimplemented method"
+    "hcps":[
+		{
+			"id": 6,
+			"first_name": "MD. walter",
+			"last_name": "ub",        
+			"created_at": "2018-09-20 17:30:52",
+			"updated_at": "2018-09-27 15:06:20",
+			"identification_number": "0303456",
+			"register_number": "RG3685",
+			"birth_date": "1987-01-01",
+			"gender_id": 0,
+			"gender_name": "Male",
+			"address": "Street 1234",
+			"phone": "1234-4758"
+		}
+	]
 }
 ```
 
-### Add the patient profile to the user's account with an api_token
+### Add the patient profile to the user account with an api_token
 
 - uri: /user/patient
 - method: `'POST'`
@@ -400,21 +523,13 @@
 ```json
 {
 	"patient":{
-		"first_name": "Walter",
-		"last_name": "ub",
-		"identification_number": "33000123",
-		"birthdate": "2018/01/01",
-		"gender": "M",
-		"marital_status": "S"
-	},
-	"medical_history": {
-		"allergies": [ 3 ],
-		"surgeries": [ 91 ],
-		"medications": [ 5 ],
-		"abortions": 0,
-		"pregnancies": 0,
-		"births": 0,
-		"childs": 0
+		"first_name": "walter",
+		"last_name": "ub",        
+		"identification_number": "0303456",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"address": "Street 1234",
+		"phone": "1234-4758"
 	}
 }
 ```
@@ -424,26 +539,21 @@
 {
 	"patient":{
 		"id": 6,
-		"first_name": "Walter",
-		"last_name": "ub",
-		"identification_number": "33000123",
-		"birthdate": "2018/01/01",
-		"gender": "M",
-		"marital_status": "S"
-	},
-	"medical_history": {
-		"allergies": [ {"id": 3, "name": "Pollen"} ],
-		"surgeries": [ {"id": 91, "name": "Operación a corazon abierto"} ],
-		"medications": [ {"id": 5, "name": "Amoxidal 500"} ],
-		"abortions": 0,
-		"pregnancies": 0,
-		"births": 0,
-		"childs": 0
+		"first_name": "walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
+		"identification_number": "0303456",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"gender_name": "Male",
+		"address": "Street 1234",
+		"phone": "1234-4758"
 	}
 }
 ```
 
-### Get the patient profile information of the user's account with an api_token
+### Get the patient profile information of the user account with an api_token
 
 - uri: /user/patient
 - method: `'GET'`
@@ -460,13 +570,19 @@
 - response:
 ```json
 {
-    "patient": {
-        "id": 6,
-        "created_at": "2018-09-27 17:44:38",
-        "updated_at": "2018-09-27 17:44:38",
-        "name": "Walter",
-        "identification_number": "33000123"
-    }
+	"patient":{
+		"id": 6,
+		"first_name": "walter",
+		"last_name": "ub",        
+		"created_at": "2018-09-20 17:30:52",
+		"updated_at": "2018-09-27 15:06:20",
+		"identification_number": "0303456",
+		"birth_date": "1987-01-01",
+		"gender_id": 0,
+		"gender_name": "Male",
+		"address": "Street 1234",
+		"phone": "1234-4758"
+	}
 }
 ```
 
@@ -481,13 +597,29 @@
 - body:
 ```json
 {
+	"last_name": "ub"
 }
 ```
 
 - response:
 ```json
 {
-    "msg": "unimplemented method"
+	"patients": 
+	[
+		{
+			"id": 6,
+			"first_name": "walter",
+			"last_name": "ub",
+			"created_at": "2018-09-20 17:30:52",
+			"updated_at": "2018-09-27 15:06:20",
+			"identification_number": "0303456",
+			"birth_date": "1987-01-01",
+			"gender_id": 0,
+			"gender_name": "Male",
+			"address": "Street 1234",
+			"phone": "1234-4758"
+		}
+	]
 }
 ```
 
@@ -509,17 +641,16 @@
 - response:
 ```json
 {
-    "id": 1,
-    "name": "Guardia",
-    "active": 1,
-    "created_at": "2018-09-28 13:17:08",
-    "updated_at": "2018-09-28 13:17:08"
+	"id": 1,
+	"name": "Guardia",
+	"created_at": "2018-09-28 13:17:08",
+	"updated_at": "2018-09-28 13:17:08"
 }
 ```
 
 ### Get a Speciality by id
 
-- uri: /speciality/{id_speciality}
+- uri: /speciality/{speciality_id}
 - uri example: /speciality/1
 - method: `'GET'`
 - headers:
@@ -537,7 +668,6 @@
 {
     "id": 1,
     "name": "Guardia",
-    "active": 1,
     "created_at": "2018-09-28 13:17:08",
     "updated_at": "2018-09-28 13:17:08"
 }
@@ -545,7 +675,7 @@
 
 ### Update a Speciality by id
 
-- uri: /speciality/{id_speciality}
+- uri: /speciality/{speciality_id}
 - uri example: /speciality/1
 - method: `'POST'`
 - headers:
@@ -556,7 +686,6 @@
 ```json
 {
 	"name": "Guardia 2",
-	"active": 1
 }
 ```
 
@@ -565,7 +694,6 @@
 {
     "id": 1,
     "name": "Guardia 2",
-    "active": 1,
     "created_at": "2018-09-28 13:17:08",
     "updated_at": "2018-09-28 13:17:08"
 }
@@ -573,7 +701,7 @@
 
 ### Search Specialities
 
-- uri: /specialities
+- uri: /speciality/search
 - method: `'POST'`
 - headers:
   - `Accept`: `application/json`
@@ -593,7 +721,6 @@
         {
             "id": 1,
             "name": "Guardia 2",
-            "active": 1,
             "created_at": "2018-09-28 13:17:08",
             "updated_at": "2018-09-28 13:17:08"
         }
@@ -620,28 +747,30 @@
 {
     "appointments": [
         {
-            "id_appointment": 753,
-            "id_clinic": 123,
+            "id": 753,
+            "clinic_id": 123,
             "clinic_name": "Clinica de la trinidad",
-            "id_speciality": 789,
+            "speciality_id": 789,
             "speciality_name": "Guardia de ginecologia",
-            "id_hcp": 8560,
-            "hcp_name": "Juan Jose Ingenieros",
+            "hcp_id": 8560,
+            "hcp_first_name": "Juan Jose",
+            "hcp_last_name": "Ingenieros",
             "appointment_date": "2018/01/02 12:57",
-            "appointment_state": 1,
-            "appointment_state_label": "Pending"
+            "appointment_status_id": 1,
+            "appointment_status_label": "Pending"
         },
         {
-            "id_appointment": 8820,
-            "id_clinic": 123,
+            "id": 8820,
+            "clinic_id": 123,
             "clinic_name": "Clinica de la trinidad",
-            "id_speciality": 124,
+            "speciality_id": 124,
             "speciality_name": "Traumatologo",
-            "id_hcp": 9988,
-            "hcp_name": "Bernabe Marquez",
+            "hcp_id": 9988,
+            "hcp_first_name": "Bernabe",
+            "hcp_last_name": "Marquez",
             "appointment_date": "2018/04/01 16:90",
-            "appointment_state": 1,
-            "appointment_state_label": "Pending"
+            "appointment_status_id": 1,
+            "appointment_status_label": "Pending"
         }
     ]
 }
@@ -666,27 +795,30 @@
 {
     "appointments": [
         {
-            "id_appointment": 753,
-            "id_clinic": 123,
+            "id": 753,
+            "clinic_id": 123,
             "clinic_name": "Clinica de la trinidad",
-            "id_speciality": 789,
+            "speciality_id": 789,
             "speciality_name": "Guardia de ginecologia",
-            "id_patient": 1425,
-            "patient_name": "Jesus de Nazaret",
+            "patient_id": 1425,
+            "patient_first_name": "Jesus",
+            "patient_last_name": "de Nazaret",
             "appointment_date": "2018/01/02 12:57",
-            "appointment_state": 1,
-            "appointment_state_label": "Pending"
+            "appointment_status_id": 1,
+            "appointment_status_label": "Pending"
         },
         {
-            "id_appointment": 8820,
-            "id_clinic": 123,
+            "id": 8820,
+            "clinic_id": 123,
             "clinic_name": "Clinica de la trinidad",
-            "id_speciality": 124,
+            "speciality_id": 124,
             "speciality_name": "Traumatologo",
-            "id_patient": "Garcia Marquez",
+            "patient_id": 1425,
+            "patient_first_name": "Jesus",
+            "patient_last_name": "de Nazaret",
             "appointment_date": "2018/04/01 16:90",
-            "appointment_state": 1,
-            "appointment_state_label": "Pending"
+            "appointment_status_id": 1,
+            "appointment_status_label": "Pending"
         }
     ]
 }
@@ -711,27 +843,32 @@
 {
     "appointments": [
         {
-            "id_appointment": 753,
-            "id_speciality": 789,
+            "id": 753,
+            "speciality_id": 789,
             "speciality_name": "Guardia de ginecologia",
-            "id_hcp": 963,
-            "hcp_name": "Medico de guardia",
-            "id_patient": 1425,
-            "patient_name": "Jesus de Nazaret",
+            "hcp_id": 963,
+            "hcp_first_name": "Medico",
+            "hcp_last_name": "de guardia",
+            "patient_id": 1425,
+            "patient_first_name": "Jesus",
+            "patient_last_name": "de Nazaret",
             "appointment_date": "2018/01/02 12:57",
-            "appointment_state": 1,
-            "appointment_state_label": "Pending"
+            "appointment_status_id": 1,
+            "appointment_status_label": "Pending"
         },
         {
-            "id_appointment": 8820,
-            "id_speciality": 124,
+            "id": 8820,
+            "speciality_id": 124,
             "speciality_name": "Traumatologo",
-            "id_hcp": 2458,
-            "hcp_name": "Otro Medico de otra especialidad",
-            "id_patient": "Garcia Marquez",
+            "hcp_id": 2458,
+            "hcp_first_name": "Otro Medico",
+            "hcp_last_name": "de otra guardia",
+            "patient_id": 1425,
+            "patient_first_name": "Jesus",
+            "patient_last_name": "de Nazaret",
             "appointment_date": "2018/04/01 16:90",
-            "appointment_state": 1,
-            "appointment_state_label": "Pending"
+            "appointment_status_id": 1,
+            "appointment_status_label": "Pending"
         }
     ]
 }
@@ -747,13 +884,14 @@
 - body:
 ```json
 {
+	"hcp_specialities": [ 44 ]
 }
 ```
 
 - response:
 ```json
 {
-
+	"hcp_specialities": [ {"id": 44, "hcp_id": 33, "speciality_id": 12}]
 }
 ```
 
@@ -767,13 +905,18 @@
 - body:
 ```json
 {
+	"speciality_id": 12
 }
 ```
 
 - response:
 ```json
 {
-
+	"clinic": {
+		"hcp_specialities": [ {"id": 44, "hcp_id": 33, "speciality_id": 12}],
+		"hcps": [ {"id": 33, "first_name": "Dr. Juan", "last_name": "Perez"} ],
+		"specialities": [ {"id": 12, "name": "Guardia"} ]
+	}
 }
 ```
 
@@ -787,30 +930,112 @@
 - body:
 ```json
 {
-	"hcps":[
-			{
-				"id_hcp": 124,
-				"schedule": [ {
-								"id_speciality": 477,
-								"day_of_the_week": "Monday"
-							},{
-								"id_speciality": 749,
-								"day_of_the_week": "Wednesday"
-							}
-							]
-			}
-			]
+	"hcps":
+	[
+		{
+			"hcp_speciality_id": 44,
+			"day_of_the_week": 0,
+			"appointment_hour": "18:00"
+		},
+		{
+			"hcp_speciality_id": 44,
+			"day_of_the_week": 0,
+			"appointment_hour": "19:00"
+		}
+	]
 }
 ```
 
 - response:
 ```json
 {
+	"message": "schedule updated"
 }
 ```
 
 ### Gets the HCP and Speciality of the clinic schedule
 - uri: /user/clinic/schedule/search
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"day_of_the_week": 0
+}
+```
+
+- response:
+```json
+{
+	"schedule":
+	[
+		{
+			"id": 456,
+			"hcp_speciality_id": 44,
+			"hcp_id": 1,
+			"hcp_first_name": "walter",
+			"hcp_last_name": "ub",
+			"speciality_id": 13,
+			"speciality_name": "Guardia",
+			"day_of_the_week": 0,
+			"appointment_hour": "18:00"
+		},
+		{
+			"id": 157,
+			"hcp_speciality_id": 44,
+			"hcp_id": 1,
+			"hcp_first_name": "walter",
+			"hcp_last_name": "ub",			
+			"speciality_id": 13,
+			"speciality_name": "Guardia",
+			"day_of_the_week": 0,
+			"appointment_hour": "19:00"
+		}
+	]
+}
+```
+
+### Schedule an appointment with the current user as patient
+
+- uri: /user/patient/appointment/schedule
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"clinic_appointment_schedule_id" : 456,
+	"appointment_date": "2018/01/02"
+}
+```
+
+- response:
+```json
+{
+    "appointment": {
+            "id": 753,
+            "clinic_id": 123,
+            "clinic_name": "Clinica de la trinidad",
+            "speciality_id": 789,
+            "speciality_name": "Guardia de ginecologia",
+            "hcp_id": 8560,
+            "hcp_first_name": "Juan Jose",
+            "hcp_last_name": "Ingenieros",
+            "appointment_date": "2018/01/02 18:00",
+            "appointment_status_id": 1,
+            "appointment_status_label": "Pending"
+    }    
+}
+```
+
+### Get the medical records of the current user
+
+- uri: /user/patient/mrecords
 - method: `'POST'`
 - headers:
   - `Accept`: `application/json`
@@ -825,21 +1050,62 @@
 - response:
 ```json
 {
+    "medical_records": 
+	[
+		{
+			"id": 999,
+			"description": "Presenta cuadro febril. Se receta ibuprofeno",
+			"clinic_id": 2,
+			"clinic_name": "Clinica de la trinidad",
+			"speciality_id": 789,
+			"speciality_name": "Guardia de ginecologia",
+			"hcp_id": 8560,
+			"hcp_first_name": "Juan Jose",
+			"hcp_last_name": "Ingenieros",
+			"appointment_id": 1475,
+			"appointment_date": "2018/01/02 18:00"
+			"record_date": "2018/01/02 18:14"
+		}   
+	]
 }
 ```
 
-[? back to top](#table-of-contents)
+### Get the medical records of a patient
 
-## Contributing
+- uri: /user/patient/mrecords
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"patient_id": 142
+}
+```
 
-Please read through our [contributing guidelines](.github/CONTRIBUTING.md).
-
-## Versioning
-
-Maintained under the [Semantic Versioning guidelines](https://semver.org/).
-
-## License
-
-[MIT](https://opensource.org/licenses/MIT) © ???
+- response:
+```json
+{
+    "medical_records": 
+	[
+		{
+			"id": 999,
+			"description": "Presenta cuadro febril. Se receta ibuprofeno",
+			"clinic_id": 2,
+			"clinic_name": "Clinica de la trinidad",
+			"speciality_id": 789,
+			"speciality_name": "Guardia de ginecologia",
+			"hcp_id": 8560,
+			"hcp_first_name": "Juan Jose",
+			"hcp_last_name": "Ingenieros",
+			"appointment_id": 1475,
+			"appointment_date": "2018/01/02 18:00"
+			"record_date": "2018/01/02 18:14"
+		}   
+	]
+}
+```
 
 [? back to top](#table-of-contents)
