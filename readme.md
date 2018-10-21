@@ -265,7 +265,7 @@
 - response:
 ```json
 {
-    "message": "User logged out."
+    "msg": "User logged out."
 }
 ```
 
@@ -286,7 +286,7 @@
 - response:
 ```json
 {
-    "message": "User deactivated."
+    "msg": "User deactivated."
 }
 ```
 
@@ -949,7 +949,7 @@
 - response:
 ```json
 {
-	"message": "schedule updated"
+	"msg": "schedule updated"
 }
 ```
 
