@@ -115,8 +115,8 @@ class HCPController extends Controller
 		// Adds all the specialities sent
 		if( $request->has('specialities') )		
 			$this->add_specialities( $hcp, $request['specialities'] );
-			
-		return response()->json([ 'hcp' => ['hcp' => $hcp, 'specialities' => $hcp->specialities()->get() ] ], 201);
+					
+		return response()->json([ 'hcp' => array_merge( $hcp->toArray(), [ 'specialities' => $hcp->specialities()->get()] )], 201);
 	}
 	
 	public function search_appointments( Request $request){
