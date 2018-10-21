@@ -78,7 +78,13 @@ class ClinicController extends Controller
 	{
 		$clinic = Auth::guard('api')->user()->clinic()->first();
 		
-		return response()->json(['clinic' => $clinic ], 200);
+		return response()->json(['clinic' => array_merge( 
+															$clinic->toArray(), 
+															[ "hcp_specialities" => $clinic->hcp_specialities()->get() ],
+															[ "hcps" => $clinic->hcps()->get() ],
+															[ "specialities" => $clinic->specialities()->get() ]
+															
+														)], 200);
 	}
 
 	protected function get_clinic_profile( $user )

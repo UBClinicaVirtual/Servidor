@@ -54,9 +54,9 @@ class Clinic extends Model
 					->select('specialities.*');		
 	}	
 
-	protected function hcpspecialities()
+	public function hcp_specialities()
 	{		
-		return $this->belongsToMany('App\HCPSpeciality', 'clinic_hcp_specialities', 'clinic_id', 'hcp_speciality_id' );
+		return $this->belongsToMany('App\HCPSpeciality', 'clinic_hcp_specialities', 'clinic_id', 'hcp_speciality_id2' );
 	}
 
 	protected function joins_hcps( $query )
