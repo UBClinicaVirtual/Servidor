@@ -40,7 +40,7 @@ class Clinic extends Model
 	
 	public function hcps()
 	{		
-		return $this->joins_specialities( $this->joins_hcps( $this->hcpspecialities() ) )
+		return $this->joins_specialities( $this->joins_hcps( $this->hcp_specialities() ) )
 					->select('hcps.*' );									
 	}		
 	
@@ -50,18 +50,18 @@ class Clinic extends Model
 	
 	public function specialities()
 	{
-		return $this->joins_specialities( $this->hcpspecialities() )					
+		return $this->joins_specialities( $this->hcp_specialities() )					
 					->select('specialities.*');		
 	}	
 
 	public function hcp_specialities()
 	{		
-		return $this->belongsToMany('App\HCPSpeciality', 'clinic_hcp_specialities', 'clinic_id', 'hcp_speciality_id2' );
+		return $this->belongsToMany('App\HCPSpeciality', 'clinic_hcp_specialities', 'clinic_id', 'hcp_speciality_id' );
 	}
 
 	protected function joins_hcps( $query )
 	{
-		return $query->join('hcps', 'hcps.id', '=', 'HCPSpecialities.hcp_id');
+		return $query->join('hcps', 'hcps.id', '=', 'hcp_specialities.hcp_id');
 	}
 
 	protected function joins_specialities( $query )
