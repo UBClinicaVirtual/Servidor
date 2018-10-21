@@ -1055,7 +1055,7 @@
 		{
 			"id": 999,
 			"description": "Presenta cuadro febril. Se receta ibuprofeno",
-			"clinic_id": 2
+			"clinic_id": 2,
 			"clinic_name": "Clinica de la trinidad",
 			"speciality_id": 789,
 			"speciality_name": "Guardia de ginecologia",
@@ -1093,7 +1093,7 @@
 		{
 			"id": 999,
 			"description": "Presenta cuadro febril. Se receta ibuprofeno",
-			"clinic_id": 2
+			"clinic_id": 2,
 			"clinic_name": "Clinica de la trinidad",
 			"speciality_id": 789,
 			"speciality_name": "Guardia de ginecologia",
