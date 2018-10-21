@@ -55,9 +55,7 @@ class RegisterController extends Controller
     {
 		//To register only the access token is needed
         return Validator::make($data, [
-            'access_token' => 'required|string|max:255',
-//            'email' => 'required|string|email|max:255|unique:users',
-//            'password' => 'required|string|min:6|confirmed',
+            'access_token' => 'required|string|max:2048',
         ]);
     }
 
