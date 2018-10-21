@@ -72,7 +72,6 @@ class RegisterController extends Controller
 		
 		//The password is the hashed email until a futher change on dbo
         return User::create([
-            'name' => $userInfo['name'],
             'email' => $userInfo['email'],
             'password' => Hash::make($userInfo['email']),
 			'active' => 1
