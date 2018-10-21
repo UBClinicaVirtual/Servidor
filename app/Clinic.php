@@ -41,15 +41,7 @@ class Clinic extends Model
 	public function hcps()
 	{		
 		return $this->joins_specialities( $this->joins_hcps( $this->hcpspecialities() ) )
-					->select('HCPs.*' );
-/*
-		return $this->hasManyThrough('App\HCPSpeciality', 
-									'App\ClinicHCPSpeciality', 
-									'id_clinic', 
-									'id', 
-									'id', 
-									'id_hcp_speciality')->belongsToMany('App\HCP', 'HCPSpecialities', 'id', 'id_hcp' );
-*/									
+					->select('HCPs.*' );									
 	}		
 	
 	/*

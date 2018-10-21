@@ -31,7 +31,7 @@ class ClinicController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => [ 'add_hcpspecialities', 'get_profile', 'update_profile', 'search']]);
+		$this->middleware('auth:api');
     }
 	
 	protected function validateRequestClinicSearch(Request $request)
@@ -67,7 +67,7 @@ class ClinicController extends Controller
 		return response()->json(['clinic' => Auth::guard('api')->user()->clinic()->first() ], 200);
 	}
 
-	public function _get_clinic_profile( $user )
+	protected function get_clinic_profile( $user )
 	{
 		$clinic = $user->clinic()->first();
 			
@@ -86,7 +86,7 @@ class ClinicController extends Controller
 	public function update_profile(Request $request )
 	{
 		//Gets the clinic for the user profile
-		$clinic = $this->_get_clinic_profile( Auth::guard('api')->user() );
+		$clinic = $this->get_clinic_profile( Auth::guard('api')->user() );
 				
 		//Updates the fields of the clinic
 		$clinic->business_name = $request['business_name'];		
@@ -99,22 +99,17 @@ class ClinicController extends Controller
 	/*
 	* Adds to the current clinic the list of hcp and specialities
 	*/
-	public function add_hcpspecialities( Request $request)
+	public function add_hcp_specialities( Request $request)
 	{
 		$clinic = Auth::guard('api')->user()->clinic()->firstOrFail();
-/*		
-		$hcp = HCP::findOrFail(4);
-		$speciality = Speciality::findOrFail(1);
 		
-		$clinic->hcps()->attach( $hcp, [ 'id_speciality' => 1 ]);
-*/		
 		return response()->json(['clinic' => $clinic->hcps()->get() ], 200);
 	}
 	
 	/*
 	* Gets all the hcps and their specialities that meet the filter
 	*/
-	public function search_hcpspecialities(Request $request)
+	public function search_hcp_specialities(Request $request)
 	{
 		return response()->json(['hcps' => [] ], 200);
 	}	
