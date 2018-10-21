@@ -55,9 +55,7 @@ class RegisterController extends Controller
     {
 		//To register only the access token is needed
         return Validator::make($data, [
-            'access_token' => 'required|string|max:255',
-//            'email' => 'required|string|email|max:255|unique:users',
-//            'password' => 'required|string|min:6|confirmed',
+            'access_token' => 'required|string|max:2048',
         ]);
     }
 
@@ -74,7 +72,6 @@ class RegisterController extends Controller
 		
 		//The password is the hashed email until a futher change on dbo
         return User::create([
-            'name' => $userInfo['name'],
             'email' => $userInfo['email'],
             'password' => Hash::make($userInfo['email']),
 			'active' => 1
@@ -108,6 +105,6 @@ class RegisterController extends Controller
 	{
 		$user->generateToken();
 
-		return response()->json(['data' => $user->toArray()], 201);
+		return response()->json(['user' => $user->toArray()], 201);
 	}	
 }

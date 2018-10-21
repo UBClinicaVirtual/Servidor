@@ -40,7 +40,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('guest')->except('logout');
         $this->middleware('guest', ['except' => ['logout','deactivate']]);
     }
 	
@@ -58,17 +57,13 @@ class LoginController extends Controller
 		// calls to the laravel default function to login
 		// It ll create a new api_token for each call to login
 		// ill send the gmail mail only to the laravel login function
-//		if ($this->attemptLogin($request)) {
-//		if ($this->attemptLogin( $request->only('email') ) ) {
+		
 		if ($this->guard()->attempt( ['email' => $userInfo['email'] ] ) ) {
 		
 			$user = $this->guard()->user();
 			$user->generateToken();
 
-			return response()->json([
-				'data' => $user->toArray(),
-				'gmail' => $userInfo,
-			]);
+			return response()->json( $user->get_profile() );
 		}
 	
 		return $this->sendFailedLoginResponse($request);
@@ -82,7 +77,7 @@ class LoginController extends Controller
 			$user->revokeToken();
 		}
 
-		return response()->json(['data' => 'User logged out.'], 200);
+		return response()->json(['message' => 'User logged out.'], 200);
 	}	
 	
 	public function deactivate(Request $request )
@@ -93,6 +88,6 @@ class LoginController extends Controller
 			$user->deactivate();
 		}
 		
-		return response()->json(['data' => 'User deactivated.'], 200);
+		return response()->json(['message' => 'User deactivated.'], 200);
 	}
 }

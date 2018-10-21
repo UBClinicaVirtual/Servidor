@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active', 
+        'email', 'password', 'active', 
     ];
 
     /**
@@ -52,16 +52,34 @@ class User extends Authenticatable
 
 	public function clinic()
 	{
-		return $this->hasOne('App\Clinic', 'id', 'id' );
+		return $this->hasOne('App\Clinic' );
   }
   
 	public function hcp()
 	{
-		return $this->hasOne('App\HCP', 'id', 'id');
+		return $this->hasOne('App\HCP' );
 	}    
 	
 	public function patient()
 	{
-		return $this->hasOne('App\Patient', 'id', 'id' );
+		return $this->hasOne('App\Patient' );
+	}
+	
+	public function get_profile()
+	{
+		$profile = array();
+		
+		$profile = array_merge($profile, [ "user" => $this ] );
+		
+		if( $this->patient()->exists() )
+			$profile = array_merge( $profile, [ "patient" => $this->patient()->first() ] );
+
+		if( $this->hcp()->exists() )
+			$profile = array_merge( $profile, [ "hcp" => $this->hcp()->first() ] );
+		
+		if( $this->clinic()->exists() )
+			$profile = array_merge( $profile, [ "clinic" => $this->clinic()->first() ] );
+		
+		return $profile;
 	}
 }
