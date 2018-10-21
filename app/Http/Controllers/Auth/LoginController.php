@@ -77,7 +77,7 @@ class LoginController extends Controller
 			$user->revokeToken();
 		}
 
-		return response()->json(['data' => 'User logged out.'], 200);
+		return response()->json(['message' => 'User logged out.'], 200);
 	}	
 	
 	public function deactivate(Request $request )
@@ -88,6 +88,6 @@ class LoginController extends Controller
 			$user->deactivate();
 		}
 		
-		return response()->json(['data' => 'User deactivated.'], 200);
+		return response()->json(['message' => 'User deactivated.'], 200);
 	}
 }
