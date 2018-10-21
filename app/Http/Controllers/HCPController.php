@@ -42,9 +42,14 @@ class HCPController extends Controller
 	{
 		return Validator::make(	$request->all(), 
 								[
-									"name" => "required|string|min:3",
-									"registration_number" => "required|string|min:3",
+									"first_name" => "required|string|min:3",
+									"last_name" => "required|string|min:3",
+									"address" => "string|min:3",
+									"phone" => "string|min:3",
+									"birth_date" => "required|date|date_format:Y-m-d",
+									"gender_id" => "required|integer",
 									"identification_number" => "required|string|min:3",
+									"registration_number" => "required|string|min:3",
 								]		
 								);		
 	}
@@ -54,7 +59,7 @@ class HCPController extends Controller
 		foreach( $specialities as $speciality_id )
 		{
 			//Only adds the non existant specialities
-			if( !$hcp->specialities()->where('id_speciality', $speciality_id )->exists() )
+			if( !$hcp->specialities()->where('speciality_id', $speciality_id )->exists() )
 			{
 				$speciality = Speciality::where('id', $speciality_id )->first();			
 				$hcp->specialities()->save( $speciality );
@@ -72,7 +77,7 @@ class HCPController extends Controller
 			$hcp = new HCP();
 								
 			//Forces the id of the HCP
-			$hcp->id = $user->id;
+			$hcp->user_id = $user->id;
 		}	
 		
 		return $hcp;
@@ -97,9 +102,14 @@ class HCPController extends Controller
 		$hcp = $this->get_hcp_from_user( Auth::guard('api')->user() );
 		
 		//Updates the fields
-		$hcp->name = $request["name"];
-		$hcp->registration_number = $request["registration_number"];
+		$hcp->first_name = $request["first_name"];
+		$hcp->last_name = $request['last_name'];
+		$hcp->gender_id = $request['gender_id'];
+		$hcp->birth_date = $request['birth_date'];
+		$hcp->address = $request['address'];
+		$hcp->phone = $request['phone'];
 		$hcp->identification_number = $request["identification_number"];
+		$hcp->registation_number = $request["registation_number"];
 		$hcp->save();
 		
 		// Adds all the specialities sent
