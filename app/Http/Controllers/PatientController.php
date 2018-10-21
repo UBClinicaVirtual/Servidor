@@ -69,7 +69,7 @@ class PatientController extends Controller
 			$patient = new Patient();
 								
 			//Forces the id of the Patient
-			$patient->id = $user->id;
+			$patient->user_id = $user->id;
 		}	
 		
 		return $patient;
@@ -92,7 +92,12 @@ class PatientController extends Controller
 		$patient = $this->get_patient_from_user( Auth::guard('api')->user() );
 		
 		//update the fields for the patient
-		$patient->name = $request["name"];
+		$patient->first_name = $request["first_name"];
+		$patient->last_name = $request['last_name'];
+		$patient->gender_id = $request['gender_id'];
+		$patient->birth_date = $request['birth_date'];
+		$patient->address = $request['address'];
+		$patient->phone = $request['phone'];
 		$patient->identification_number = $request["identification_number"];
 		$patient->save();
 		
