@@ -44,7 +44,6 @@ class SpecialityController extends Controller
 		return Validator::make(	$request->all(), 
 								[
 									"name" => "required|string|min:3",
-									"active" => "required|integer",
 								]		
 								);		
 	}	
@@ -54,7 +53,6 @@ class SpecialityController extends Controller
 		return Validator::make(	$request->all(), 
 								[
 									"name" => "string|min:3",
-									"active" => "integer",
 								]		
 								);
 	}
@@ -85,7 +83,6 @@ class SpecialityController extends Controller
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 			
 		$speciality->name = $request["name"];		
-		$speciality->active = $request["active"];
 		
 		$speciality->save();
 		

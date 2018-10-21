@@ -12,7 +12,7 @@ class Speciality extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'active',
+        'id', 'name',
 	];
 
     /**
