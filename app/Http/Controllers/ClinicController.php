@@ -43,9 +43,21 @@ class ClinicController extends Controller
 		
 		return Validator::make(	$request->all(), 
 								[
-									"business_name" => "string|min:3"
+									"business_name" => "string|min:3",
 								]		
 								);
+	}
+	
+	protected function validateProfileRequest( Request $request )
+	{
+		return Validator::make(	$request->all(), 
+								[
+									"business_name" => "required|string|min:3",
+									"business_number" => "required|string|min:8",
+									"address" => "required|string|min:3",
+									"phone" => "required|string|min:3",
+								]		
+								);		
 	}
 	
 	public function search(Request $request )
@@ -64,7 +76,15 @@ class ClinicController extends Controller
 	
 	public function get_profile(Request $request )
 	{
-		return response()->json(['clinic' => Auth::guard('api')->user()->clinic()->first() ], 200);
+		$clinic = Auth::guard('api')->user()->clinic()->firstOrFail();
+		
+		return response()->json(['clinic' => array_merge( 
+															$clinic->toArray(), 
+															[ "hcp_specialities" => $clinic->hcp_specialities()->get() ],
+															[ "hcps" => $clinic->hcps()->get() ],
+															[ "specialities" => $clinic->specialities()->get() ]
+															
+														)], 200);
 	}
 
 	protected function get_clinic_profile( $user )
@@ -77,7 +97,7 @@ class ClinicController extends Controller
 			$clinic = new Clinic();
 								
 			//Forces the id of the Clinic
-			$clinic->id = $user->id;
+			$clinic->user_id = $user->id;
 		}	
 		
 		return $clinic;	
@@ -85,15 +105,24 @@ class ClinicController extends Controller
 	
 	public function update_profile(Request $request )
 	{
+		//get the validator for the creation
+		$validator = $this->validateProfileRequest( $request );
+		
+		if( $validator->fails() ) 
+			return response()->json( [ "msg" => $validator->errors() ], 403);
+		
 		//Gets the clinic for the user profile
 		$clinic = $this->get_clinic_profile( Auth::guard('api')->user() );
 				
 		//Updates the fields of the clinic
 		$clinic->business_name = $request['business_name'];		
+		$clinic->business_number = $request['business_number'];		
+		$clinic->address = $request['address'];		
+		$clinic->phone = $request['phone'];		
 		$clinic->save();		
 		
 		//return the updated clinic
-		return response()->json(['clinic' => $clinic ], 201);
+		return $this->get_profile( $request );
 	}
 	
 	/*
@@ -102,8 +131,13 @@ class ClinicController extends Controller
 	public function add_hcp_specialities( Request $request)
 	{
 		$clinic = Auth::guard('api')->user()->clinic()->firstOrFail();
+				
+		foreach( $request['hcp_specialities_id'] as $hcp_speciality_id )
+			$clinic->clinic_hcp_specialities()->create( [ "hcp_speciality_id" => $hcp_speciality_id ] );
 		
-		return response()->json(['clinic' => $clinic->hcps()->get() ], 200);
+		$clinic->save();
+		
+		return $this->get_profile( $request );
 	}
 	
 	/*
@@ -127,7 +161,7 @@ class ClinicController extends Controller
 		{
 			$specialities = $hcp['specialities'];
 
-			$hcp = HCP::findOrFail( $hcp['id_hcp'] );
+			$hcp = HCP::findOrFail( $hcp['hcp_id'] );
 
 			foreach( $scpecialities as $speciality )
 			{
@@ -136,12 +170,7 @@ class ClinicController extends Controller
 			}
 
 		}
-/*		
-		$hcp = HCP::findOrFail(4);
-		$speciality = Speciality::findOrFail(1);
 		
-		$clinic->hcps()->attach( $hcp, [ 'id_speciality' => 1 ]);
-*/
 		return response()->json(['schedule' => $clinic->hcps()->get() ], 200);
 	}
 	

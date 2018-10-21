@@ -17,7 +17,7 @@ class CreateClinicHcpSpecialties extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('clinic_id');
-            $table->integer('hcp_specialty_id');
+            $table->integer('hcp_speciality_id');
         });
     }
 
