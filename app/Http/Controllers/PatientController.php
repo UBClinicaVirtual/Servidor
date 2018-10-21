@@ -44,7 +44,12 @@ class PatientController extends Controller
 	{
 		return Validator::make(	$request->all(), 
 								[
-									"name" => "required|string|min:3",
+									"first_name" => "required|string|min:3",
+									"last_name" => "required|string|min:3",
+									"address" => "string|min:3",
+									"phone" => "string|min:3",
+									"birth_date" => "date|date_format:Y-m-d",
+									"gender_id" => "required|integer",
 									"identification_number" => "required|string|min:3",
 								]		
 								);		
