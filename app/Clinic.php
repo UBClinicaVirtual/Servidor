@@ -12,7 +12,7 @@ class Clinic extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'business_name', 'business_number', 
+        'id', 'business_name', 'business_number', 'address', 'phone', 
 	];
 
     /**
