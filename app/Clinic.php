@@ -57,7 +57,7 @@ class Clinic extends Model
 	{
 		return DB::table('specialities')
 				->select('specialities.*')
-				->join('hcp_specialities','speciality.id', '=', 'hcp_specialities.speciality_id')
+				->join('hcp_specialities','specialities.id', '=', 'hcp_specialities.speciality_id')
 				->join('clinic_hcp_specialities','clinic_hcp_specialities.hcp_speciality_id', '=', 'hcp_specialities.id' )
 				->where('clinic_hcp_specialities.clinic_id',$this->id)
 				->distinct();
