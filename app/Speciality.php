@@ -21,7 +21,7 @@ class Speciality extends Model
      * @var array
      */
     protected $hidden = [
-		'pivot', 
+		'pivot',
     ];
 	
 	/**
@@ -33,5 +33,5 @@ class Speciality extends Model
 	public function scopeActive( $query )
 	{
 		return $query->where( 'active', 1);
-	}	
+	}
 }

@@ -32,7 +32,9 @@ class HCP extends Model
 	
 	public function specialities()
 	{
-		return $this->belongsToMany('App\Speciality', 'hcp_specialities', 'hcp_id', 'speciality_id' );
+		return $this->belongsToMany('App\Speciality', 'hcp_specialities', 'hcp_id', 'speciality_id' )
+					->select()
+					->addSelect('hcp_specialities.id');
 	}
 	
 	/*
