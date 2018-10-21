@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
  
 class HCP extends Model
 {
-	protected $table = 'HCPs';
+	protected $table = 'hcps';
 	
     /**
      * The attributes that are mass assignable.
@@ -14,7 +14,7 @@ class HCP extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'registration_number', 'identification_number', 
+		'id', 'first_name', 'last_name', 'identification_number', 'gender_id', 'user_id', 'birth_date', 'address', 'phone', 'register_number',        
 	];
 
     /**
@@ -32,7 +32,9 @@ class HCP extends Model
 	
 	public function specialities()
 	{
-		return $this->belongsToMany('App\Speciality', 'HCPSpecialities', 'id_hcp', 'id_speciality' );
+		return $this->belongsToMany('App\Speciality', 'hcp_specialities', 'hcp_id', 'speciality_id' )
+					->select()
+					->addSelect('hcp_specialities.id');
 	}
 	
 	/*
@@ -41,6 +43,6 @@ class HCP extends Model
 	
 	public function clinics()
 	{
-		return $this->belongsToMany('App\Clinic', 'ClinicHCPSpecialities', 'id_hcp', 'id_clinic' );
+		return $this->belongsToMany('App\Clinic', 'clinic_hcp_specialities', 'hcp_id', 'clinic_id' );
 	}
 }

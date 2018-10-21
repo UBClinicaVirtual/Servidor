@@ -232,7 +232,7 @@
 		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758",
-		"specialities": [ {"id": 1, "name": "Guardia"} ]
+		"specialities": [ {"speciality_id": 1, "name": "Guardia"} ]
 	},
 	"clinic":{
 		"id": 6,
@@ -434,7 +434,7 @@
 		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758",
-		"specialities": [ {"id": 1, "name": "Guardia"} ]
+		"specialities": [ {"speciality_id": 1, "name": "Guardia"} ]
 	}
 }
 ```
@@ -469,7 +469,7 @@
 		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758",
-		"specialities": [ {"id": 1, "name": "Guardia"} ]
+		"specialities": [ {"speciality_id": 1, "name": "Guardia"} ]
 	}
 }
 ```
