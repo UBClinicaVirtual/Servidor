@@ -86,7 +86,8 @@ class HCPController extends Controller
 	public function get_profile(Request $request )
 	{
 		$hcp = Auth::guard('api')->user()->hcp()->first();
-		return response()->json([ 'hcp' => ['hcp' => $hcp, 'specialities' => $hcp == null ? [] : $hcp->specialities()->get() ] ], 200);
+		
+		return response()->json([ 'hcp' => array_merge( $hcp->toArray(), [ 'specialities' => $hcp->specialities()->get()] )], 200);
 	}
 	
 	public function update_profile(Request $request )
@@ -116,7 +117,7 @@ class HCPController extends Controller
 		if( $request->has('specialities') )		
 			$this->add_specialities( $hcp, $request['specialities'] );
 					
-		return response()->json([ 'hcp' => array_merge( $hcp->toArray(), [ 'specialities' => $hcp->specialities()->get()] )], 201);
+		return $this->get_profile( $request );
 	}
 	
 	public function search_appointments( Request $request){
