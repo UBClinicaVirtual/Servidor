@@ -44,7 +44,12 @@ class PatientController extends Controller
 	{
 		return Validator::make(	$request->all(), 
 								[
-									"name" => "required|string|min:3",
+									"first_name" => "required|string|min:3",
+									"last_name" => "required|string|min:3",
+									"address" => "string|min:3",
+									"phone" => "string|min:3",
+									"birth_date" => "required|date|date_format:Y-m-d",
+									"gender_id" => "required|integer",
 									"identification_number" => "required|string|min:3",
 								]		
 								);		
@@ -64,7 +69,7 @@ class PatientController extends Controller
 			$patient = new Patient();
 								
 			//Forces the id of the Patient
-			$patient->id = $user->id;
+			$patient->user_id = $user->id;
 		}	
 		
 		return $patient;
@@ -87,7 +92,12 @@ class PatientController extends Controller
 		$patient = $this->get_patient_from_user( Auth::guard('api')->user() );
 		
 		//update the fields for the patient
-		$patient->name = $request["name"];
+		$patient->first_name = $request["first_name"];
+		$patient->last_name = $request['last_name'];
+		$patient->gender_id = $request['gender_id'];
+		$patient->birth_date = $request['birth_date'];
+		$patient->address = $request['address'];
+		$patient->phone = $request['phone'];
 		$patient->identification_number = $request["identification_number"];
 		$patient->save();
 		

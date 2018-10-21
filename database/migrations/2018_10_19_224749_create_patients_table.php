@@ -22,8 +22,8 @@ class CreatePatientsTable extends Migration
             $table->date('birth_date');
             $table->integer('gender_id');
             $table->integer('user_id');
-            $table->string('address',200);
-            $table->string('phone',50);
+            $table->string('address',200)->nullable();
+            $table->string('phone',50)->nullable();
         });
     }
 
