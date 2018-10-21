@@ -18,7 +18,7 @@
 			include 'speciality/api.php';
 			include 'patient/api.php';
 			
-			Route::get('/genders', 'Auth\GenderController@all');
+			Route::get('/genders', 'GenderController@all');
 		});	
 	});
 
