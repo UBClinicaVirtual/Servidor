@@ -36,7 +36,7 @@ Route::group(['prefix'=>'/v1'], function(){
 		Route::post('/deactivate', 'Auth\LoginController@deactivate');
 	
 		Route::get('/user', function(Request $request){
-			return response()->json( Auth::guard('api')->user(), 201);
+			return response()->json( Auth::guard('api')->user()->get_profile(), 201);
 		});
 		
 		Route::group(['prefix'=>'/user'], function(){		
