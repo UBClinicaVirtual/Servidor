@@ -48,6 +48,12 @@
 	- [Login with gmail](#login-with-gmail)
 	- [Get the general user information based in the api_token](#get-the-general-user-information-based-in-the-api_token)
 	- [Logout](#logout-with-an-api_token)
+- Profiles
+	- [Add the Clinic profile to the user's account with an api_token](#Add-the-clinic-profile-to-the-users-account-with-an-api_token)
+	- [Add the HCP profile to the user's account with an api_token](#Add-the-hcp-profile-to-the-users-account-with-an-api_token)			
+	- [Add the patient profile to the user's account with an api_token](#Add-the-patient-profile-to-the-users-account-with-an-api_token)	
+	
+	
 - Clinic administration
 	- [Adds a HCPs with theirs specialities to the clinic profile](#adds-a-hcps-with-theirs-specialities-to-the-clinic-profile)
 	- [Searchs the HCPs with theirs specialities to the clinic profile with a criteria](#searchs-the-hcps-with-theirs-specialities-to-the-clinic-profile-with-a-criteria)
@@ -393,21 +399,47 @@
 - body:
 ```json
 {
-	"name": "Walter",
-	"identification_number": "33000123"
+	"patient":{
+		"first_name": "Walter",
+		"last_name": "ub",
+		"identification_number": "33000123",
+		"birthdate": "2018/01/01",
+		"gender": "M",
+		"marital_status": "S"
+	},
+	"medical_history": {
+		"allergies": [ 3 ],
+		"surgeries": [ 91 ],
+		"medications": [ 5 ],
+		"abortions": 0,
+		"pregnancies": 0,
+		"births": 0,
+		"childs": 0
+	}
 }
 ```
 
 - response:
 ```json
 {
-    "patient": {
-        "id": 6,
-        "created_at": "2018-09-27 17:44:38",
-        "updated_at": "2018-09-27 17:44:38",
-        "name": "Walter",
-        "identification_number": "33000123"
-    }
+	"patient":{
+		"id": 6,
+		"first_name": "Walter",
+		"last_name": "ub",
+		"identification_number": "33000123",
+		"birthdate": "2018/01/01",
+		"gender": "M",
+		"marital_status": "S"
+	},
+	"medical_history": {
+		"allergies": [ {"id": 3, "name": "Pollen"} ],
+		"surgeries": [ {"id": 91, "name": "Operación a corazon abierto"} ],
+		"medications": [ {"id": 5, "name": "Amoxidal 500"} ],
+		"abortions": 0,
+		"pregnancies": 0,
+		"births": 0,
+		"childs": 0
+	}
 }
 ```
 
