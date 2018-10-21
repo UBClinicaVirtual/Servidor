@@ -14,7 +14,7 @@ class HCP extends Model
      * @var array
      */
     protected $fillable = [
-		'id', 'first_name', 'last_name', 'identification_number', 'gender_id', 'user_id', 'birth_date', 'address', 'phone', 'registration_number',        
+		'id', 'first_name', 'last_name', 'identification_number', 'gender_id', 'user_id', 'birth_date', 'address', 'phone', 'register_number',        
 	];
 
     /**

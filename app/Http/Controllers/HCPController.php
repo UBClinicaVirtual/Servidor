@@ -49,7 +49,7 @@ class HCPController extends Controller
 									"birth_date" => "required|date|date_format:Y-m-d",
 									"gender_id" => "required|integer",
 									"identification_number" => "required|string|min:3",
-									"registration_number" => "required|string|min:3",
+									"register_number" => "required|string|min:3",
 								]		
 								);		
 	}
@@ -109,7 +109,7 @@ class HCPController extends Controller
 		$hcp->address = $request['address'];
 		$hcp->phone = $request['phone'];
 		$hcp->identification_number = $request["identification_number"];
-		$hcp->registation_number = $request["registation_number"];
+		$hcp->register_number = $request["register_number"];
 		$hcp->save();
 		
 		// Adds all the specialities sent
