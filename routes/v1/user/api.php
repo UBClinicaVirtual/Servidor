@@ -17,6 +17,8 @@
 				Route::post('', 'ClinicController@add_schedules');
 				Route::post('/search', 'ClinicController@search_schedules');
 			});
+			
+			Route::post('/appointments', 'ClinicController@search_appointments');
 		});
 		
 		Route::group(['prefix'=>'/patient'], function(){
