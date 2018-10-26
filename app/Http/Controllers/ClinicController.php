@@ -181,4 +181,14 @@ class ClinicController extends Controller
 	{
 		return response()->json(['schedule' => [] ], 200);
 	}
+	
+	/*
+	* Gets all the appointmens in the current clinic
+	*/
+	
+	public function search_appointments( Request $request){
+		$request['clinic_id'] = Auth::guard('api')->user()->clinic()->first()->id;
+		
+		return response()->json(['appointments' => AppointmentController::search( $request ) ], 200);
+	}	
 }
