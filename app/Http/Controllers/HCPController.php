@@ -113,6 +113,7 @@ class HCPController extends Controller
 	}
 	
 	public function search_appointments( Request $request){
+		$request['hcp_id'] = Auth::guard('api')->user()->hcp()->first()->id;
 		return response()->json(['appointments' => AppointmentController::search( $request ) ], 200);
 	}
 }
