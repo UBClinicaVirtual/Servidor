@@ -1158,7 +1158,7 @@
 - response:
 ```json
 {
-    "appointment_status": 
+    "appointment_statuses": 
 	[
 		{
 			"id": 1,
