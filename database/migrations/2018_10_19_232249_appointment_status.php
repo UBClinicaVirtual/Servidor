@@ -27,6 +27,6 @@ class AppointmentStatus extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointment_status');
+        Schema::dropIfExists('appointment_statuses');
     }
 }
