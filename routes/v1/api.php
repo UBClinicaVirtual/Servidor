@@ -19,6 +19,7 @@
 			include 'patient/api.php';
 			
 			Route::get('/genders', 'GenderController@all');
+			Route::get('/appointment_status', 'AppointmentController@all_status');
 		});	
 	});
 
