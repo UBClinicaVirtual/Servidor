@@ -63,4 +63,9 @@ class AppointmentController extends Controller
 				];
 */				
 	}
+	
+	public function all_status(Request $request)
+	{
+		return response()->json(['appointment_status' => AppointmentStatus::all() ], 200);
+	}
 }
