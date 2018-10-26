@@ -106,7 +106,7 @@ class PatientController extends Controller
 	}
 
 	public function search_appointments( Request $request){
-		$request['patient_id'] = Auth::guard('api')->user()->patient()->id;
+		$request['patient_id'] = Auth::guard('api')->user()->patient()->first()->id;
 		
 		return response()->json(['appointments' => AppointmentController::search( $request ) ], 200);
 	}	
