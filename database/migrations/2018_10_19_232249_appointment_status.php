@@ -13,7 +13,7 @@ class AppointmentStatus extends Migration
      */
     public function up()
     {
-        Schema::create('appointment_status', function (Blueprint $table) {
+        Schema::create('appointment_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->string('name',50);
@@ -27,6 +27,6 @@ class AppointmentStatus extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointment_status');
+        Schema::dropIfExists('appointment_statuses');
     }
 }

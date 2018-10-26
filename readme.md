@@ -86,7 +86,7 @@
 
 - Miscellaneous
 	- [Get all genders](#get-all-genders)
-	- [Get all appointment status](#get-appointment-all-status)	
+	- [Get all appointment statuses](#get-all-appointment-statuses)	
 	
 ### Register with gmail
 
@@ -1142,8 +1142,8 @@
 }
 ```
 
-### Get all appointment status
-- uri: /appointment_status
+### Get all appointment statuses
+- uri: /appointment_statuses
 - method: `'GET'`
 - headers:
   - `Accept`: `application/json`
@@ -1158,7 +1158,7 @@
 - response:
 ```json
 {
-    "appointment_status": 
+    "appointment_statuses": 
 	[
 		{
 			"id": 1,

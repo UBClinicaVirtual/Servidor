@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
+use App\AppointmentStatus;
+
 class AppointmentController extends Controller
 {
     static public function search(Request $request)
@@ -19,7 +21,7 @@ class AppointmentController extends Controller
 						'patients.id as patient_id', 'patients.first_name as patient_first_name', 'patients.last_name as patient_last_name', 
 						'appointment_date',
 						'appointment_status_id',
-						'appointment_status.name as appointment_status_name'
+						'appointment_statuses.name as appointment_status_name'
 						)						
 						->join('clinic_appointment_schedule', 'clinic_appointment_schedule.id', '=', 'appointments.clinic_appointment_schedule_id')
 						->join('clinic_hcp_specialities', 'clinic_hcp_specialities.id', '=', 'clinic_appointment_schedule.clinic_hcp_speciality_id' )
@@ -28,7 +30,7 @@ class AppointmentController extends Controller
 						->join('hcps', 'hcps.id', '=', 'hcp_specialities.hcp_id')
 						->join('specialities', 'specialities.id','=','hcp_specialities.speciality_id')
 						->join('patients', 'patients.id','=','appointments.patient_id')
-						->join('appointment_status', 'appointment_status.id','=','appointments.appointment_status_id')
+						->join('appointment_statuses', 'appointment_statuses.id','=','appointments.appointment_status_id')
 						->get();
 		
 		return $appointments;
@@ -62,5 +64,10 @@ class AppointmentController extends Controller
 					],
 				];
 */				
+	}
+	
+	public function all_status(Request $request)
+	{
+		return response()->json(['appointment_statuses' => AppointmentStatus::all() ], 200);
 	}
 }
