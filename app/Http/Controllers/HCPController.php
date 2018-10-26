@@ -56,6 +56,7 @@ class HCPController extends Controller
 	
 	public function add_specialities( HCP $hcp, array $specialities )
 	{
+	/*
 		foreach( $specialities as $speciality_id )
 		{
 			//Only adds the non existant specialities
@@ -65,6 +66,8 @@ class HCPController extends Controller
 				$hcp->specialities()->save( $speciality );
 			}
 		}	
+	*/
+		$hcp->specialities()->sync( $specialities );
 	}
 	
 	protected function get_hcp_from_user( $user )
