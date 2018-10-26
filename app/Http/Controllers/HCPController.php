@@ -56,17 +56,6 @@ class HCPController extends Controller
 	
 	public function add_specialities( HCP $hcp, array $specialities )
 	{
-	/*
-		foreach( $specialities as $speciality_id )
-		{
-			//Only adds the non existant specialities
-			if( !$hcp->specialities()->where('speciality_id', $speciality_id )->exists() )
-			{
-				$speciality = Speciality::where('id', $speciality_id )->first();			
-				$hcp->specialities()->save( $speciality );
-			}
-		}	
-	*/
 		$hcp->specialities()->sync( $specialities );
 	}
 	
