@@ -1142,4 +1142,38 @@
 }
 ```
 
+### Get all appointment status
+- uri: /appointmentstatus
+- method: `'GET'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "appointment_status": 
+	[
+		{
+			"id": 1,
+			"name": "Pending"
+		},
+		{
+			"id": 2,
+			"name": "Canceled"
+		},
+		{
+			"id": 3,
+			"name": "Completed"
+		}   
+	]
+}
+```
+
 [? back to top](#table-of-contents)
