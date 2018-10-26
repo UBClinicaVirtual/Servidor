@@ -1143,7 +1143,7 @@
 ```
 
 ### Get all appointment status
-- uri: /appointmentstatus
+- uri: /appointment_status
 - method: `'GET'`
 - headers:
   - `Accept`: `application/json`
