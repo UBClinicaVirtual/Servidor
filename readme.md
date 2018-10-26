@@ -83,6 +83,10 @@
 - Patient
 	- [Get the medical records of the current user](#get-the-medical-records-of-the-current-user)
 	- [Get the medical records of a patient](#get-the-medical-records-of-a-patient)
+
+- Miscellaneous
+	- [Get all genders](#get-all-genders)
+	- [Get all appointment status](#get-appointment-all-status)	
 	
 ### Register with gmail
 
@@ -1063,7 +1067,7 @@
 			"hcp_first_name": "Juan Jose",
 			"hcp_last_name": "Ingenieros",
 			"appointment_id": 1475,
-			"appointment_date": "2018/01/02 18:00"
+			"appointment_date": "2018/01/02 18:00",
 			"record_date": "2018/01/02 18:14"
 		}   
 	]
@@ -1101,8 +1105,38 @@
 			"hcp_first_name": "Juan Jose",
 			"hcp_last_name": "Ingenieros",
 			"appointment_id": 1475,
-			"appointment_date": "2018/01/02 18:00"
+			"appointment_date": "2018/01/02 18:00",
 			"record_date": "2018/01/02 18:14"
+		}   
+	]
+}
+```
+
+### Get all genders
+- uri: /genders
+- method: `'GET'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+}
+```
+
+- response:
+```json
+{
+    "genders": 
+	[
+		{
+			"id": 1,
+			"name": "Male"
+		},
+		{
+			"id": 2,
+			"name": "Female"
 		}   
 	]
 }
