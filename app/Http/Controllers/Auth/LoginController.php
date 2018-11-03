@@ -6,6 +6,7 @@ use Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 //Includes the gmail controller to validate the access_token
@@ -52,7 +53,8 @@ class LoginController extends Controller
         $gc = new GmailController( $request['access_token'] );
 		$userInfo = $gc->get_user_info( $request['access_token'] );
 			
-//		$request->merge(['email' => $userInfo->email]);
+		// Searchs the user by email, and if not exists, it creates a new one
+		$user = App\User::firstOrCreate( ['email' => $userInfo->email], ['password' => Hash::make($userInfo['email']), 'active' => 1]);
 			
 		// calls to the laravel default function to login
 		// It ll create a new api_token for each call to login
