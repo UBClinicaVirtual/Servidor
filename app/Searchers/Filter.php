@@ -2,7 +2,7 @@
 
 namespace App\Searchers;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder;
 
 /*
 * Source: https://m.dotdev.co/writing-advanced-eloquent-search-query-filters-de8b6c2598db
