@@ -54,7 +54,7 @@ class LoginController extends Controller
 		$userInfo = $gc->get_user_info( $request['access_token'] );
 			
 		// Searchs the user by email, and if not exists, it creates a new one
-		$user = App\User::firstOrCreate( ['email' => $userInfo->email], ['password' => Hash::make($userInfo['email']), 'active' => 1]);
+		$user = User::firstOrCreate( ['email' => $userInfo['email']], ['password' => Hash::make($userInfo['email']), 'active' => 1]);
 			
 		// calls to the laravel default function to login
 		// It ll create a new api_token for each call to login
