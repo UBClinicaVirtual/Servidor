@@ -113,6 +113,7 @@
         "created_at": "2018-09-20 17:30:52",
         "updated_at": "2018-09-27 15:06:20",
         "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
+		"user_type_id": 0
     }
 }
 ```
@@ -141,6 +142,7 @@
         "updated_at": "2018-09-27 15:06:20",
         "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
         "active": 1,
+		"user_type_id": X
     },
 	"patient":{
 		"id": 6,
@@ -186,6 +188,12 @@
 }
 ```  
 
+Where user_type_id can be:
+- 0 if its a new user
+- 1 if its a patient
+- 2 if its a hcp
+- 3 if its a clinic
+
 ### Get the general user information based in the api_token
 
 - uri: /user
@@ -209,6 +217,7 @@
         "updated_at": "2018-09-27 15:06:20",
         "api_token": "HoFcCOSgtjyfD5GELBuyQ3xHZasPiBSyqGsFeDsYLXj4BewYcIEOvyqAn0iZ",
         "active": 1,
+		"user_type_id": X
     },
 	"patient":{
 		"id": 6,
@@ -252,6 +261,12 @@
 	}
 }
 ```
+
+Where user_type_id can be:
+- 0 if its a new user
+- 1 if its a patient
+- 2 if its a hcp
+- 3 if its a clinic
 
 ### Logout with an api_token
 
