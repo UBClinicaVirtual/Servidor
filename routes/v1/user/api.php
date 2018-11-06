@@ -19,6 +19,7 @@
 			});
 			
 			Route::post('/appointments', 'ClinicController@search_appointments');
+			Route::post('/medical_records', 'ClinicController@search_medical_records');
 		});
 		
 		Route::group(['prefix'=>'/patient'], function(){
@@ -34,6 +35,7 @@
 			Route::post('', 'HCPController@update_profile');
 			
 			Route::post('/appointments', 'HCPController@search_appointments');
+			Route::post('/medical_records', 'HCPController@search_medical_records');
 		});
 	});
 ?>
