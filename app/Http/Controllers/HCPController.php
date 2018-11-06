@@ -10,6 +10,7 @@ use App\HCP as HCP;
 use App\Speciality as Speciality;
 
 use App\Http\Controllers\AppointmentController as AppointmentController;
+use App\Http\Controllers\MedicalRecordController as MedicalRecordController;
 
 class HCPController extends Controller
 {
@@ -115,5 +116,10 @@ class HCPController extends Controller
 	public function search_appointments( Request $request){
 		$request['hcp_id'] = Auth::guard('api')->user()->hcp()->first()->id;
 		return response()->json(['appointments' => AppointmentController::search( $request ) ], 200);
+	}
+	
+	public function search_medical_records( Request $request){
+		$request['hcp_id'] = Auth::guard('api')->user()->hcp()->first()->id;
+		return response()->json(['medical_records' => MedicalRecordController::search( $request ) ], 200);
 	}
 }

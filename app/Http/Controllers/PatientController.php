@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Patient as Patient;
 
 use App\Http\Controllers\AppointmentController as AppointmentController;
+use App\Http\Controllers\MedicalRecordController as MedicalRecordController;
 
 class PatientController extends Controller
 {
@@ -110,4 +111,10 @@ class PatientController extends Controller
 		
 		return response()->json(['appointments' => AppointmentController::search( $request ) ], 200);
 	}	
+	
+	public function search_medical_records( Request $request){
+		$request['patient_id'] = Auth::guard('api')->user()->patient()->first()->id;
+		
+		return response()->json(['medical_records' => MedicalRecordController::search( $request ) ], 200);
+	}		
 }
