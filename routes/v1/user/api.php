@@ -26,6 +26,7 @@
 			Route::post('', 'PatientController@update_profile');
 			
 			Route::post('/appointments', 'PatientController@search_appointments');
+			Route::post('/medical_records', 'PatientController@search_medical_records');
 		});
 		
 		Route::group(['prefix'=>'/hcp'], function(){
