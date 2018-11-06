@@ -12,6 +12,9 @@ use App\Clinic as Clinic;
 use App\HCP as HCP;
 use App\Speciality as Speciality;
 
+use App\Http\Controllers\AppointmentController as AppointmentController;
+use App\Http\Controllers\MedicalRecordController as MedicalRecordController;
+
 class ClinicController extends Controller
 {
     /*
@@ -190,5 +193,15 @@ class ClinicController extends Controller
 		$request['clinic_id'] = Auth::guard('api')->user()->clinic()->first()->id;
 		
 		return response()->json(['appointments' => AppointmentController::search( $request ) ], 200);
+	}		
+	
+	/*
+	* Gets all the medical records in the current clinic
+	*/
+	
+	public function search_medical_records( Request $request){
+		$request['clinic_id'] = Auth::guard('api')->user()->clinic()->first()->id;
+		
+		return response()->json(['medical_records' => MedicalRecordController::search( $request ) ], 200);
 	}	
 }
