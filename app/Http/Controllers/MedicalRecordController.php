@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use App\Searchers\MedicalRecordSearch\MedicalRecordSearch as MedicalRecordSearch;
 
 class MedicalRecordController extends Controller
 {
