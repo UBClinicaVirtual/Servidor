@@ -74,7 +74,7 @@ class AppointmentController extends Controller
 		//Get the schedule within the criteria
 		$schedule = ScheduleSearch::apply( $request );	
 		
-		return $schedule;
+		return response()->json( [ "msg" => $schedule ], 200);
 /*		
 		$appointment_filter = [
 			"clinic_id" => $request["clinic_id"],
