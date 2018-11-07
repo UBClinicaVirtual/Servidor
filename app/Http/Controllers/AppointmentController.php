@@ -79,9 +79,7 @@ class AppointmentController extends Controller
 		
 		//Get the schedule within the criteria
 		$schedule = ScheduleSearch::apply( $request );	
-		
-//		return response()->json( [ "msg" => $schedule->toArray() ], 200);
-		
+
 		$appointment_filter = new Request([
 			"clinic_id" => $request["clinic_id"],
 			"hcp_id" => $request["hcp_id"],
@@ -89,11 +87,12 @@ class AppointmentController extends Controller
 			"date_range" => [ $request["date_from"], $request["date_to"] ],
 			"schedules_id" => array_map(function($element) { return $element['id']; }, json_decode( $schedule, true ))
 		]);
-		
-//		return response()->json( [ "msg" => $appointment_filter ], 200);
-		
+				
 		//Gets the taken appointments
 		$taken_appointments = AppointmentSearch::apply( $appointment_filter );
+		
+		//Creates a response with the clinic calendar and the taken appointments
+		
 
 		return response()->json( [ "msg" => $taken_appointments ], 200);
 	}
