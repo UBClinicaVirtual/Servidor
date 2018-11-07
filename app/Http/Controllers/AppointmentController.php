@@ -73,8 +73,7 @@ class AppointmentController extends Controller
 		
 		if( $validator->fails() ) 
 			return response()->json( [ "msg" => $validator->errors() ], 403);
-
-		$request["date_to"] = date("Y-m-d",strtotime($request["date_to"]."+1 day"));
+		
 		//Adds the day of the week to the criteria
 		$request["day_of_the_week"] = [ 1, 2, 3, 4, 5, 6, 7 ];
 		
@@ -88,7 +87,7 @@ class AppointmentController extends Controller
 			"hcp_id" => $request["hcp_id"],
 			"statuses_id" => [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ],
 			"date_range" => [ $request["date_from"], $request["date_to"] ],
-			"schedule_ids" => array_map(function($element) { return $element['id']; }, json_decode( $schedule, true ))
+			"schedules_id" => array_map(function($element) { return $element['id']; }, json_decode( $schedule, true ))
 		]);
 		
 //		return response()->json( [ "msg" => $appointment_filter ], 200);
