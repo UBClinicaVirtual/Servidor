@@ -74,6 +74,7 @@ class AppointmentController extends Controller
 		if( $validator->fails() ) 
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 
+		$request["date_to"] = date("Y-m-d",strtotime($request["date_to"]."+1 day"));
 		//Adds the day of the week to the criteria
 		$request["day_of_the_week"] = [ 1, 2, 3, 4, 5, 6, 7 ];
 		
