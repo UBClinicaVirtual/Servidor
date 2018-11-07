@@ -20,7 +20,7 @@
 			
 			Route::get('/genders', 'GenderController@all');
 			Route::get('/appointment_status', 'AppointmentController@all_status');
-			Route::get('/appointment/available', 'AppointmentController@search_available');
+			Route::post('/appointment/available', 'AppointmentController@search_available');
 		});	
 	});
 

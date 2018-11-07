@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Searchers\AppointmentSearch\AppointmentSearch as AppointmentSearch;
+use App\Searchers\ScheduleSearch\ScheduleSearch as ScheduleSearch;
 
 use App\AppointmentStatus;
 
@@ -60,6 +61,11 @@ class AppointmentController extends Controller
 		return AppointmentSearch::apply( $request );	
 	}	
 	
+	static protected function date_of_the_week($a_date)
+	{
+		return date('N', strtotime($a_date));
+	}
+	
     static public function search_available(Request $request)
 	{
 		//get the validator for the search
@@ -69,7 +75,7 @@ class AppointmentController extends Controller
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 
 		//Adds the day of the week to the criteria
-		$request["day_of_the_week"] = [ min( date('N', $request["date_from"]), date('N', $request["date_to"]) ), max( date('N', $request["date_from"]), date('N', $request["date_to"]) ) ];
+		$request["day_of_the_week"] = [ 1, 2, 3, 4, 5, 6, 7 ];
 		
 		//Get the schedule within the criteria
 		$schedule = ScheduleSearch::apply( $request );	
