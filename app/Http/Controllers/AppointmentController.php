@@ -32,7 +32,7 @@ class AppointmentController extends Controller
 								);
 	}
 
-	static protected function validateRequestAppointmentAvailableSearch(Request $request)
+	protected function validateRequestAppointmentAvailableSearch(Request $request)
 	{
 		/*
 			TODO: this should have in consideration searching by many another fields
@@ -62,17 +62,17 @@ class AppointmentController extends Controller
 		return AppointmentSearch::apply( $request );	
 	}	
 	
-	static protected function date_of_the_week($a_date)
+	protected function date_of_the_week($a_date)
 	{
 		return date('N', strtotime($a_date));
 	}
 	
-	static protected function get_schedules_of_day( $schedules, $a_day_of_the_week )
+	protected function get_schedules_of_day( $schedules, $a_day_of_the_week )
 	{
 		return array_filter($schedules, function( $value ) use($a_day_of_the_week){ return intval($value["day_of_the_week"]) == intval($a_day_of_the_week); } );
 	}
 	
-	static protected function get_schedule(Request $request)
+	protected function get_schedule(Request $request)
 	{
 		//Adds the day of the week to the criteria
 		$days_of_the_week = array();
@@ -93,7 +93,7 @@ class AppointmentController extends Controller
 		return json_decode( ScheduleSearch::apply( $request ), true );
 	}
 	
-	static protected function get_taken_appointments(Request $request, $schedules )
+	protected function get_taken_appointments(Request $request, $schedules )
 	{
 		$appointment_filter = new Request([
 			"statuses_id" => [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ],
@@ -107,19 +107,19 @@ class AppointmentController extends Controller
 		return array_combine( array_map(function($element) { return date('Y-m-d', strtotime($element['appointment_date'])).'-'.$element['clinic_appointment_schedule_id']; }, $taken_appointments), $taken_appointments); 	
 	}
 	
-    static public function search_available(Request $request)
+    public function search_available(Request $request)
 	{
 		//get the validator for the search
-		$validator = static::validateRequestAppointmentAvailableSearch( $request );
+		$validator = $this->validateRequestAppointmentAvailableSearch( $request );
 		
 		if( $validator->fails() ) 
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 		
 		//Get the clinic schedule with the criteria
-		$schedules = static::get_schedule( $request );
+		$schedules = $this->get_schedule( $request );
 		
 		//Gets the taken appointments of the clinic schedule
-		$taken_appointments = static::get_taken_appointments( $request, $schedules );
+		$taken_appointments = $this->get_taken_appointments( $request, $schedules );
 		
 		//Creates a response with the clinic calendar and the taken appointments
 		$date = $request["date_from"];
@@ -128,7 +128,7 @@ class AppointmentController extends Controller
 		while (strtotime($date) <= strtotime( $request["date_to"] ) )
 		{						
 			//Get the schedules for that day
-			$schedules_of_day = static::get_schedules_of_day( $schedules,  static::date_of_the_week($date) );
+			$schedules_of_day = $this->get_schedules_of_day( $schedules, $this->date_of_the_week($date) );
 			
 			foreach( $schedules_of_day as $schedule )
 			{
