@@ -96,8 +96,6 @@ class AppointmentController extends Controller
 	static protected function get_taken_appointments(Request $request, $schedules )
 	{
 		$appointment_filter = new Request([
-			"clinic_id" => $request["clinic_id"],
-			"hcp_id" => $request["hcp_id"],
 			"statuses_id" => [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ],
 			"date_range" => [ $request["date_from"], $request["date_to"] ],
 			"schedules_id" => array_map(function($element) { return $element['id']; }, $schedules )
