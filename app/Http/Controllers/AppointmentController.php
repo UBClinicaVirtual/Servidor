@@ -75,7 +75,21 @@ class AppointmentController extends Controller
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 		
 		//Adds the day of the week to the criteria
-		$request["day_of_the_week"] = [ 1, 2, 3, 4, 5, 6, 7 ];
+		$days_of_the_week = array();
+		$date = $request["date_from"];
+		
+		while (strtotime($date) <= strtotime( $request["date_to"] ) )
+		{
+			if( in_array( static::date_of_the_week($date), $days_of_the_week ) )
+				break;
+				
+			array_push( $days_of_the_week, static::date_of_the_week($date) );			
+			$date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
+		}
+		
+		$request["day_of_the_week"] = $days_of_the_week;
+		
+		//return response()->json( [ "msg" => $request->toArray() ], 200);
 		
 		//Get the schedule within the criteria
 		$schedule = ScheduleSearch::apply( $request );	
@@ -87,14 +101,28 @@ class AppointmentController extends Controller
 			"date_range" => [ $request["date_from"], $request["date_to"] ],
 			"schedules_id" => array_map(function($element) { return $element['id']; }, json_decode( $schedule, true ))
 		]);
-				
+		
+		$schedule = json_decode( $schedule, true );
+		$schedule = array_combine( array_map(function($element) { return $element['id']; }, $schedule), $schedule );
+		
 		//Gets the taken appointments
-		$taken_appointments = AppointmentSearch::apply( $appointment_filter );
+		$taken_appointments = json_decode( AppointmentSearch::apply( $appointment_filter ), true );		
+		$taken_appointments = array_combine( array_map(function($element) { return date('Y-m-d', strtotime($element['appointment_date'])).'-'.$element['clinic_appointment_schedule_id']; }, $taken_appointments), $taken_appointments); 
 		
-		//Creates a response with the clinic calendar and the taken appointments
+		//Creates a response with the clinic calendar and the taken appointments		
+	
+		$date = $request["date_from"];
+		$available_appointments = array();
 		
-
-		return response()->json( [ "msg" => $taken_appointments ], 200);
+		while (strtotime($date) <= strtotime( $request["date_to"] ) )
+		{			
+			if( isset( $schedule[ static::date_of_the_week($date) ] ) )
+				array_push( $available_appointments, array_merge( $schedule[ static::date_of_the_week($date) ], ["appointment_date" => $date ]  ) );
+				
+			$date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
+		}
+		
+		return response()->json( [ "schedule" => $schedule, "available_appointments" => $available_appointments, "taken_appointments" => $taken_appointments ], 200);
 	}
 	
 	public function all_status(Request $request)
