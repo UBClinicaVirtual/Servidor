@@ -41,9 +41,9 @@ class AppointmentController extends Controller
 		
 		return Validator::make(	$request->all(), 
 								[
+									"clinic_id" => "integer",
 									"hcp_id" => "integer",
-									"speciality_id" => "required|integer",
-									"clinic_id" => "required|integer",
+									"speciality_id" => "required|integer",									
 									"date_from" => "required|date|date_format:Y-m-d",
 									"date_to" => "required|date|date_format:Y-m-d",
 								]		
