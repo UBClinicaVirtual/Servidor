@@ -1202,8 +1202,8 @@ Where user_type_id can be:
 {
 	"clinic_id": 1,
 	"speciality_id": 1,
-	"date_from": '2018-09-20', 
-	"date_to": '2018-09-28'	
+	"date_from": "2018-09-20", 
+	"date_to": "2018-09-28"	
 }
 ```
 
