@@ -1202,6 +1202,7 @@ Where user_type_id can be:
 {
 	"clinic_id": 1,
 	"speciality_id": 1,
+	"hcp_id": 1,
 	"date_from": "2018-09-20", 
 	"date_to": "2018-09-28"	
 }
@@ -1213,16 +1214,17 @@ Where user_type_id can be:
     "appointments_available": 
 	[
 		{
-            "id": 1,
-            "clinic_id": 1,
-            "clinic_name": "Clinica de la trinidad",
-            "speciality_id": 1,
-            "speciality_name": "Guardia de ginecologia",
-            "hcp_id": 8560,
-            "hcp_first_name": "Juan Jose",
-            "hcp_last_name": "Ingenieros",
-            "appointment_date": "2018-09-20",
-            "appointment_hour": "18:30"
+			"id": 78,
+			"hcp_id": 1,
+			"hcp_first_name": "Juan Jose",
+			"hcp_last_name": "Ingenieros",			
+			"clinic_id": 1,
+			"clinic_name": "Clinica de la trinidad",
+			"speciality_id": 1,
+			"speciality_name": "Guardia de ginecologia",
+			"appointment_hour": "18:30",
+			"day_of_the_week": 4,
+			"appointment_date": "2018-09-20"            
 		},
 	]
 }
