@@ -66,14 +66,13 @@ class AppointmentController extends Controller
 		return date('N', strtotime($a_date));
 	}
 	
-    static public function search_available(Request $request)
+	static protected function get_schedules_of_day( $schedules, $a_day_of_the_week )
 	{
-		//get the validator for the search
-		$validator = static::validateRequestAppointmentAvailableSearch( $request );
-		
-		if( $validator->fails() ) 
-			return response()->json( [ "msg" => $validator->errors() ], 403);
-		
+		return array_filter($schedules, function( $value ) use($a_day_of_the_week){ return intval($value["day_of_the_week"]) == intval($a_day_of_the_week); } );
+	}
+	
+	static protected function get_schedule(Request $request)
+	{
 		//Adds the day of the week to the criteria
 		$days_of_the_week = array();
 		$date = $request["date_from"];
@@ -88,41 +87,68 @@ class AppointmentController extends Controller
 		}
 		
 		$request["day_of_the_week"] = $days_of_the_week;
-		
-		//return response()->json( [ "msg" => $request->toArray() ], 200);
-		
-		//Get the schedule within the criteria
-		$schedule = ScheduleSearch::apply( $request );	
-
+				
+		//Get the schedule within the criteria		
+		return json_decode( ScheduleSearch::apply( $request ), true );
+	}
+	
+	static protected function get_taken_appointments(Request $request, $schedules )
+	{
 		$appointment_filter = new Request([
 			"clinic_id" => $request["clinic_id"],
 			"hcp_id" => $request["hcp_id"],
 			"statuses_id" => [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ],
 			"date_range" => [ $request["date_from"], $request["date_to"] ],
-			"schedules_id" => array_map(function($element) { return $element['id']; }, json_decode( $schedule, true ))
+			"schedules_id" => array_map(function($element) { return $element['id']; }, $schedules )
 		]);
 		
-		$schedule = json_decode( $schedule, true );
-		$schedule = array_combine( array_map(function($element) { return $element['id']; }, $schedule), $schedule );
-		
 		//Gets the taken appointments
-		$taken_appointments = json_decode( AppointmentSearch::apply( $appointment_filter ), true );		
-		$taken_appointments = array_combine( array_map(function($element) { return date('Y-m-d', strtotime($element['appointment_date'])).'-'.$element['clinic_appointment_schedule_id']; }, $taken_appointments), $taken_appointments); 
+		$taken_appointments = json_decode( AppointmentSearch::apply( $appointment_filter ), true );	
 		
-		//Creates a response with the clinic calendar and the taken appointments		
+		return array_combine( array_map(function($element) { return date('Y-m-d', strtotime($element['appointment_date'])).'-'.$element['clinic_appointment_schedule_id']; }, $taken_appointments), $taken_appointments); 	
+	}
 	
+    static public function search_available(Request $request)
+	{
+		//get the validator for the search
+		$validator = static::validateRequestAppointmentAvailableSearch( $request );
+		
+		if( $validator->fails() ) 
+			return response()->json( [ "msg" => $validator->errors() ], 403);
+		
+		//Get the clinic schedule with the criteria
+		$schedules = static::get_schedule( $request );
+		
+		//Gets the taken appointments of the clinic schedule
+		$taken_appointments = static::get_taken_appointments( $request, $schedules );
+		
+		//Creates a response with the clinic calendar and the taken appointments
 		$date = $request["date_from"];
 		$available_appointments = array();
 		
 		while (strtotime($date) <= strtotime( $request["date_to"] ) )
-		{			
-			if( isset( $schedule[ static::date_of_the_week($date) ] ) )
-				array_push( $available_appointments, array_merge( $schedule[ static::date_of_the_week($date) ], ["appointment_date" => $date ]  ) );
+		{						
+			//Get the schedules for that day
+			$schedules_of_day = static::get_schedules_of_day( $schedules,  static::date_of_the_week($date) );
+			
+			foreach( $schedules_of_day as $schedule )
+			{
+							
+				//If the schedule dont have a appointment associated, 
+				if( !array_key_exists( $date.'-'.$schedule["id"], $taken_appointments ) )
+					array_push( $available_appointments, array_merge( $schedule, [
+																		"appointment_date" => $date, 
+																		"appointment_hour" => date('H:i', strtotime($schedule['appointment_hour'] )) 
+																		] ) );					
+			}
 				
 			$date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
 		}
 		
-		return response()->json( [ "schedule" => $schedule, "available_appointments" => $available_appointments, "taken_appointments" => $taken_appointments ], 200);
+		return response()->json( 
+								[ 	
+									"available_appointments" => $available_appointments, 
+								], 200);
 	}
 	
 	public function all_status(Request $request)
