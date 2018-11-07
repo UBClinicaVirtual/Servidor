@@ -80,29 +80,22 @@ class AppointmentController extends Controller
 		//Get the schedule within the criteria
 		$schedule = ScheduleSearch::apply( $request );	
 		
-		return response()->json( [ "msg" => $schedule ], 200);
-/*		
-		$appointment_filter = [
+//		return response()->json( [ "msg" => $schedule->toArray() ], 200);
+		
+		$appointment_filter = new Request([
 			"clinic_id" => $request["clinic_id"],
 			"hcp_id" => $request["hcp_id"],
-			"status" => [ self::APPOINTMENT_PENDING, self::APPONTMENT_COMPLETE ],
+			"statuses_id" => [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ],
 			"date_range" => [ $request["date_from"], $request["date_to"] ],
-			"schedule_ids" => array_map(create_function('$o', 'return $o->id;'), $schedule)
-		];
+			"schedule_ids" => array_map(function($element) { return $element['id']; }, json_decode( $schedule, true ))
+		]);
 		
-		return $appointment_filter;
+//		return response()->json( [ "msg" => $appointment_filter ], 200);
 		
 		//Gets the taken appointments
-		$taken_appointments = AppointmentSearch::apply([
-			"clinic_id" => $request["clinic_id"],
-			"hcp_id" => $request["hcp_id"],
-			"status" => [ self::APPOINTMENT_PENDING, self::APPONTMENT_COMPLETE ],
-			"date_range" => [ $request["date_from"], $request["date_to"] ],
-			"schedule_ids" => array_map(create_function('$o', 'return $o->id;'), $schedule)
-		]);
+		$taken_appointments = AppointmentSearch::apply( $appointment_filter );
 
-		return $taken_appointments;
-*/		
+		return response()->json( [ "msg" => $taken_appointments ], 200);
 	}
 	
 	public function all_status(Request $request)
