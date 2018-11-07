@@ -43,14 +43,14 @@ class HCPController extends Controller
 	{
 		return Validator::make(	$request->all(), 
 								[
-									"first_name" => "required|string|min:3",
-									"last_name" => "required|string|min:3",
-									"address" => "string|min:3",
-									"phone" => "string|min:3",
-									"birth_date" => "required|date|date_format:Y-m-d",
-									"gender_id" => "required|integer",
-									"identification_number" => "required|string|min:3",
-									"register_number" => "required|string|min:3",
+									"hcp.first_name" => "required|string|min:3",
+									"hcp.last_name" => "required|string|min:3",
+									"hcp.address" => "string|min:3",
+									"hcp.phone" => "string|min:3",
+									"hcp.birth_date" => "required|date|date_format:Y-m-d",
+									"hcp.gender_id" => "required|integer",
+									"hcp.identification_number" => "required|string|min:3",
+									"hcp.register_number" => "required|string|min:3",
 								]		
 								);		
 	}
@@ -96,14 +96,14 @@ class HCPController extends Controller
 		$hcp = $this->get_hcp_from_user( Auth::guard('api')->user() );
 		
 		//Updates the fields
-		$hcp->first_name = $request["first_name"];
-		$hcp->last_name = $request['last_name'];
-		$hcp->gender_id = $request['gender_id'];
-		$hcp->birth_date = $request['birth_date'];
-		$hcp->address = $request['address'];
-		$hcp->phone = $request['phone'];
-		$hcp->identification_number = $request["identification_number"];
-		$hcp->register_number = $request["register_number"];
+		$hcp->first_name = $request["hcp"]["first_name"];
+		$hcp->last_name = $request["hcp"]['last_name'];
+		$hcp->gender_id = $request["hcp"]['gender_id'];
+		$hcp->birth_date = $request["hcp"]['birth_date'];
+		$hcp->address = $request["hcp"]['address'];
+		$hcp->phone = $request["hcp"]['phone'];
+		$hcp->identification_number = $request["hcp"]["identification_number"];
+		$hcp->register_number = $request["hcp"]["register_number"];
 		$hcp->save();
 		
 		// Adds all the specialities sent
