@@ -55,10 +55,10 @@ class ClinicController extends Controller
 	{
 		return Validator::make(	$request->all(), 
 								[
-									"business_name" => "required|string|min:3",
-									"business_number" => "required|string|min:8",
-									"address" => "required|string|min:3",
-									"phone" => "required|string|min:3",
+									"clinic.business_name" => "required|string|min:3",
+									"clinic.business_number" => "required|string|min:8",
+									"clinic.address" => "required|string|min:3",
+									"clinic.phone" => "required|string|min:3",
 								]		
 								);		
 	}
@@ -118,10 +118,10 @@ class ClinicController extends Controller
 		$clinic = $this->get_clinic_profile( Auth::guard('api')->user() );
 				
 		//Updates the fields of the clinic
-		$clinic->business_name = $request['business_name'];		
-		$clinic->business_number = $request['business_number'];		
-		$clinic->address = $request['address'];		
-		$clinic->phone = $request['phone'];		
+		$clinic->business_name = $request["clinic"]['business_name'];		
+		$clinic->business_number = $request["clinic"]['business_number'];		
+		$clinic->address = $request["clinic"]['address'];		
+		$clinic->phone = $request["clinic"]['phone'];		
 		$clinic->save();		
 		
 		//return the updated clinic

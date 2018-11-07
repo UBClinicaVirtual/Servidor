@@ -45,13 +45,13 @@ class PatientController extends Controller
 	{
 		return Validator::make(	$request->all(), 
 								[
-									"first_name" => "required|string|min:3",
-									"last_name" => "required|string|min:3",
-									"address" => "string|min:3",
-									"phone" => "string|min:3",
-									"birth_date" => "required|date|date_format:Y-m-d",
-									"gender_id" => "required|integer",
-									"identification_number" => "required|string|min:3",
+									"patient.first_name" => "required|string|min:3",
+									"patient.last_name" => "required|string|min:3",
+									"patient.address" => "string|min:3",
+									"patient.phone" => "string|min:3",
+									"patient.birth_date" => "required|date|date_format:Y-m-d",
+									"patient.gender_id" => "required|integer",
+									"patient.identification_number" => "required|string|min:3",
 								]		
 								);		
 	}
@@ -93,13 +93,13 @@ class PatientController extends Controller
 		$patient = $this->get_patient_from_user( Auth::guard('api')->user() );
 		
 		//update the fields for the patient
-		$patient->first_name = $request["first_name"];
-		$patient->last_name = $request['last_name'];
-		$patient->gender_id = $request['gender_id'];
-		$patient->birth_date = $request['birth_date'];
-		$patient->address = $request['address'];
-		$patient->phone = $request['phone'];
-		$patient->identification_number = $request["identification_number"];
+		$patient->first_name = $request["patient"]["first_name"];
+		$patient->last_name = $request["patient"]['last_name'];
+		$patient->gender_id = $request["patient"]['gender_id'];
+		$patient->birth_date = $request["patient"]['birth_date'];
+		$patient->address = $request["patient"]['address'];
+		$patient->phone = $request["patient"]['phone'];
+		$patient->identification_number = $request["patient"]["identification_number"];
 		$patient->save();
 		
 		//Returns the updated profile
