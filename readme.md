@@ -82,6 +82,7 @@
 	- [Get the appointments for the HCP profile of the current user](#get-the-appointments-for-the-hcp-profile-of-the-current-user)
 	- [Get the appointments for the patient profile of the current user](#get-the-appointments-for-the-patient-profile-of-the-current-user)
 	- [Find available appointments with a criteria](#find-available-appointments-with-a-criteria)
+	- [Cancel an appointment of the current user](#cancel-an-appointment-of-the-current-user)
 
 - Miscellaneous
 	- [Get all genders](#get-all-genders)
@@ -1225,6 +1226,44 @@ Where user_type_id can be:
 			"appointment_hour": "18:30",
 			"day_of_the_week": 4,
 			"appointment_date": "2018-09-20"            
+		},
+	]
+}
+```
+
+### Cancel an appointment of the current user
+- uri: /appointment/cancel
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"appointment_id": 78
+}
+```
+
+- response:
+```json
+{
+    "appointment": 
+	[
+		{
+			"id": 78,
+			"hcp_id": 1,
+			"hcp_first_name": "Juan Jose",
+			"hcp_last_name": "Ingenieros",			
+			"clinic_id": 1,
+			"clinic_name": "Clinica de la trinidad",
+			"speciality_id": 1,
+			"speciality_name": "Guardia de ginecologia",
+			"appointment_hour": "18:30",
+			"day_of_the_week": 4,
+			"appointment_date": "2018-09-20",
+			 "appointment_status_id": 2,
+            "appointment_status_name": "Cancelled"
 		},
 	]
 }
