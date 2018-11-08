@@ -8,12 +8,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Searchers\AppointmentSearch\AppointmentSearch as AppointmentSearch;
 use App\Searchers\ScheduleSearch\ScheduleSearch as ScheduleSearch;
+use App\Schedule as Schedule;
 
 use App\AppointmentStatus;
 
 class AppointmentController extends Controller
 {
 	const APPOINTMENT_PENDING = 1;
+	const APPOINTMENT_CANCELLED = 2;
 	const APPOINTMENT_COMPLETE = 3;
 	
 	static protected function validateRequestAppointmentSearch(Request $request)
@@ -46,6 +48,16 @@ class AppointmentController extends Controller
 									"speciality_id" => "required|integer",									
 									"date_from" => "required|date|date_format:Y-m-d",
 									"date_to" => "required|date|date_format:Y-m-d",
+								]		
+								);
+	}
+	
+	protected function validateRequestTakeAppointment(Request $request)
+	{		
+		return Validator::make(	$request->all(), 
+								[
+									"clinic_appointment_schedule_id" => "required|integer",									
+									"appointment_date" => "required|date|date_format:Y-m-d",									
 								]		
 								);
 	}
@@ -150,6 +162,21 @@ class AppointmentController extends Controller
 								], 200);
 	}
 	
+	public function take_appointment(Request $request)
+	{
+		//get the validator for the search
+		$validator = $this->validateRequestTakeAppointment( $request );
+		
+		if( $validator->fails() ) 
+			return response()->json( [ "msg" => $validator->errors() ], 403);		
+		
+		//Gets the schedule to make an appointment
+		$schedule = Schedule::firstOrFail( $request["clinic_appointment_schedule_id"] );
+		
+		
+		return response()->json(['appointment' => $appointment ], 200);
+	}
+		
 	public function all_status(Request $request)
 	{
 		return response()->json(['appointment_statuses' => AppointmentStatus::all() ], 200);
