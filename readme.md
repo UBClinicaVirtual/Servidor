@@ -1269,4 +1269,40 @@ Where user_type_id can be:
 }
 ```
 
+### Add a medical record to an completed appointment
+- uri: /appointment/record
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"appointment_id": 1475,
+	"description": "Presenta cuadro febril. Se receta ibuprofeno"
+}
+```
+
+- response:
+```json
+{
+    "medical_record": 
+	{
+		"id": 999,
+		"description": "Presenta cuadro febril. Se receta ibuprofeno",
+		"clinic_id": 2,
+		"clinic_name": "Clinica de la trinidad",
+		"speciality_id": 789,
+		"speciality_name": "Guardia de ginecologia",
+		"hcp_id": 8560,
+		"hcp_first_name": "Juan Jose",
+		"hcp_last_name": "Ingenieros",
+		"appointment_id": 1475,
+		"appointment_date": "2018/01/02 18:00",
+		"record_date": "2018/01/02 18:14"
+	} 
+}
+```
+
 [? back to top](#table-of-contents)
