@@ -80,10 +80,10 @@ class AppointmentController extends Controller
 		
 		while (strtotime($date) <= strtotime( $request["date_to"] ) )
 		{
-			if( in_array( static::date_of_the_week($date), $days_of_the_week ) )
+			if( in_array( $this->date_of_the_week($date), $days_of_the_week ) )
 				break;
 				
-			array_push( $days_of_the_week, static::date_of_the_week($date) );			
+			array_push( $days_of_the_week, $this->date_of_the_week($date) );			
 			$date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
 		}
 		
