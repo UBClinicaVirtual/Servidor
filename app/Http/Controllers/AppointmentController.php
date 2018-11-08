@@ -271,8 +271,11 @@ class AppointmentController extends Controller
 		if( count( $appointment ) == 0)
 			return response()->json( [ "msg" => "you cant cancel an appointment that isnt pending" ], 403);
 		
+		//There should be only one with that id
+		$appointment = $appointment[0];
+		
 		//checks if the appointment is of the current user
-		if( !$this->is_appointment_of_user($appointment[0], $profile))
+		if( !$this->is_appointment_of_user($appointment, $profile))
 			return response()->json( [ "msg" => "you cant cancel an appointment that isnt yours" ], 403);		
 		
 		//make the cancelation of the appointment
@@ -306,14 +309,20 @@ class AppointmentController extends Controller
 		if( count( $appointment ) == 0)
 			return response()->json( [ "msg" => "you cant add a record to an appointment that isnt pending." ], 403);
 		
+		//There should be only one with that id
+		$appointment = $appointment[0];
+		
 		//checks if the appointment is of the current hcp
-		if( $appointment[0]->hcp_id != $profile->id )
+		if( $appointment->hcp_id != $profile->id )
 			return response()->json( [ "msg" => "you cant add a record to an appointment that isnt yours" ], 403);		
 		
-		//make the cancelation of the appointment
-		$appointment = Appointment::find($appointment_id);
-		$appointment->appointment_status_id = self::APPOINTMENT_COMPLETE;
-		$appointment->save();
+		//completes the appointment if its pending
+		if( $appointment->appointment_status_id != self::APPOINTMENT_COMPLETE )
+		{
+			$appointment = Appointment::find($appointment_id);
+			$appointment->appointment_status_id = self::APPOINTMENT_COMPLETE;
+			$appointment->save();
+		}
 		
 		//Adds the record to the appointment
 		PatientMedicalRecord::create([
