@@ -22,6 +22,7 @@
 			Route::get('/appointment_status', 'AppointmentController@all_status');
 			Route::post('/appointment/available', 'AppointmentController@search_available');
 			Route::post('/appointment/cancel', 'AppointmentController@cancel_appointment');
+			Route::post('/appointment/record', 'AppointmentController@add_record');
 		});	
 	});
 
