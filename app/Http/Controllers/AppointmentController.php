@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Searchers\AppointmentSearch\AppointmentSearch as AppointmentSearch;
 use App\Searchers\ScheduleSearch\ScheduleSearch as ScheduleSearch;
-use App\Schedule as Schedule;
+use App\ClinicAppointmentSchedule as Schedule;
+use App\Appointment as Appointment;
+use App\Patient as Patient;
 
 use App\AppointmentStatus;
 
@@ -74,7 +76,7 @@ class AppointmentController extends Controller
 		return AppointmentSearch::apply( $request );	
 	}	
 	
-	protected function date_of_the_week($a_date)
+	protected function day_of_the_week($a_date)
 	{
 		return date('N', strtotime($a_date));
 	}
@@ -92,10 +94,10 @@ class AppointmentController extends Controller
 		
 		while (strtotime($date) <= strtotime( $request["date_to"] ) )
 		{
-			if( in_array( $this->date_of_the_week($date), $days_of_the_week ) )
+			if( in_array( $this->day_of_the_week($date), $days_of_the_week ) )
 				break;
 				
-			array_push( $days_of_the_week, $this->date_of_the_week($date) );			
+			array_push( $days_of_the_week, $this->day_of_the_week($date) );			
 			$date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
 		}
 		
@@ -140,7 +142,7 @@ class AppointmentController extends Controller
 		while (strtotime($date) <= strtotime( $request["date_to"] ) )
 		{						
 			//Get the schedules for that day
-			$schedules_of_day = $this->get_schedules_of_day( $schedules, $this->date_of_the_week($date) );
+			$schedules_of_day = $this->get_schedules_of_day( $schedules, $this->day_of_the_week($date) );
 			
 			foreach( $schedules_of_day as $schedule )
 			{
@@ -164,7 +166,9 @@ class AppointmentController extends Controller
 	
 	public function take_appointment(Request $request)
 	{
-		//get the validator for the search
+		$patient = Auth::guard('api')->user()->patient()->firstOrFail();
+		
+		//get the validator for the appointment to be taken
 		$validator = $this->validateRequestTakeAppointment( $request );
 		
 		if( $validator->fails() ) 
@@ -173,7 +177,32 @@ class AppointmentController extends Controller
 		//Gets the schedule to make an appointment
 		$schedule = Schedule::firstOrFail( $request["clinic_appointment_schedule_id"] );
 		
+		//Validates the date of the week to make the appointment
+		if( $this->day_of_the_week( $request["appointment_date"]) != $schedule["day_of_the_week"] )
+			return response()->json( [ "msg" => "Invalid date ".$request["appointment_date"]." for the schedule ".$request["clinic_appointment_schedule_id"]  ], 403);		
 		
+		//Creates the appointment date		
+		$appointment_date = $request["appointment_date"]." ".date('H:i:00', strtotime($schedule["appointment_hour"]));
+		
+		//Creates a new appointment for the date		
+		$appointment = Appointment::firstOrNew( [
+													"clinic_appointment_schedule_id" => $request["clinic_appointment_schedule_id"],
+													"appointment_date" => $appointment_date,
+													"appointment_status_id" => [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ],
+												]);
+												
+		if( $appointment->id > 0)
+			return response()->json( [ "msg" => 'and appointment was already taken for the date '. $appointment_date ], 403);					
+		
+		// create a new appointment
+		$appointment->appointment_date = $appointment_date;
+		$appointment->clinic_appointment_schedule_id = $request["clinic_appointment_schedule_id"];
+		$appointment->patient_id = $patient->id;
+		$appointment->appointment_status_id = self::APPOINTMENT_PENDING;
+		
+		$appointment->save();
+		
+		//Returns the created appointment
 		return response()->json(['appointment' => $appointment ], 200);
 	}
 		
