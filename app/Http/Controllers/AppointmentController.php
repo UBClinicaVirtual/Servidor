@@ -165,7 +165,7 @@ class AppointmentController extends Controller
 								], 200);
 	}
 	
-	public function take_appointment(Request $request)
+	public function schedule_appointment(Request $request)
 	{
 		$patient = Auth::guard('api')->user()->patient()->firstOrFail();
 		
