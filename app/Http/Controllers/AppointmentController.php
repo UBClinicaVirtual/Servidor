@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Searchers\AppointmentSearch\AppointmentSearch as AppointmentSearch;
 use App\Searchers\ScheduleSearch\ScheduleSearch as ScheduleSearch;
+use App\Searchers\MedicalRecordSearch\MedicalRecordSearch as MedicalRecordSearch;
 use App\ClinicAppointmentSchedule as Schedule;
 use App\Appointment as Appointment;
 use App\Patient as Patient;
@@ -71,6 +72,16 @@ class AppointmentController extends Controller
 		return Validator::make(	$request->all(), 
 								[
 									"appointment_id" => "required|integer",									
+								]		
+								);
+	}	
+	
+	protected function validateRequestAddRecord(Request $request)
+	{		
+		return Validator::make(	$request->all(), 
+								[
+									"appointment_id" => "required|integer",									
+									"description" => "required|string|max:1024",									
 								]		
 								);
 	}
@@ -224,6 +235,18 @@ class AppointmentController extends Controller
 		return response()->json(['appointment_statuses' => AppointmentStatus::all() ], 200);
 	}
 	
+	protected function is_appointment_of_user( $appointment, $user_profile)
+	{
+		if( $user_profile["user"]["user_type_id"] == User::USER_TYPE_PATIENT )
+			return $user_profile["patient"]["id"] == $appointment->patient_id;
+		else if( $user_profile["user"]["user_type_id"] == User::USER_TYPE_HCP )
+			return $user_profile["hcp"]["id"] == $appointment->hcp_id;
+		else if( $user_profile["user"]["user_type_id"] == User::USER_TYPE_CLINIC )
+			return $user_profile["clinic"]["id"] == $appointment->hcp_id;
+		
+		return false;
+	}
+	
 	public function cancel_appointment(Request $request)
 	{
 		//get the validator for the appointment to be taken
@@ -259,15 +282,41 @@ class AppointmentController extends Controller
 		return response()->json(['appointment' => AppointmentSearch::apply( new Request(["appointment_id" => $appointment_id]) ) ], 200);
 	}
 	
-	protected function is_appointment_of_user( $appointment, $user_profile)
+	public function add_record(Request $request)
 	{
-		if( $user_profile["user"]["user_type_id"] == User::USER_TYPE_PATIENT )
-			return $user_profile["patient"]["id"] == $appointment->patient_id;
-		else if( $user_profile["user"]["user_type_id"] == User::USER_TYPE_HCP )
-			return $user_profile["hcp"]["id"] == $appointment->hcp_id;
-		else if( $user_profile["user"]["user_type_id"] == User::USER_TYPE_CLINIC )
-			return $user_profile["clinic"]["id"] == $appointment->hcp_id;
+		//get the validator for the appointment to be taken
+		$validator = $this->validateRequestAddRecord( $request );
 		
-		return false;
+		if( $validator->fails() ) 
+			return response()->json( [ "msg" => $validator->errors() ], 403);
+		
+		//Get the user profile to validate if its a member of the scheduled appointment
+		$profile = Auth::guard('api')->user()->hcp()->firstOrFail();
+		
+		$appointment_id = $request["appointment_id"];
+		
+		//Get the appointment by id
+		$appointment = AppointmentSearch::apply( new Request([
+																"appointment_id" => $appointment_id, 
+																"statuses_id" => [ self::APPOINTMENT_PENDING ] 
+															]) );
+		
+		//if the appointment dont exists
+		if( count( $appointment ) == 0)
+			return response()->json( [ "msg" => "you cant add a record to an appointment that isnt pending." ], 403);
+		
+		//checks if the appointment is of the current hcp
+		if( $appointment[0]["hcp"]["id"] != $profile->id ))
+			return response()->json( [ "msg" => "you cant add a record to an appointment that isnt yours" ], 403);		
+		
+		//make the cancelation of the appointment
+		$appointment = Appointment::find($appointment_id);
+		$appointment->appointment_status_id = self::APPOINTMENT_COMPLETE;
+		$appointment->save();
+		
+		//Adds the record to the appointment
+		$medical_record_id = 99;
+		
+		return response()->json(['medical_records' => MedicalRecordSearch::apply( new Request(["appointment_id" => $appointment_id]) ) ], 200);
 	}
 }
