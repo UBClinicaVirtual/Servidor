@@ -14,6 +14,7 @@ use App\Searchers\MedicalRecordSearch\MedicalRecordSearch as MedicalRecordSearch
 use App\ClinicAppointmentSchedule as Schedule;
 use App\Appointment as Appointment;
 use App\Patient as Patient;
+use App\PatientMedicalRecord as PatientMedicalRecord;
 
 use App\AppointmentStatus;
 
@@ -298,7 +299,7 @@ class AppointmentController extends Controller
 		//Get the appointment by id
 		$appointment = AppointmentSearch::apply( new Request([
 																"appointment_id" => $appointment_id, 
-																"statuses_id" => [ self::APPOINTMENT_PENDING ] 
+																"statuses_id" => [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE,  ] 
 															]) );
 		
 		//if the appointment dont exists
@@ -306,7 +307,7 @@ class AppointmentController extends Controller
 			return response()->json( [ "msg" => "you cant add a record to an appointment that isnt pending." ], 403);
 		
 		//checks if the appointment is of the current hcp
-		if( $appointment[0]["hcp"]["id"] != $profile->id ))
+		if( $appointment[0]->hcp_id != $profile->id )
 			return response()->json( [ "msg" => "you cant add a record to an appointment that isnt yours" ], 403);		
 		
 		//make the cancelation of the appointment
@@ -315,7 +316,10 @@ class AppointmentController extends Controller
 		$appointment->save();
 		
 		//Adds the record to the appointment
-		$medical_record_id = 99;
+		PatientMedicalRecord::create([
+			"appointment_id" => $appointment_id,
+			"description" => $request["description"]
+		]);
 		
 		return response()->json(['medical_records' => MedicalRecordSearch::apply( new Request(["appointment_id" => $appointment_id]) ) ], 200);
 	}
