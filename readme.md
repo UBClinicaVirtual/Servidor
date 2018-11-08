@@ -61,7 +61,9 @@
 	- [Add the patient profile to the user account with an api_token](#add-the-patient-profile-to-the-user-account-with-an-api_token)
 	- [Get the patient profile information of the user account with an api_token](#get-the-patient-profile-information-of-the-user-account-with-an-api_token)
 	- [Search a patient](#search-a-patient)
-	
+	- [Get the medical records of the current user](#get-the-medical-records-of-the-current-user)
+	- [Get the medical records of a patient](#get-the-medical-records-of-a-patient)
+
 - Specialities
 	- [Create a new Speciality](#create-a-new-speciality)
 	- [Get a Speciality by id](#get-a-speciality-by-id)
@@ -79,10 +81,7 @@
 	- [Get the appointments for the Clinic profile of the current user](#get-the-appointments-for-the-clinic-profile-of-the-current-user)
 	- [Get the appointments for the HCP profile of the current user](#get-the-appointments-for-the-hcp-profile-of-the-current-user)
 	- [Get the appointments for the patient profile of the current user](#get-the-appointments-for-the-patient-profile-of-the-current-user)
-
-- Patient
-	- [Get the medical records of the current user](#get-the-medical-records-of-the-current-user)
-	- [Get the medical records of a patient](#get-the-medical-records-of-a-patient)
+	- [Find available appointments with a criteria](#find-available-appointments-with-a-criteria)
 
 - Miscellaneous
 	- [Get all genders](#get-all-genders)
@@ -1187,6 +1186,46 @@ Where user_type_id can be:
 			"id": 3,
 			"name": "Completed"
 		}   
+	]
+}
+```
+
+### Find available appointments with a criteria
+- uri: /appointment/available
+- method: `'POST'`
+- headers:
+  - `Accept`: `application/json`
+  - `Content-Type`: `application/json`
+  - `Authorization`: `Bearer AN_API_TOKEN`
+- body:
+```json
+{
+	"clinic_id": 1,
+	"speciality_id": 1,
+	"hcp_id": 1,
+	"date_from": "2018-09-20", 
+	"date_to": "2018-09-28"	
+}
+```
+
+- response:
+```json
+{
+    "appointments_available": 
+	[
+		{
+			"id": 78,
+			"hcp_id": 1,
+			"hcp_first_name": "Juan Jose",
+			"hcp_last_name": "Ingenieros",			
+			"clinic_id": 1,
+			"clinic_name": "Clinica de la trinidad",
+			"speciality_id": 1,
+			"speciality_name": "Guardia de ginecologia",
+			"appointment_hour": "18:30",
+			"day_of_the_week": 4,
+			"appointment_date": "2018-09-20"            
+		},
 	]
 }
 ```
