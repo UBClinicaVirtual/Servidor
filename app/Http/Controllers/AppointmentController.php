@@ -186,15 +186,15 @@ class AppointmentController extends Controller
 		$appointment_date = $request["appointment_date"]." ".date('H:i:00', strtotime($schedule["appointment_hour"]));		
 		
 		//Creates a new appointment for the date		
-		$appointment = Appointment::where( "clinic_appointment_schedule_id", $request["clinic_appointment_schedule_id"] )
-									->where( "appointment_date", $appointment_date )
-									->whereIn( "appointment_status_id", [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ])
-									->firstOrNew();
-												
+		$appointment = Appointment::firstOrNew( [
+									"clinic_appointment_schedule_id" => $request["clinic_appointment_schedule_id"],
+									"appointment_date" => $appointment_date,
+									"appointment_status_id" => [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ],
+									]);
 		if( $appointment->id > 0)
-			return response()->json( [ "msg" => 'and appointment was already taken for the date '. $appointment_date ], 403);					
+			return response()->json( [ "msg" => 'an appointment was already taken for the date '. $appointment_date ], 403);					
 		
-		// create a new appointment
+		// loads the fields for the appoinment
 		$appointment->appointment_date = $appointment_date;
 		$appointment->clinic_appointment_schedule_id = $request["clinic_appointment_schedule_id"];
 		$appointment->patient_id = $patient->id;
