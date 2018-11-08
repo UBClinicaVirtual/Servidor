@@ -63,6 +63,15 @@ class AppointmentController extends Controller
 									"appointment_date" => "required|date|date_format:Y-m-d",									
 								]		
 								);
+	}	
+	
+	protected function validateRequestCancelAppointment(Request $request)
+	{		
+		return Validator::make(	$request->all(), 
+								[
+									"appointment_id" => "required|integer",									
+								]		
+								);
 	}
 	
     static public function search(Request $request)
@@ -212,5 +221,28 @@ class AppointmentController extends Controller
 	public function all_status(Request $request)
 	{
 		return response()->json(['appointment_statuses' => AppointmentStatus::all() ], 200);
+	}
+	
+	public function cancel_appointment(Request $request)
+	{
+		//get the validator for the appointment to be taken
+		$validator = $this->validateRequestCancelAppointment( $request );
+		
+		if( $validator->fails() ) 
+			return response()->json( [ "msg" => $validator->errors() ], 403);
+		
+		//Get the user profile to validate if its a member of the scheduled appointment
+		$profile = Auth::guard('api')->user()->get_profile();
+		$appointment_id = $request["appointment_id"];
+		$appointment = AppointmentSearch::apply( new Request([
+																"appointment_id" => $appointment_id, 
+																"statuses_id" => [ self::APPOINTMENT_PENDING ] 
+															]) );
+		
+		if( count( $appointment ) == 0)
+			return response()->json( [ "msg" => "you cant cancel an appointment that isnt pending" ], 403);
+					
+		
+		return response()->json(['appointment' => AppointmentSearch::apply( new Request(["appointment_id" => $appointment_id]) ) ], 200);
 	}
 }
