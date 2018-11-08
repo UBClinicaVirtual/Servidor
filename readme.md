@@ -83,6 +83,7 @@
 	- [Get the appointments for the patient profile of the current user](#get-the-appointments-for-the-patient-profile-of-the-current-user)
 	- [Find available appointments with a criteria](#find-available-appointments-with-a-criteria)
 	- [Cancel an appointment of the current user](#cancel-an-appointment-of-the-current-user)
+	- [Add a medical record to an completed appointment](#add-a-medical-record-to-an-completed-appointment)
 
 - Miscellaneous
 	- [Get all genders](#get-all-genders)
