@@ -28,6 +28,8 @@
 			
 			Route::post('/appointments', 'PatientController@search_appointments');
 			Route::post('/medical_records', 'PatientController@search_medical_records');
+			
+			Route::post('/appointment/schedule', 'AppointmentController@schedule_appointment');
 		});
 		
 		Route::group(['prefix'=>'/hcp'], function(){
