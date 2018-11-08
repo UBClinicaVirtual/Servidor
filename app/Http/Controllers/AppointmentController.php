@@ -205,7 +205,7 @@ class AppointmentController extends Controller
 		$appointment->save();
 		
 		//Returns the created appointment
-		return response()->json(['appointment' => $appointment ], 200);
+		return response()->json(['appointment' => AppointmentSearch::apply( new Request(["appointment_id" => $appointment->id]) ) ], 200);
 		
 	}
 		
