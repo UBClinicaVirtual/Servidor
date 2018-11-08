@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\User as User;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -233,16 +234,40 @@ class AppointmentController extends Controller
 		
 		//Get the user profile to validate if its a member of the scheduled appointment
 		$profile = Auth::guard('api')->user()->get_profile();
+		
 		$appointment_id = $request["appointment_id"];
+		
+		//Get the appointment by id
 		$appointment = AppointmentSearch::apply( new Request([
 																"appointment_id" => $appointment_id, 
 																"statuses_id" => [ self::APPOINTMENT_PENDING ] 
 															]) );
 		
+		//if the appointment dont exists
 		if( count( $appointment ) == 0)
 			return response()->json( [ "msg" => "you cant cancel an appointment that isnt pending" ], 403);
-					
+		
+		//checks if the appointment is of the current user
+		if( !$this->is_appointment_of_user($appointment[0], $profile))
+			return response()->json( [ "msg" => "you cant cancel an appointment that isnt yours" ], 403);		
+		
+		//make the cancelation of the appointment
+		$appointment = Appointment::find($appointment_id);
+		$appointment->appointment_status_id = self::APPOINTMENT_CANCELLED;
+		$appointment->save();
 		
 		return response()->json(['appointment' => AppointmentSearch::apply( new Request(["appointment_id" => $appointment_id]) ) ], 200);
+	}
+	
+	protected function is_appointment_of_user( $appointment, $user_profile)
+	{
+		if( $user_profile["user"]["user_type_id"] == User::USER_TYPE_PATIENT )
+			return $user_profile["patient"]["id"] == $appointment->patient_id;
+		else if( $user_profile["user"]["user_type_id"] == User::USER_TYPE_HCP )
+			return $user_profile["hcp"]["id"] == $appointment->hcp_id;
+		else if( $user_profile["user"]["user_type_id"] == User::USER_TYPE_CLINIC )
+			return $user_profile["clinic"]["id"] == $appointment->hcp_id;
+		
+		return false;
 	}
 }
