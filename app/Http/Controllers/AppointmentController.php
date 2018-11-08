@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -175,21 +176,20 @@ class AppointmentController extends Controller
 			return response()->json( [ "msg" => $validator->errors() ], 403);		
 		
 		//Gets the schedule to make an appointment
-		$schedule = Schedule::firstOrFail( $request["clinic_appointment_schedule_id"] );
+		$schedule = Schedule::findOrFail( $request["clinic_appointment_schedule_id"] );		
 		
 		//Validates the date of the week to make the appointment
-		if( $this->day_of_the_week( $request["appointment_date"]) != $schedule["day_of_the_week"] )
+		if( intval( $this->day_of_the_week( $request["appointment_date"] ) ) != intval( $schedule["day_of_the_week"] ) )
 			return response()->json( [ "msg" => "Invalid date ".$request["appointment_date"]." for the schedule ".$request["clinic_appointment_schedule_id"]  ], 403);		
 		
 		//Creates the appointment date		
-		$appointment_date = $request["appointment_date"]." ".date('H:i:00', strtotime($schedule["appointment_hour"]));
+		$appointment_date = $request["appointment_date"]." ".date('H:i:00', strtotime($schedule["appointment_hour"]));		
 		
 		//Creates a new appointment for the date		
-		$appointment = Appointment::firstOrNew( [
-													"clinic_appointment_schedule_id" => $request["clinic_appointment_schedule_id"],
-													"appointment_date" => $appointment_date,
-													"appointment_status_id" => [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ],
-												]);
+		$appointment = Appointment::where( "clinic_appointment_schedule_id", $request["clinic_appointment_schedule_id"] )
+									->where( "appointment_date", $appointment_date )
+									->whereIn( "appointment_status_id", [ self::APPOINTMENT_PENDING, self::APPOINTMENT_COMPLETE ])
+									->firstOrNew();
 												
 		if( $appointment->id > 0)
 			return response()->json( [ "msg" => 'and appointment was already taken for the date '. $appointment_date ], 403);					
@@ -204,6 +204,7 @@ class AppointmentController extends Controller
 		
 		//Returns the created appointment
 		return response()->json(['appointment' => $appointment ], 200);
+		
 	}
 		
 	public function all_status(Request $request)
