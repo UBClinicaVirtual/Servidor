@@ -505,29 +505,44 @@ Where user_type_id can be:
 - body:
 ```json
 {
-	"last_name": "ub"
+	"clinic_id": 1,
+	"speciality_id": 1
 }
 ```
 
 - response:
 ```json
 {
-    "hcps":[
-		{
-			"id": 6,
-			"first_name": "MD. walter",
-			"last_name": "ub",        
-			"created_at": "2018-09-20 17:30:52",
-			"updated_at": "2018-09-27 15:06:20",
-			"identification_number": "0303456",
-			"register_number": "RG3685",
-			"birth_date": "1987-01-01",
-			"gender_id": 0,
-			"gender_name": "Male",
-			"address": "Street 1234",
-			"phone": "1234-4758"
-		}
-	]
+    "hcps": [
+        {
+            "id": 1,
+            "created_at": "2018-10-26 23:13:29",
+            "updated_at": "2018-10-26 23:13:29",
+            "first_name": "Walter",
+            "last_name": "Dua",
+            "identification_number": "33000123",
+            "birth_date": "1980-01-01",
+            "gender_id": 0,
+            "user_id": 2,
+            "register_number": "447578",
+            "address": "Suipacha 2030",
+            "phone": "4787-7755"
+        },
+        {
+            "id": 2,
+            "created_at": "2018-10-26 23:13:29",
+            "updated_at": "2018-10-26 23:13:29",
+            "first_name": "Juan",
+            "last_name": "Medics",
+            "identification_number": "99050214",
+            "birth_date": "1995-02-02",
+            "gender_id": 0,
+            "user_id": 4,
+            "register_number": "RG142588",
+            "address": "Montes de Oca 1425",
+            "phone": "1111-2222"
+        }
+    ]
 }
 ```
 
