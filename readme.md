@@ -516,30 +516,30 @@ Where user_type_id can be:
     "hcps": [
         {
             "id": 1,
-            "created_at": null,
+            "created_at": "2018-10-26 23:13:29",
             "updated_at": "2018-10-26 23:13:29",
             "first_name": "Walter",
             "last_name": "Dua",
             "identification_number": "33000123",
-            "birth_date": "2018-01-01",
+            "birth_date": "1980-01-01",
             "gender_id": 0,
             "user_id": 2,
-            "register_number": "33000123",
-            "address": "asd",
-            "phone": "dsa"
+            "register_number": "447578",
+            "address": "Suipacha 2030",
+            "phone": "4787-7755"
         },
         {
             "id": 2,
-            "created_at": null,
-            "updated_at": null,
-            "first_name": "medico2",
-            "last_name": "medico2",
-            "identification_number": "22222223",
-            "birth_date": "2002-02-02",
-            "gender_id": 1,
+            "created_at": "2018-10-26 23:13:29",
+            "updated_at": "2018-10-26 23:13:29",
+            "first_name": "Juan",
+            "last_name": "Medics",
+            "identification_number": "99050214",
+            "birth_date": "1995-02-02",
+            "gender_id": 0,
             "user_id": 4,
-            "register_number": "abc2222",
-            "address": "dir medico2",
+            "register_number": "RG142588",
+            "address": "Montes de Oca 1425",
             "phone": "1111-2222"
         }
     ]
