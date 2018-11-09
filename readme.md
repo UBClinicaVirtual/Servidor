@@ -505,29 +505,44 @@ Where user_type_id can be:
 - body:
 ```json
 {
-	"last_name": "ub"
+	"clinic_id": 1,
+	"speciality_id": 1
 }
 ```
 
 - response:
 ```json
 {
-    "hcps":[
-		{
-			"id": 6,
-			"first_name": "MD. walter",
-			"last_name": "ub",        
-			"created_at": "2018-09-20 17:30:52",
-			"updated_at": "2018-09-27 15:06:20",
-			"identification_number": "0303456",
-			"register_number": "RG3685",
-			"birth_date": "1987-01-01",
-			"gender_id": 0,
-			"gender_name": "Male",
-			"address": "Street 1234",
-			"phone": "1234-4758"
-		}
-	]
+    "hcps": [
+        {
+            "id": 1,
+            "created_at": null,
+            "updated_at": "2018-10-26 23:13:29",
+            "first_name": "Walter",
+            "last_name": "Dua",
+            "identification_number": "33000123",
+            "birth_date": "2018-01-01",
+            "gender_id": 0,
+            "user_id": 2,
+            "register_number": "33000123",
+            "address": "asd",
+            "phone": "dsa"
+        },
+        {
+            "id": 2,
+            "created_at": null,
+            "updated_at": null,
+            "first_name": "medico2",
+            "last_name": "medico2",
+            "identification_number": "22222223",
+            "birth_date": "2002-02-02",
+            "gender_id": 1,
+            "user_id": 4,
+            "register_number": "abc2222",
+            "address": "dir medico2",
+            "phone": "1111-2222"
+        }
+    ]
 }
 ```
 
