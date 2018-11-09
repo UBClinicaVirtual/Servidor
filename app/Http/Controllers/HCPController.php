@@ -11,6 +11,7 @@ use App\Speciality as Speciality;
 
 use App\Http\Controllers\AppointmentController as AppointmentController;
 use App\Http\Controllers\MedicalRecordController as MedicalRecordController;
+use App\Searchers\HCPSearch\HCPSearch as HCPSearch;
 
 class HCPController extends Controller
 {
@@ -34,9 +35,26 @@ class HCPController extends Controller
         $this->middleware('auth:api');
     }
 	
+	protected function validateRequestHCPSearch( Request $request )
+	{
+		return Validator::make(	$request->all(), 
+								[
+									"clinic_id" => "integer",								
+									"speciality_id" => "integer",								
+								]		
+								);		
+	}
+		
 	public function search(Request $request )
 	{			
-		return response()->json( [ "msg" => "unimplemented method" ], 403);
+		//get the validator for the search
+		$validator = $this->validateRequestHCPSearch( $request );
+		
+		if( $validator->fails() ) 
+			return response()->json( [ "msg" => $validator->errors() ], 403);
+
+		//Get all the records that match the filter sent		
+		return response()->json( [ "hcps" => HCPSearch::apply( $request ) ], 200);
 	}			
 
 	protected function validateProfileRequest( Request $request )
