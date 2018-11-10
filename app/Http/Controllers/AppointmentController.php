@@ -7,15 +7,6 @@ use App\User as User;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use App\Searchers\AppointmentSearch\AppointmentSearch as AppointmentSearch;
-use App\Searchers\ScheduleSearch\ScheduleSearch as ScheduleSearch;
-use App\Searchers\MedicalRecordSearch\MedicalRecordSearch as MedicalRecordSearch;
-use App\ClinicAppointmentSchedule as Schedule;
-use App\Appointment as Appointment;
-use App\Patient as Patient;
-use App\PatientMedicalRecord as PatientMedicalRecord;
-use App\AppointmentStatus;
 
 use App\Managers\AppointmentManager as AppointmentManager;
 

@@ -6,7 +6,6 @@ use Auth;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Patient as Patient;
 
 use App\Managers\PatientManager as PatientManager;
 

@@ -6,7 +6,6 @@ use Auth;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Searchers\SpecialitySearch\SpecialitySearch as SpecialitySearch;
 use App\Speciality as Speciality;
 use App\Managers\SpecialityManager as  SpecialityManager;
 
