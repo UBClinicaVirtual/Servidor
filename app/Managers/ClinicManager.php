@@ -5,6 +5,7 @@ namespace App\Managers;
 use Validator;
 use App\Searchers\ClinicSearch\ClinicSearch as ClinicSearch;
 use App\Clinic as Clinic;
+use App\User as User;
 
 use App\HCP as HCP;
 use App\Speciality as Speciality;

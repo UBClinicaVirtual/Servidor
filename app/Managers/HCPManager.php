@@ -4,6 +4,7 @@ namespace App\Managers;
 
 use Validator;
 use App\HCP as HCP;
+use App\User as User;
 use App\Speciality as Speciality;
 
 use App\Searchers\HCPSearch\HCPSearch as HCPSearch;
@@ -11,7 +12,7 @@ use App\Searchers\HCPSearch\HCPSearch as HCPSearch;
 use App\Managers\MedicalRecordManager as MedicalRecordManager;
 use App\Managers\AppointmentManager as AppointmentManager;
 
-class HCPController
+class HCPManager
 {
     /*
     |--------------------------------------------------------------------------
