@@ -23,8 +23,8 @@ class CreateHcpsTable extends Migration
             $table->integer('gender_id');
             $table->integer('user_id');
             $table->string('register_number',50);
-            $table->string('address',200)->nulleable();
-            $table->string('phone',50)->nulleable();
+            $table->string('address',200)->nullable();
+            $table->string('phone',50)->nullable();
         });
     }
 
