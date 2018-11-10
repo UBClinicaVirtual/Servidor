@@ -2,8 +2,9 @@
 
 namespace App\Managers;
 
-use Auth;
 use Validator;
+
+use App\User as User;
 use App\Patient as Patient;
 
 use App\Managers\AppointmentManager as AppointmentManager;
