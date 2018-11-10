@@ -86,6 +86,6 @@ class SpecialityManager
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 			
 		//Get all the records that match the filter sent	
-		return response()->json( [ "specialities" => SpecialitySearch::apply( $request ) ], 200);
+		return response()->json( [ "specialities" => SpecialitySearch::apply_filters( $request ) ], 200);
 	}	
 }

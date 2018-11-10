@@ -31,23 +31,28 @@ class SpecialityController extends Controller
 		$this->middleware('auth:api');
     }
 	
+	protected function manager()
+	{
+		return new SpecialityManager();
+	}
+	
 	public function create(Request $request)
 	{
-		return SpecialityManager::create( $request->all() );
+		return $this->manager()->create( $request->all() );
 	}	
 	
 	public function speciality(Request $request, Speciality $speciality)
 	{
-		return SpecialityManager::search( $request->all(), $speciality );
+		return $this->manager()->search( $request->all(), $speciality );
 	}
 	
 	public function update(Request $request, Speciality $speciality)
 	{	
-		return SpecialityManager::update( $request->all(), $speciality );
+		return  $this->manager()->update( $request->all(), $speciality );
 	}
 	
 	public function search(Request $request)
 	{
-		return SpecialityManager::search( $request->all() );
+		return  $this->manager()->search( $request->all() );
 	}	
 }
