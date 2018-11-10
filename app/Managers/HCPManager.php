@@ -43,7 +43,7 @@ class HCPManager
 			return response()->json( [ "msg" => $validator->errors() ], 403);
 
 		//Get all the records that match the filter sent		
-		return response()->json( [ "hcps" => HCPSearch::apply( $request ) ], 200);
+		return response()->json( [ "hcps" => HCPSearch::apply_filters( $request ) ], 200);
 	}			
 
 	protected function validateProfileRequest( array $request )
@@ -114,7 +114,7 @@ class HCPManager
 		$hcp->save();
 		
 		// Adds all the specialities sent
-		if( $request->has('specialities') )		
+		if( array_key_exists( 'specialities', $request) )		
 			$this->add_specialities( $hcp, $request['specialities'] );
 					
 		return $this->get_profile( $user, $request );
