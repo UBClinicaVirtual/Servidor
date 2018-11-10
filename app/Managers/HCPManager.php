@@ -8,6 +8,9 @@ use App\Speciality as Speciality;
 
 use App\Searchers\HCPSearch\HCPSearch as HCPSearch;
 
+use App\Managers\MedicalRecordManager as MedicalRecordManager;
+use App\Managers\AppointmentManager as AppointmentManager;
+
 class HCPController
 {
     /*
@@ -113,7 +116,7 @@ class HCPController
 		if( $request->has('specialities') )		
 			$this->add_specialities( $hcp, $request['specialities'] );
 					
-		return $this->get_profile( $request );
+		return $this->get_profile( $user, $request );
 	}
 	
 	public function search_appointments( User $user, array $request){
@@ -123,6 +126,6 @@ class HCPController
 	
 	public function search_medical_records( User $user, array $request){
 		$request['hcp_id'] = $user->hcp()->first()->id;
-		return response()->json(['medical_records' => ( new MedicalRecordmanager() )->search( $request ) ], 200);
+		return response()->json(['medical_records' => ( new MedicalRecordManager() )->search( $request ) ], 200);
 	}
 }
