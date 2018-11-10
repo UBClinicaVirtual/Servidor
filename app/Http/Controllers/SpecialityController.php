@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Searchers\SpecialitySearch\SpecialitySearch as SpecialitySearch;
 use App\Speciality as Speciality;
+use App\Managers\SpecialityManager as  SpecialityManager;
 
 class SpecialityController extends Controller
 {
@@ -30,74 +31,23 @@ class SpecialityController extends Controller
 		$this->middleware('auth:api');
     }
 	
-	protected function validateCreationRequest( Request $request )
-	{
-		return Validator::make(	$request->all(), 
-								[
-									"name" => "required|string|min:3"
-								]		
-								);		
-	}	
-	
-	protected function validateUpdateRequest( Request $request )
-	{
-		return Validator::make(	$request->all(), 
-								[
-									"name" => "required|string|min:3",
-								]		
-								);		
-	}	
-	
-	protected function validateSearchRequest( Request $request )
-	{
-		return Validator::make(	$request->all(), 
-								[
-									"name" => "string|min:3",
-								]		
-								);
-	}
-	
 	public function create(Request $request)
 	{
-		//get the validator for the creation
-		$validator = $this->validateCreationRequest( $request );
-		
-		if( $validator->fails() ) 
-			return response()->json( [ "msg" => $validator->errors() ], 403);
-			
-		$speciality = Speciality::create(["name" => $request["name"]]);	
-		return response()->json( $speciality, 201);
+		return SpecialityManager::create( $request->all() );
 	}	
 	
 	public function speciality(Request $request, Speciality $speciality)
 	{
-		return response()->json( $speciality, 201);
+		return SpecialityManager::search( $request->all(), $speciality );
 	}
 	
 	public function update(Request $request, Speciality $speciality)
 	{	
-		//get the validator for the update of a Speciality
-		$validator = $this->validateUpdateRequest( $request );
-		
-		if( $validator->fails() ) 
-			return response()->json( [ "msg" => $validator->errors() ], 403);
-			
-		$speciality->name = $request["name"];		
-		
-		$speciality->save();
-		
-		return response()->json( $speciality, 201);
+		return SpecialityManager::update( $request->all(), $speciality );
 	}
 	
 	public function search(Request $request)
 	{
-		//get the validator for the update of a Speciality
-		$validator = $this->validateSearchRequest( $request );
-		
-		if( $validator->fails() ) 
-			return response()->json( [ "msg" => $validator->errors() ], 403);
-			
-		//Get all the records that match the filter sent	
-		return response()->json( [ "specialities" => SpecialitySearch::apply( $request ) ], 200);
+		return SpecialityManager::search( $request->all() );
 	}	
 }
