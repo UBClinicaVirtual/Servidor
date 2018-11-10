@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Managers;
+namespace App\Managers;
 
 use Auth;
 use Validator;
-use Illuminate\Http\Request;
 use App\Patient as Patient;
 
-use App\Http\Managers\AppointmentManager as AppointmentManager;
-use App\Http\Managers\MedicalRecordManager as MedicalRecordManager;
+use App\Managers\AppointmentManager as AppointmentManager;
+use App\Managers\MedicalRecordManager as MedicalRecordManager;
 
 class PatientManager
 {
