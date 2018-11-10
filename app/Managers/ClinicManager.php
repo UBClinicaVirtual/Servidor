@@ -112,7 +112,7 @@ class ClinicManager
 		$clinic->save();		
 		
 		//return the updated clinic
-		return $this->get_profile( $request );
+		return $this->get_profile( $user, $request );
 	}
 	
 	/*
@@ -127,7 +127,7 @@ class ClinicManager
 		
 		$clinic->save();
 		
-		return $this->get_profile( $request );
+		return $this->get_profile( $user, $request );
 	}
 	
 	/*
