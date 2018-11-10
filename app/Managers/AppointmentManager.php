@@ -86,7 +86,7 @@ class AppointmentManager
     public function search(array $request)
 	{
 		//get the validator for the search
-		$validator = validateRequestAppointmentSearch( $request );
+		$validator = $this->validateRequestAppointmentSearch( $request );
 		
 		if( $validator->fails() ) 
 			return response()->json( [ "msg" => $validator->errors() ], 403);
