@@ -24,58 +24,35 @@ class SpecialityManagerTest extends TestCase
     }
 
 
-    function testManagerSpecialtyCreateInvalidInput() {
+    function test_ManagerSpecialty_Create_With_Invalid_Input() {
         $manager = new SpecialityManager();
         $response = $manager->create(array('name' => 'as'));
         $this->assertEquals(403, $response->getStatusCode());
 
     }
 
-    function testManagerSpecialtyCreatevalidInput() {
-    $manager = new SpecialityManager();
-    $response = $manager->create(array('name' => 'asd'));
-    $this->assertEquals(201, $response->getStatusCode());
+    function test_ManagerSpecialty_Create_With_Valid_Input() {
+        $manager = new SpecialityManager();
+        $response = $manager->create(array('name' => 'asd'));
+        $this->assertEquals(201, $response->getStatusCode());
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    public function testCreateSpeciality()
-    {
-
-
-        /*$name = 'Cirujano';
-        $user = new \App\User;
-        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
-        $user->generateToken();
-        $user  = factory(User::cl ass,1)->create();
-        $user = Auth::user();
-        $api_token = $user->api_token;
-        $this->WithoutMiddleware();
-        $name = 'Cirujano';
-        $user = new \App\User;
-        $this->actingAs($user,'web');
-        $api_toke = $user->api_token;
-        $response = $this->client->post('/api/v1/speciality', 
-            array(
-                'headers' => array('Accept' => 'application/json','Content-type' => 'application/json','Authorization' => 'Bearer AN_API_TOKEN'),
-                'form_params'    => array('name' => $name)
-            )
-        );
-        $this->assertEquals(201,$response->getStatusCode());
+    function test_ManagerSpecialty_Create_Returns_Correct_Data() {
+        $manager = new SpecialityManager();
+        $response = $manager->create(array('name' => 'asd'));
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('name', $content);
+        $this->assertArrayHasKey('id', $content);
     }
-    */
+
+    function test_ManagerSpecialty_Create_Returns_Correct_Input() {
+        $input = 'asd';
+        $manager = new SpecialityManager();
+        $response = $manager->create(array('name' => $input));
+        $content = json_decode($response->getContent(), true);
+        $this -> assertEquals($input, $content['name'] );
+
+    }
+
 }
