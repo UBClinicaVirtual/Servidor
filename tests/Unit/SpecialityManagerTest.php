@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
-use App\Searchers\SpecialitySearch\SpecialitySearch as SpecialitySearch;
 use App\Speciality as Speciality;
 use App\Managers\SpecialityManager as  SpecialityManager;
 
