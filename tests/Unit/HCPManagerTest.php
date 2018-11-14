@@ -21,13 +21,13 @@ class HCPManagerTest extends TestCase
 
     public function validData(){
         $testData = array();
-        $testData['HCP'] = array('first_name' => 'test','last_name' => 'test', 'birth_date' => '1987-01-01','gender_id' => '1', 'identification_number' => '0303456', 'register_number' => 'RG3685','phone' => '1234-4758','adress' => 'Street 1234');
+        $testData['hcp'] = array('first_name' => 'test','last_name' => 'test', 'birth_date' => '1987-01-01','gender_id' => '1', 'identification_number' => '0303456', 'register_number' => 'RG3685','phone' => '1234-4758','address' => 'Street 1234');
         return $testData;
     }
 
     public function invalidData(){
         $testData = array();
-        $testData['HCP'] = array('first_name' => 'te','last_name' => 'test', 'birth_date' => '1987-01-01','gender_id' => '1', 'identification_number' => '0303456', 'register_number' => 'RG3685','phone' => '1234-4758','adress' => 'Street 1234');
+        $testData['hcp'] = array('first_name' => 'te','last_name' => 'test', 'birth_date' => '1987-01-01','gender_id' => '1', 'identification_number' => '0303456', 'register_number' => 'RG3685','phone' => '1234-4758','address' => 'Street 1234');
         return $testData;
     }
 
@@ -37,5 +37,13 @@ class HCPManagerTest extends TestCase
         $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
         $response = $this->manager->update_profile($user,$this->invalidData());
         $this->assertEquals(403,$response->getStatusCode());
+    }
+
+    public function test_HCPManager_Update_Profile_Response_With_valid_Data(){
+        $user = new User();
+        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
+        $user->generateToken();
+        $response = $this->manager->update_profile($user,$this->validData());
+        $this->assertEquals(200,$response->getStatusCode());
     }
 }
