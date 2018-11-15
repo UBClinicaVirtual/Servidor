@@ -46,4 +46,34 @@ class HCPManagerTest extends TestCase
         $response = $this->manager->update_profile($user,$this->validData());
         $this->assertEquals(200,$response->getStatusCode());
     }
+
+    public function test_HCPManager_Update_Profile_Returns_Correct_Data_Structure(){
+        $user = new User();
+        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
+        $user->generateToken();
+        $response = $this->manager->update_profile($user,$this->validData());
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('hcp', $content);
+        $this->assertArrayHasKey('id', $content['hcp']);
+    }
+    public function test_HCPManager_Update_Profile_Returns_Correct_Data(){
+        $user = new User();
+        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
+        $user->generateToken();
+        $response = $this->manager->update_profile($user,$this->validData());
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($this->validData()['hcp']['first_name'],$content['hcp']['first_name']);
+    }
+
+    public function test_HCPManager_Get_Profile_Response_With_valid_Data(){
+        $user = new User();
+        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
+        $user->generateToken();
+        $this->manager->update_profile($user,$this->validData());
+        $response = $this->manager->get_profile($user, $this->invalidData());
+
+        $this->assertEquals(200,$response->getStatusCode());
+    }
+
+
 }
