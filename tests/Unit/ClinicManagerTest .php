@@ -74,14 +74,14 @@ class ClinicManagerTest extends TestCase
 
     }
 
-    /*public function test_HCPManager_Get_Profile_Returns_Correct_Data(){
+    public function test_HCPManager_Get_Profile_Returns_Correct_Data(){
         $this->manager->update_profile($this->user,$this->validData());
         $response = $this->manager->get_profile($this->user, array(" "));
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals($this->validData()['hcp']['first_name'],$content['hcp']['first_name']);
+        $this->assertEquals($this->validData()['clinic']['business_name'],$content['clinic']['business_name']);
     }
 
-    public function test_HCPManager_Search_With_valid_Data(){
+    /*public function test_HCPManager_Search_With_valid_Data(){
         $response = $this->manager->search($this->validSearchData());
         $this->assertEquals(200,$response->getStatusCode());
     }
