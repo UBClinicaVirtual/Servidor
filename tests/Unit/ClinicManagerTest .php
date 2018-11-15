@@ -58,7 +58,7 @@ class ClinicManagerTest extends TestCase
         $this->assertEquals($this->validData()['clinic']['business_name'],$content['clinic']['business_name']);
     }
 
-    /*public function test_HCPManager_Get_Profile_Response_With_valid_Data(){
+    public function test_HCPManager_Get_Profile_Response_With_valid_Data(){
         $this->manager->update_profile($this->user,$this->validData());
         $response = $this->manager->get_profile($this->user, array( " " ));
 
@@ -69,12 +69,12 @@ class ClinicManagerTest extends TestCase
         $this->manager->update_profile($this->user,$this->validData());
         $response = $this->manager->get_profile($this->user, array(" "));
         $content = json_decode($response->getContent(), true);
-        $this->assertArrayHasKey('hcp', $content);
-        $this->assertArrayHasKey('id', $content['hcp']);
+        $this->assertArrayHasKey('clinic', $content);
+        $this->assertArrayHasKey('id', $content['clinic']);
 
     }
 
-    public function test_HCPManager_Get_Profile_Returns_Correct_Data(){
+    /*public function test_HCPManager_Get_Profile_Returns_Correct_Data(){
         $this->manager->update_profile($this->user,$this->validData());
         $response = $this->manager->get_profile($this->user, array(" "));
         $content = json_decode($response->getContent(), true);
