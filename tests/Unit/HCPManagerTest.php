@@ -29,6 +29,18 @@ class HCPManagerTest extends TestCase
         return $testData;
     }
 
+    public function validSearchData(){
+        $testData = array('clinic_id' => '1', 'speciality_id' => '1');
+        return $testData;
+
+    }
+
+    public function invalidSearchData(){
+        $testData = array('clinic_id' => 'asd', 'speciality_id' => 'asd');
+        return $testData;
+
+    }
+
     public function invalidData(){
         $testData = array();
         $testData['hcp'] = array('first_name' => 'te','last_name' => 'test', 'birth_date' => '1987-01-01','gender_id' => '1', 'identification_number' => '0303456', 'register_number' => 'RG3685','phone' => '1234-4758','address' => 'Street 1234');
@@ -79,6 +91,16 @@ class HCPManagerTest extends TestCase
         $response = $this->manager->get_profile($this->user, array(" "));
         $content = json_decode($response->getContent(), true);
         $this->assertEquals($this->validData()['hcp']['first_name'],$content['hcp']['first_name']);
+    }
+
+    public function test_HCPManager_Search_With_valid_Data(){
+        $response = $this->manager->search($this->validSearchData());
+        $this->assertEquals(200,$response->getStatusCode());
+    }
+
+    public function test_HCPManager_Search_With_Invalid_Data(){
+        $response = $this->manager->search($this->invalidSearchData());
+        $this->assertEquals(403,$response->getStatusCode());
     }
 
 
