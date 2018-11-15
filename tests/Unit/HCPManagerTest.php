@@ -103,5 +103,11 @@ class HCPManagerTest extends TestCase
         $this->assertEquals(403,$response->getStatusCode());
     }
 
+    public function test_HCPManager_Search_Returns_Correct_Data_Structure(){
+        $this->manager->update_profile($this->user,$this->validData());
+        $response = $this->manager->search($this->validSearchData());
+        $content = json_decode($response->getContent(),true);
+        $this->assertArrayHasKey('hcps',$content);
+    }
 
 }
