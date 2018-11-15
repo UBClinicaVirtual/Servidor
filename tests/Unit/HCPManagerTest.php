@@ -11,12 +11,16 @@ use App\User as User;
 class HCPManagerTest extends TestCase
 {
     protected $manager;
+    protected $user;
 
     public function setUp()
     {
         parent::setUp();
         Artisan::call('migrate:refresh');
         $this->manager = new HCPManager();
+        $this->user = new User();
+        $this->user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
+        $this->user->generateToken();
     }
 
     public function validData(){
@@ -33,46 +37,48 @@ class HCPManagerTest extends TestCase
 
 
     public function test_HCPManager_Update_Profile_Response_With_Invalid_Data(){
-        $user = new User();
-        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
-        $response = $this->manager->update_profile($user,$this->invalidData());
+        $response = $this->manager->update_profile($this->user,$this->invalidData());
         $this->assertEquals(403,$response->getStatusCode());
     }
 
     public function test_HCPManager_Update_Profile_Response_With_valid_Data(){
-        $user = new User();
-        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
-        $user->generateToken();
-        $response = $this->manager->update_profile($user,$this->validData());
+        $response = $this->manager->update_profile($this->user,$this->validData());
         $this->assertEquals(200,$response->getStatusCode());
     }
 
     public function test_HCPManager_Update_Profile_Returns_Correct_Data_Structure(){
-        $user = new User();
-        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
-        $user->generateToken();
-        $response = $this->manager->update_profile($user,$this->validData());
+        $response = $this->manager->update_profile($this->user,$this->validData());
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('hcp', $content);
         $this->assertArrayHasKey('id', $content['hcp']);
     }
     public function test_HCPManager_Update_Profile_Returns_Correct_Data(){
-        $user = new User();
-        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
-        $user->generateToken();
-        $response = $this->manager->update_profile($user,$this->validData());
+        $response = $this->manager->update_profile($this->user,$this->validData());
         $content = json_decode($response->getContent(), true);
         $this->assertEquals($this->validData()['hcp']['first_name'],$content['hcp']['first_name']);
     }
 
     public function test_HCPManager_Get_Profile_Response_With_valid_Data(){
-        $user = new User();
-        $user->fill(array('name' => 'test','email' => 'test@testing.com','password' => 'pass123','active' => '1'));
-        $user->generateToken();
-        $this->manager->update_profile($user,$this->validData());
-        $response = $this->manager->get_profile($user, $this->invalidData());
+        $this->manager->update_profile($this->user,$this->validData());
+        $response = $this->manager->get_profile($this->user, array( " " ));
 
         $this->assertEquals(200,$response->getStatusCode());
+    }
+
+    public function test_HCPManager_Get_Profile_Returns_Correct_Data_Structure(){
+        $this->manager->update_profile($this->user,$this->validData());
+        $response = $this->manager->get_profile($this->user, array(" "));
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('hcp', $content);
+        $this->assertArrayHasKey('id', $content['hcp']);
+
+    }
+
+    public function test_HCPManager_Get_Profile_Returns_Correct_Data(){
+        $this->manager->update_profile($this->user,$this->validData());
+        $response = $this->manager->get_profile($this->user, array(" "));
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($this->validData()['hcp']['first_name'],$content['hcp']['first_name']);
     }
 
 
