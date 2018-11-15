@@ -46,19 +46,19 @@ class ClinicManagerTest extends TestCase
         $this->assertEquals(200,$response->getStatusCode());
     }
 
-    /*public function test_HCPManager_Update_Profile_Returns_Correct_Data_Structure(){
+    public function test_ClinicManager_Update_Profile_Returns_Correct_Data_Structure(){
         $response = $this->manager->update_profile($this->user,$this->validData());
         $content = json_decode($response->getContent(), true);
-        $this->assertArrayHasKey('hcp', $content);
-        $this->assertArrayHasKey('id', $content['hcp']);
+        $this->assertArrayHasKey('clinic', $content);
+        $this->assertArrayHasKey('business_name', $content['hcp']);
     }
-    public function test_HCPManager_Update_Profile_Returns_Correct_Data(){
+    public function test_ClinicManager_Update_Profile_Returns_Correct_Data(){
         $response = $this->manager->update_profile($this->user,$this->validData());
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals($this->validData()['hcp']['first_name'],$content['hcp']['first_name']);
+        $this->assertEquals($this->validData()['clinic']['business_name'],$content['clinic']['business_name']);
     }
 
-    public function test_HCPManager_Get_Profile_Response_With_valid_Data(){
+    /*public function test_HCPManager_Get_Profile_Response_With_valid_Data(){
         $this->manager->update_profile($this->user,$this->validData());
         $response = $this->manager->get_profile($this->user, array( " " ));
 
