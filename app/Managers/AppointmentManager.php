@@ -147,7 +147,11 @@ class AppointmentManager
 		
 		if( $validator->fails() ) 
 			return response()->json( [ "msg" => $validator->errors() ], 403);
-		
+
+		//Get the current date
+		date_default_timezone_set('America/Argentina/Buenos_Aires');
+		$current_date = date("Y-m-d H:i:00");
+			
 		//Get the clinic schedule with the criteria
 		$schedules = $this->get_schedule( $request );
 		
@@ -164,14 +168,19 @@ class AppointmentManager
 			$schedules_of_day = $this->get_schedules_of_day( $schedules, $this->day_of_the_week($date) );
 			
 			foreach( $schedules_of_day as $schedule )
-			{
-							
-				//If the schedule dont have a appointment associated, 
-				if( !array_key_exists( $date.'-'.$schedule["id"], $taken_appointments ) )
+			{		
+				//Get the appointment date
+				$appointment_date  = date('Y-m-d ', strtotime($date));
+				$appointment_date .= date('H:i', strtotime($schedule['appointment_hour'] ) );
+				$appointment_date .= ':00';
+								
+				//If the schedule dont have a appointment associated
+				//and the appointment_date isnt expired
+				if( !array_key_exists( $date.'-'.$schedule["id"], $taken_appointments ) && ( $appointment_date > $current_date ) )
 					array_push( $available_appointments, array_merge( $schedule, [
 																		"appointment_date" => $date, 
 																		"appointment_hour" => date('H:i', strtotime($schedule['appointment_hour'] )) 
-																		] ) );					
+																		] ) );
 			}
 				
 			$date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
