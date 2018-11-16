@@ -154,7 +154,6 @@
 		"identification_number": "0303456",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
-		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758"
 	},
@@ -168,7 +167,6 @@
 		"register_number": "RG3685",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
-		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758",
 		"specialities": [ {"id": 1, "name": "Guardia"} ]
@@ -229,7 +227,6 @@ Where user_type_id can be:
 		"identification_number": "0303456",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
-		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758"
 	},
@@ -243,7 +240,6 @@ Where user_type_id can be:
 		"register_number": "RG3685",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
-		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758",
 		"specialities": [ {"speciality_id": 1, "name": "Guardia"} ]
@@ -451,7 +447,6 @@ Where user_type_id can be:
 		"register_number": "RG3685",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
-		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758",
 		"specialities": [ {"speciality_id": 1, "name": "Guardia"} ]
@@ -486,7 +481,6 @@ Where user_type_id can be:
 		"register_number": "RG3685",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
-		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758",
 		"specialities": [ {"speciality_id": 1, "name": "Guardia"} ]
@@ -581,7 +575,6 @@ Where user_type_id can be:
 		"identification_number": "0303456",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
-		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758"
 	}
@@ -614,7 +607,6 @@ Where user_type_id can be:
 		"identification_number": "0303456",
 		"birth_date": "1987-01-01",
 		"gender_id": 0,
-		"gender_name": "Male",
 		"address": "Street 1234",
 		"phone": "1234-4758"
 	}
@@ -650,7 +642,6 @@ Where user_type_id can be:
 			"identification_number": "0303456",
 			"birth_date": "1987-01-01",
 			"gender_id": 0,
-			"gender_name": "Male",
 			"address": "Street 1234",
 			"phone": "1234-4758"
 		}
@@ -736,7 +727,7 @@ Where user_type_id can be:
 
 ### Search Specialities
 
-- uri: /speciality/search
+- uri: /specialities
 - method: `'POST'`
 - headers:
   - `Accept`: `application/json`
